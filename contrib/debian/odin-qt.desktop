@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=ODIN
+Comment=ODIN P2P Cryptocurrency
+Comment[fr]=ODIN, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=ODIN, eşten eşe kriptografik sanal para birimi
+Exec=odin-qt %u
+Terminal=false
+Type=Application
+Icon=odin128
+MimeType=x-scheme-handler/odin;
+Categories=Office;Finance;

@@ -1,0 +1,30 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="bg">locale/odin_bg.qm</file>
+        <file alias="ca">locale/odin_ca.qm</file>
+        <file alias="cs">locale/odin_cs.qm</file>
+        <file alias="da">locale/odin_da.qm</file>
+        <file alias="de">locale/odin_de.qm</file>
+        <file alias="en">locale/odin_en.qm</file>
+        <file alias="en_US">locale/odin_en_US.qm</file>
+        <file alias="es">locale/odin_es.qm</file>
+        <file alias="fi">locale/odin_fi.qm</file>
+        <file alias="fr_FR">locale/odin_fr_FR.qm</file>
+        <file alias="hr">locale/odin_hr.qm</file>
+        <file alias="it">locale/odin_it.qm</file>
+        <file alias="ja">locale/odin_ja.qm</file>
+        <file alias="ko_KR">locale/odin_ko_KR.qm</file>
+        <file alias="nl">locale/odin_nl.qm</file>
+        <file alias="pl">locale/odin_pl.qm</file>
+        <file alias="pt">locale/odin_pt.qm</file>
+        <file alias="pt_BR">locale/odin_pt_BR.qm</file>
+        <file alias="ro_RO">locale/odin_ro_RO.qm</file>
+        <file alias="ru">locale/odin_ru.qm</file>
+        <file alias="sk">locale/odin_sk.qm</file>
+        <file alias="sv">locale/odin_sv.qm</file>
+        <file alias="tr">locale/odin_tr.qm</file>
+        <file alias="uk">locale/odin_uk.qm</file>
+        <file alias="zh_CN">locale/odin_zh_CN.qm</file>
+        <file alias="zh_TW">locale/odin_zh_TW.qm</file>
+    </qresource>
+</RCC>
