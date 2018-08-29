@@ -6671,8 +6671,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 int ActiveProtocol()
 {
     // if (IsSporkActive(SPORK_17_SEGWIT_ACTIVATION)) TODO: Is this needed? - pixxl 8/27
-    // if (IsSporkActive(SPORK_14_NEW_PROTOCOL_ENFORCEMENT)) TODO: Why removed? - pixxl 8/28
-      // return MIN_PEER_PROTO_VERSION_AFTER_ENFORCEMENT;
+    if (IsSporkActive(SPORK_14_NEW_PROTOCOL_ENFORCEMENT)) //TODO: Why removed? - pixxl 8/28
+      return MIN_PEER_PROTO_VERSION_AFTER_ENFORCEMENT;
     return MIN_PEER_PROTO_VERSION_BEFORE_ENFORCEMENT;
 }
 
