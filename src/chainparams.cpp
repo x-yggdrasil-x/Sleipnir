@@ -78,11 +78,11 @@ static const Checkpoints::CCheckpointData data = {
  */
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
     boost::assign::map_list_of
-    ( 0, uint256("1cd100dd8788ee425f0d0fec322af081e7e61d96a8ee1403360d90a732302ebd") );
+    ( 0, uint256("01519125dd84851de9437d61a24162610e8cba04d57f8a53765b7b0231e80866") );
 
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
-    1534861535, // * UNIX timestamp of last checkpoint block
+    1535569392, // * UNIX timestamp of last checkpoint block
     0,          // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     3600        // * estimated number of transactions per day after checkpoint
@@ -95,12 +95,12 @@ static const Checkpoints::CCheckpointData dataTestnet = {
  */
 static Checkpoints::MapCheckpoints mapCheckpointsRegtest =
     boost::assign::map_list_of
-    ( 0, uint256("012854ae09c39e089265ecae05eabf2a6c7ae011cdb8ba243da900bd8d83439a") );
+    ( 0, uint256("57953c6db14b32b8fd1579c8aee7c2b7b2efd7ac9b15bbdf32fc96586cd69b5d") );
     // (0, uint256("0x2b1a0f66712aad59ad283662d5b919415a25921ce89511d73019107e380485bf"));
 
 static const Checkpoints::CCheckpointData dataRegtest = {
     &mapCheckpointsRegtest,
-    1534861831, // * UNIX timestamp of last checkpoint block
+    1535569429, // * UNIX timestamp of last checkpoint block
     0,          // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     3600        // * estimated number of transactions per day after checkpoint
@@ -132,9 +132,9 @@ class CMainParams : public CChainParams
     public:
     CMainParams()
     {
-        networkID = CBaseChainParams::MAIN;
-        strNetworkID = "main";
-        
+        networkID     = CBaseChainParams::MAIN;
+        strNetworkID  = "main";
+
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
@@ -147,43 +147,33 @@ class CMainParams : public CChainParams
 
         vAlertPubKey = ParseHex("048e8c3d748796606a5b22ddb5bc7daf1db2f2428529c7836d41a897c675e8e247dade5476751ef5984e7da30e6b927c13a7a61197281b2d16275d81f63982fd6c");
 
-        // TODO
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
 
         // Primary configurations
-        nDefaultPort            = 34221;      // Main P2P Port
-        nLastPOWBlock           = 500;        // Last Proof-of-Work block
-        nMaturity               = 9;          // Transaction maturity
-        nMasternodeCountDrift   = 20;         // TODO
-        nMaxMoneyOut            = 2000000000 * COIN; // TODO
-        nMaxReorganizationDepth = 100;        // TODO
-        nMinerThreads           = 0;          // TODO
-        nModifierUpdateBlock    = 999999999;  // TODO
-        nRequiredAccumulation   = 1;          // TODO
-        nTargetTimespan         = 1 * 60;     // TODO
-        nTargetSpacing          = 1 * 60;     // Blocktime aim, ODIN: 1 minute
+        nDefaultPort            = 34221;// Main (mainnet) P2P Port
+        nMaxReorganizationDepth = 100;
+        nMinerThreads           = 0;
+        nTargetTimespan         = 1 * 60; // Odin: 1 day
+        nTargetSpacing          = 1 * 60;  // Odin: 1 minute
+        nMaturity               = 9;// Transaction maturity
+        nMasternodeCountDrift   = 20;
+        nMaxMoneyOut            = 2000000000 * COIN;
         bnProofOfWorkLimit      = ~uint256(0) >> 1;
+        nLastPOWBlock           = 500; // Last Proof-of-Work block
+        nModifierUpdateBlock    = 999999999;
 
         // Zerocoin Configurations
-        nBudgetFeeConfirmations           = 6;          // Number of confirmations for the finalization fee
-        nMinZerocoinMintFee               = 1 * CENT;   // high fee required for zerocoin mints
-        nDefaultSecurityLevel             = 100;        // full security level for accumulators
-        nRequiredAccumulation             = 1;          // TODO
-        nZerocoinHeaderVersion            = 4;          // Block headers must be this version once zerocoin is active
-        nZerocoinLastOldParams            = 100000000;  // TODO - Updated to defer zerocoin v2 for further testing.
-        nZerocoinStartHeight              = 501;        // When zODIN becomes available
-        nMintRequiredConfirmations        = 20;         // the maximum amount of confirmations until accumulated in 19
-        nMaxZerocoinSpendsPerTransaction  = 7;          // Assume about 20kb each
-        
-        //! Main-net Genesis
-        genesis.nTime           = 1534859753; // August 21, 2018 (date +%s)
-        genesis.nBits           = 0x207fffff;
-        genesis.nNonce          = 5;
-        genesis.nVersion        = 1;
-        genesis.hashPrevBlock   = 0;
-        genesis.hashMerkleRoot  = genesis.BuildMerkleTree();
+        nZerocoinLastOldParams            = 99999999; // Updated to defer zerocoin v2 for further testing.
+        nMaxZerocoinSpendsPerTransaction  = 7; // Assume about 20kb each
+        nMinZerocoinMintFee               = 1 * CENT; //high fee required for zerocoin mints
+        nMintRequiredConfirmations        = 20; //the maximum amount of confirmations until accumulated in 19
+        nRequiredAccumulation             = 1;
+        nDefaultSecurityLevel             = 100; //full security level for accumulators
+        nZerocoinHeaderVersion            = 4; //Block headers must be this version once zerocoin is active
+        nBudgetFeeConfirmations           = 6; // Number of confirmations for the finalization fee
+        nZerocoinStartHeight              = 501;
 
         /**
          * Build the genesis block. Note that the output of the genesis coinbase cannot
@@ -205,15 +195,20 @@ class CMainParams : public CChainParams
         txNew.vout[0].scriptPubKey = CScript() << ParseHex("0402063889d534fb2b51e521c6f730586f86db8577cad991fb0f07c0c54cbc0cac32d8e42ca3cc6b98a76c2216e727ddb298b2489cf392dda006c551acf2f2e991") << OP_CHECKSIG;
 
         genesis.vtx.push_back(txNew);
+        genesis.hashPrevBlock   = 0;
+        genesis.hashMerkleRoot  = genesis.BuildMerkleTree();
+        genesis.nVersion        = 1;
+        genesis.nTime           = 1534859753; // August 21, 2018 (date +%s)
+        genesis.nBits           = 0x207fffff;
+        genesis.nNonce          = 5;
 
-        // Set hash genesis block
+        printf("ODIN MainNet\n");
+
         hashGenesisBlock = genesis.GetHash();
 
-        // Ensure validity
-        assert(hashGenesisBlock == uint256("37b3b9b0c61335f9cdb82fccfe70a8f123c3b812e2c658ef42f691a150074b9b"));
-        assert(genesis.hashMerkleRoot == uint256("c0d5bcb3e4042c4b3068dcde64cfe1559987bdb7ea18394d9ca20ae5cc213253"));
-        
-        // Remove seeding nodes
+        assert(hashGenesisBlock == uint256("0x37b3b9b0c61335f9cdb82fccfe70a8f123c3b812e2c658ef42f691a150074b9b"));
+        assert(genesis.hashMerkleRoot == uint256("0xc0d5bcb3e4042c4b3068dcde64cfe1559987bdb7ea18394d9ca20ae5cc213253"));
+
         vFixedSeeds.clear();
         vSeeds.clear();
 
@@ -230,7 +225,7 @@ class CMainParams : public CChainParams
 
         // value prefix for the private half of the pair
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 138);
-        
+
         /*
           four-byte prefixes for the so-called “stealth addresses” that got introduced in Bitcoin version 0.9, which allow fun things like addresses that can be used to generate new keys that can receive payments but not spend them. These two should have the same first byte but must differ in the other three bytes.
         */
@@ -312,7 +307,7 @@ public:
         nZerocoinStartHeight    = 201576;     // When zODIN becomes available
 
         //! Test-net Genesis (nTime a bit in the future)
-        genesis.nTime           = 1534861535; // August 21, 2018 (date +%s)
+        genesis.nTime           = 1535569392; // August 29, 2018 (date +%s)
         genesis.nBits           = 0x207fffff;
         genesis.nNonce          = 0;
         genesis.nVersion        = 1;
@@ -322,8 +317,8 @@ public:
         hashGenesisBlock = genesis.GetHash();
 
         // Ensure validity
-        assert(hashGenesisBlock == uint256("1cd100dd8788ee425f0d0fec322af081e7e61d96a8ee1403360d90a732302ebd"));
-        assert(genesis.hashMerkleRoot == uint256("c0d5bcb3e4042c4b3068dcde64cfe1559987bdb7ea18394d9ca20ae5cc213253"));
+        assert(hashGenesisBlock == uint256("0x01519125dd84851de9437d61a24162610e8cba04d57f8a53765b7b0231e80866"));
+        assert(genesis.hashMerkleRoot == uint256("0xc0d5bcb3e4042c4b3068dcde64cfe1559987bdb7ea18394d9ca20ae5cc213253"));
 
         // Remove seeding nodes
         vFixedSeeds.clear();
@@ -409,16 +404,20 @@ public:
         nZerocoinStartHeight    = 100;  // When zODIN becomes available
 
         //! Regtest-net Genesis
-        genesis.nTime   = 1534861831; // date +%s
-        genesis.nBits   = 0x207fffff;
-        genesis.nNonce  = 0;
+        genesis.nTime           = 1535569429; // (August 29, 2018) date +%s
+        genesis.nBits           = 0x207fffff;
+        genesis.nNonce          = 0;
+        genesis.hashMerkleRoot  = genesis.BuildMerkleTree();
+
+        // Set hash genesis block
+        hashGenesisBlock = genesis.GetHash();
 
         // Set hash genesis block
         hashGenesisBlock = genesis.GetHash();
 
          // Ensure validity
-        assert(hashGenesisBlock == uint256("012854ae09c39e089265ecae05eabf2a6c7ae011cdb8ba243da900bd8d83439a"));
-        assert(genesis.hashMerkleRoot == uint256("c0d5bcb3e4042c4b3068dcde64cfe1559987bdb7ea18394d9ca20ae5cc213253"));
+        assert(hashGenesisBlock == uint256("0x57953c6db14b32b8fd1579c8aee7c2b7b2efd7ac9b15bbdf32fc96586cd69b5d"));
+        assert(genesis.hashMerkleRoot == uint256("0xc0d5bcb3e4042c4b3068dcde64cfe1559987bdb7ea18394d9ca20ae5cc213253"));
 
         // Remove seeding nodes
         vFixedSeeds.clear();
