@@ -140,10 +140,10 @@ class CMainParams : public CChainParams
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 4-byte int at any alignment.
          */
-        pchMessageStart[0] = 0x19;
-        pchMessageStart[1] = 0x80;
-        pchMessageStart[2] = 0x55;
-        pchMessageStart[3] = 0x08;
+        pchMessageStart[0] = 0x32;
+        pchMessageStart[1] = 0x67;
+        pchMessageStart[2] = 0x69;
+        pchMessageStart[3] = 0x53;
 
         vAlertPubKey = ParseHex("048e8c3d748796606a5b22ddb5bc7daf1db2f2428529c7836d41a897c675e8e247dade5476751ef5984e7da30e6b927c13a7a61197281b2d16275d81f63982fd6c");
 
@@ -152,27 +152,27 @@ class CMainParams : public CChainParams
         nToCheckBlockUpgradeMajority = 1000;
 
         // Primary configurations
-        nDefaultPort            = 34221;// Main (mainnet) P2P Port
+        nDefaultPort            = 34221;  // Main (mainnet) P2P Port
         nMaxReorganizationDepth = 100;
         nMinerThreads           = 0;
         nTargetTimespan         = 1 * 60; // Odin: 1 day
-        nTargetSpacing          = 1 * 60;  // Odin: 1 minute
-        nMaturity               = 9;// Transaction maturity
+        nTargetSpacing          = 2 * 60; // Odin: 1 minute
+        nMaturity               = 9;      // Transaction maturity
         nMasternodeCountDrift   = 20;
         nMaxMoneyOut            = 2000000000 * COIN;
         bnProofOfWorkLimit      = ~uint256(0) >> 1;
-        nLastPOWBlock           = 500; // Last Proof-of-Work block
+        nLastPOWBlock           = 7500;   // Last Proof-of-Work block
         nModifierUpdateBlock    = 999999999;
 
         // Zerocoin Configurations
         nZerocoinLastOldParams            = 99999999; // Updated to defer zerocoin v2 for further testing.
-        nMaxZerocoinSpendsPerTransaction  = 7; // Assume about 20kb each
-        nMinZerocoinMintFee               = 1 * CENT; //high fee required for zerocoin mints
-        nMintRequiredConfirmations        = 20; //the maximum amount of confirmations until accumulated in 19
+        nMaxZerocoinSpendsPerTransaction  = 7;        // Assume about 20kb each
+        nMinZerocoinMintFee               = 1 * CENT; // high fee required for zerocoin mints
+        nMintRequiredConfirmations        = 20;       // the maximum amount of confirmations until accumulated in 19
         nRequiredAccumulation             = 1;
-        nDefaultSecurityLevel             = 100; //full security level for accumulators
-        nZerocoinHeaderVersion            = 4; //Block headers must be this version once zerocoin is active
-        nBudgetFeeConfirmations           = 6; // Number of confirmations for the finalization fee
+        nDefaultSecurityLevel             = 100;      // full security level for accumulators
+        nZerocoinHeaderVersion            = 4;        // Block headers must be this version once zerocoin is active
+        nBudgetFeeConfirmations           = 6;        // Number of confirmations for the finalization fee
         nZerocoinStartHeight              = 501;
 
         /**
@@ -202,7 +202,7 @@ class CMainParams : public CChainParams
         genesis.nBits           = 0x207fffff;
         genesis.nNonce          = 5;
 
-        printf("ODIN MainNet\n");
+        // printf("ODIN MainNet\n");
 
         hashGenesisBlock = genesis.GetHash();
 
@@ -229,12 +229,12 @@ class CMainParams : public CChainParams
         /*
           four-byte prefixes for the so-called “stealth addresses” that got introduced in Bitcoin version 0.9, which allow fun things like addresses that can be used to generate new keys that can receive payments but not spend them. These two should have the same first byte but must differ in the other three bytes.
         */
-        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x79)(0x81)(0x12)(0x36).convert_to_container<std::vector<unsigned char> >();
+        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x27)(0x56)(0x18)(0x72).convert_to_container<std::vector<unsigned char> >();
 
-        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x79)(0x22)(0x92)(0x36).convert_to_container<std::vector<unsigned char> >();
+        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x27)(0x25)(0x67)(0x46).convert_to_container<std::vector<unsigned char> >();
 
         // 	BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md
-        base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x01)(0xbc).convert_to_container<std::vector<unsigned char> >();
+        base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x6f)(0x64)(0x69)(0x6e).convert_to_container<std::vector<unsigned char> >();
 
         bech32_hrp = "odin";
 

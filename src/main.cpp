@@ -2161,51 +2161,23 @@ int64_t GetBlockValue(int nHeight)
       return 250000 * COIN;
   }
 
-  if (nHeight< 1500) {
-    nSubsidy = 166667 * COIN;
-  } else if (nHeight >= 1500 && nHeight < 35000) {
-    nSubsidy = 20 * COIN;
-  } else if (nHeight >= 35000 && nHeight < 166400) {
-    nSubsidy = 116.530000 * COIN;
-  } else if (nHeight >= 166401 && nHeight < 297801) {
-    nSubsidy = 116.390000 * COIN;
-  } else if (nHeight >= 297802 && nHeight < 429202) {
-    nSubsidy = 113.650000 * COIN;
-  } else if (nHeight >= 429203 && nHeight < 560603) {
-    nSubsidy = 108.810000 * COIN;
-  } else if (nHeight >= 560604 && nHeight < 692004) {
-    nSubsidy = 102.430000 * COIN;
-  } else if (nHeight >= 692005 && nHeight < 823405) {
-    nSubsidy = 95.020000 * COIN;
-  } else if (nHeight >= 823406 && nHeight < 954806) {
-    nSubsidy = 87.040000 * COIN;
-  } else if (nHeight >= 954807 && nHeight < 1086207) { nSubsidy = 78.870000 * COIN; }
-  else if (nHeight >= 1086208 && nHeight < 1217608) { nSubsidy = 70.800000 * COIN; }
-  else if (nHeight >= 1217609 && nHeight < 1349009) { nSubsidy = 63.050000 * COIN; }
-  else if (nHeight >= 1349010 && nHeight < 1480410) { nSubsidy = 55.760000 * COIN; }
-  else if (nHeight >= 1480411 && nHeight < 1611811) { nSubsidy = 49.030000 * COIN; }
-  else if (nHeight >= 1611812 && nHeight < 1743212) { nSubsidy = 43.080000 * COIN; }
-  else if (nHeight >= 1743213 && nHeight < 1874613) { nSubsidy = 44.160000 * COIN; }
-  else if (nHeight >= 1874614 && nHeight < 2006014) { nSubsidy = 45.260000 * COIN; }
-  else if (nHeight >= 2006015 && nHeight < 2137415) { nSubsidy = 46.390000 * COIN; }
-  else if (nHeight >= 2137416 && nHeight < 2268816) { nSubsidy = 47.550000 * COIN; }
-  else if (nHeight >= 2268817 && nHeight < 2400217) { nSubsidy = 48.740000 * COIN; }
-  else if (nHeight >= 2400218 && nHeight < 2531618) { nSubsidy = 49.960000 * COIN; }
-  else if (nHeight >= 2531619 && nHeight < 2663019) { nSubsidy = 51.210000 * COIN; }
-  else if (nHeight >= 2663020 && nHeight < 2794420) { nSubsidy = 52.490000 * COIN; }
-  else if (nHeight >= 2794421 && nHeight < 2925821) { nSubsidy = 53.800000 * COIN; }
-  else if (nHeight >= 2925822 && nHeight < 3057222) { nSubsidy = 55.150000 * COIN; }
-  else if (nHeight >= 3057223 && nHeight < 3188623) { nSubsidy = 56.530000 * COIN; }
-  else if (nHeight >= 3188624 && nHeight < 3320024) { nSubsidy = 57.940000 * COIN; }
-  else if (nHeight >= 3320025 && nHeight < 3451425) { nSubsidy = 59.390000 * COIN; }
-  else if (nHeight >= 3451426 && nHeight < 3582826) { nSubsidy = 60.870000 * COIN; }
-  else if (nHeight >= 3582827 && nHeight < 3714227) { nSubsidy = 62.400000 * COIN; }
-  else if (nHeight >= 3714228 && nHeight < 3845628) { nSubsidy = 63.960000 * COIN; }
-  else if (nHeight >= 3845629 && nHeight < 3977029) { nSubsidy = 65.550000 * COIN; }
-  else if (nHeight >= 3977030 && nHeight < 4108430) { nSubsidy = 67.190000 * COIN; }
-  else if (nHeight >= 4108431 && nHeight < 4239831) { nSubsidy = 68.870000 * COIN; }
+  if (nHeight <= 7500) {
+    nSubsidy = 13200 * COIN;  // PoW Pre-mine Period
+  } else if (nHeight >= 7501 && nHeight <= 13981) {     
+    nSubsidy = 10 * COIN;     // PoS Switch Period
+  } else if (nHeight >= 13982 && nHeight <= 36302) {
+    nSubsidy = 355 * COIN;    // Ragnarök Period
+  } else if (nHeight >= 36303 && nHeight <= 80203) {
+    nSubsidy = 195 * COIN;    // Valhalla Period
+  } else if (nHeight >= 80204 && nHeight <= 339424) {
+    nSubsidy = 53 * COIN;     // Year 1 - Year 2
+  } else if (nHeight >= 339425 && nHeight <= 598625) {
+    nSubsidy = 45 * COIN;     // Year 2 - Year 3
+  } else if (nHeight >= 598626) {
+    nSubsidy = 33 * COIN;     // Year 3 ONWARDS
+  }
   else {
-    nSubsidy = 0;
+    nSubsidy = 33 * COIN;
   }
   
   LogPrintf("COIN=%d, Subsidy=%d\n", COIN, nSubsidy);

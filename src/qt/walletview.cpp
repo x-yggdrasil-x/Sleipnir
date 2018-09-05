@@ -35,6 +35,7 @@
 #include <QPushButton>
 #include <QSettings>
 #include <QVBoxLayout>
+#include <QFontDatabase>
 
 WalletView::WalletView(QWidget* parent) : QStackedWidget(parent),
                                           clientModel(0),
@@ -55,19 +56,19 @@ WalletView::WalletView(QWidget* parent) : QStackedWidget(parent),
 
     QHBoxLayout* horizontalLayout_Header = new QHBoxLayout();
     horizontalLayout_Header->setObjectName(QStringLiteral("horizontalLayout_Header"));
-
-    QLabel* labelOverviewHeaderLeft = new QLabel(frame_Header);
-    labelOverviewHeaderLeft->setObjectName(QStringLiteral("labelOverviewHeaderLeft"));
-    labelOverviewHeaderLeft->setMinimumSize(QSize(464, 60));
-    labelOverviewHeaderLeft->setMaximumSize(QSize(16777215, 60));
-    labelOverviewHeaderLeft->setText(tr("HISTORY"));
+    
+    QLabel* pageHeading__labelOverviewHeaderLeft = new QLabel(frame_Header);
+    pageHeading__labelOverviewHeaderLeft->setObjectName(QStringLiteral("pageHeading__labelOverviewHeaderLeft"));
+    pageHeading__labelOverviewHeaderLeft->setMinimumSize(QSize(464, 60));
+    pageHeading__labelOverviewHeaderLeft->setMaximumSize(QSize(16777215, 60));
+    pageHeading__labelOverviewHeaderLeft->setText(tr("HISTORY"));
     QFont fontHeaderLeft;
     fontHeaderLeft.setPointSize(20);
     fontHeaderLeft.setBold(true);
     fontHeaderLeft.setWeight(75);
-    labelOverviewHeaderLeft->setFont(fontHeaderLeft);
+    pageHeading__labelOverviewHeaderLeft->setFont(fontHeaderLeft);
 
-    horizontalLayout_Header->addWidget(labelOverviewHeaderLeft);
+    horizontalLayout_Header->addWidget(pageHeading__labelOverviewHeaderLeft);
     QSpacerItem* horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     horizontalLayout_Header->addItem(horizontalSpacer_3);
 

@@ -64,7 +64,7 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="../odin.qrc">
+         <iconset>
           <normaloff>:/icons/address-book</normaloff>:/icons/address-book</iconset>
         </property>
         <property name="shortcut">
@@ -81,7 +81,7 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="../odin.qrc">
+         <iconset>
           <normaloff>:/icons/editpaste</normaloff>:/icons/editpaste</iconset>
         </property>
         <property name="shortcut">
@@ -98,7 +98,7 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="../odin.qrc">
+         <iconset>
           <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
         </property>
        </widget>
@@ -622,7 +622,7 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="../odin.qrc">
+         <iconset>
           <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
         </property>
        </widget>
@@ -1158,7 +1158,7 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="../odin.qrc">
+         <iconset>
           <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
         </property>
        </widget>
@@ -1215,6 +1215,7 @@
    <class>BitcoinAmountField</class>
    <extends>QLineEdit</extends>
    <header>bitcoinamountfield.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -1229,8 +1230,6 @@
   <tabstop>payAmount_s</tabstop>
   <tabstop>deleteButton_s</tabstop>
  </tabstops>
- <resources>
-  <include location="../odin.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

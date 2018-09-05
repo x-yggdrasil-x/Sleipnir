@@ -74,6 +74,9 @@
         <file alias="walletFrame">res/images/walletFrame.png</file>
         <file alias="splash">res/images/splash.png</file>
         <file alias="splash_testnet">res/images/splash_testnet.png</file>
+        <file alias="odin_paper_bg_repeat">res/images/odin_paper_bg_repeat.png</file>
+        <file alias="odin_blue_repeat">res/images/odin_blue_repeat.png</file>
+        <file alias="odin_black_repeat">res/images/odin_black_repeat.png</file>
     </qresource>
     <qresource prefix="/movies">
         <file alias="spinner-000">res/movies/spinner-000.png</file>

@@ -91,7 +91,7 @@
               <number>6</number>
              </property>
              <item>
-              <widget class="QLabel" name="labelOverviewHeaderLeft">
+              <widget class="QLabel" name="pageHeading__labelOverviewHeaderLeft">
                <property name="minimumSize">
                 <size>
                  <width>464</width>
@@ -214,7 +214,7 @@
                    <number>0</number>
                   </property>
                   <item>
-                   <widget class="QFrame" name="frame_CombinedBalances">
+                   <widget class="QFrame" name="cardFrame_CombinedBalances">
                     <property name="minimumSize">
                      <size>
                       <width>470</width>
@@ -229,9 +229,9 @@
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_5">
                      <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0">
+                      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0,0">
                        <item>
-                        <widget class="QLabel" name="label_5z">
+                        <widget class="QLabel" name="heading1__combinedBalance">
                          <property name="minimumSize">
                           <size>
                            <width>0</width>
@@ -312,7 +312,7 @@
                         <number>12</number>
                        </property>
                        <item row="1" column="0">
-                        <widget class="QLabel" name="labelBalanceTextz">
+                        <widget class="QLabel" name="heading3__labelBalanceTextz">
                          <property name="text">
                           <string>Available:</string>
                          </property>
@@ -344,7 +344,7 @@
                         </widget>
                        </item>
                        <item row="2" column="0">
-                        <widget class="QLabel" name="labelTotalTextz">
+                        <widget class="QLabel" name="heading3__labelTotalTextz">
                          <property name="text">
                           <string>Total:</string>
                          </property>
@@ -407,7 +407,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QFrame" name="frame_Balances">
+                   <widget class="QFrame" name="cardFrame_Balances">
                     <property name="frameShape">
                      <enum>QFrame::StyledPanel</enum>
                     </property>
@@ -418,7 +418,7 @@
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_4">
                        <item>
-                        <widget class="QLabel" name="label_5">
+                        <widget class="QLabel" name="heading1__odinBalance">
                          <property name="minimumSize">
                           <size>
                            <width>0</width>
@@ -504,7 +504,7 @@
                         </widget>
                        </item>
                        <item row="1" column="0">
-                        <widget class="QLabel" name="labelBalanceText">
+                        <widget class="QLabel" name="heading3__labelBalanceText">
                          <property name="text">
                           <string>Available:</string>
                          </property>
@@ -561,7 +561,7 @@
                         </widget>
                        </item>
                        <item row="2" column="0">
-                        <widget class="QLabel" name="labelPendingText">
+                        <widget class="QLabel" name="heading3__labelPendingText">
                          <property name="text">
                           <string>Pending:</string>
                          </property>
@@ -618,7 +618,7 @@
                         </widget>
                        </item>
                        <item row="3" column="0">
-                        <widget class="QLabel" name="labelImmatureText">
+                        <widget class="QLabel" name="heading3__labelImmatureText">
                          <property name="text">
                           <string>Immature:</string>
                          </property>
@@ -675,7 +675,7 @@
                         </widget>
                        </item>
                        <item row="4" column="0">
-                        <widget class="QLabel" name="labelLockedBalanceText">
+                        <widget class="QLabel" name="heading3__labelLockedBalanceText">
                          <property name="toolTip">
                           <string>Locked ODIN or Masternode collaterals. These are excluded from zODIN minting.</string>
                          </property>
@@ -735,12 +735,12 @@
                         </widget>
                        </item>
                        <item row="5" column="0">
-                        <widget class="QLabel" name="labelTotalText">
-                         <property name="text">
-                          <string>Total:</string>
-                         </property>
+                        <widget class="QLabel" name="heading3__labelTotalText">
                          <property name="toolTip">
                           <string>Your current ODIN balance, unconfirmed and immature transactions included</string>
+                         </property>
+                         <property name="text">
+                          <string>Total:</string>
                          </property>
                         </widget>
                        </item>
@@ -826,7 +826,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QFrame" name="frame_ZerocoinBalances">
+                   <widget class="QFrame" name="cardFrame_ZerocoinBalances">
                     <property name="frameShape">
                      <enum>QFrame::StyledPanel</enum>
                     </property>
@@ -835,9 +835,9 @@
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_7">
                      <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0">
+                      <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,0">
                        <item>
-                        <widget class="QLabel" name="label_5z_3">
+                        <widget class="QLabel" name="heading1__zOdinBalance">
                          <property name="minimumSize">
                           <size>
                            <width>0</width>
@@ -903,7 +903,7 @@
                         <number>12</number>
                        </property>
                        <item row="1" column="0">
-                        <widget class="QLabel" name="labelzBalanceMatureText">
+                        <widget class="QLabel" name="heading3__labelzBalanceMatureText">
                          <property name="toolTip">
                           <string>Mature: more than 20 confirmation and more than 3 mints of the same denomination after it was minted.
 These zODIN are spendable.</string>
@@ -934,7 +934,7 @@ These zODIN are spendable.</string>
                         </widget>
                        </item>
                        <item row="2" column="0">
-                        <widget class="QLabel" name="labelzBalanceUnconfirmedText">
+                        <widget class="QLabel" name="heading3__labelzBalanceUnconfirmedText">
                          <property name="toolTip">
                           <string>Unconfirmed: less than 20 confirmations
 Immature: confirmed, but less than 3 mints of the same denomination after it was minted</string>
@@ -965,7 +965,7 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
                         </widget>
                        </item>
                        <item row="3" column="0">
-                        <widget class="QLabel" name="labelzBalanceImmatureText">
+                        <widget class="QLabel" name="heading3__labelzBalanceImmatureText">
                          <property name="toolTip">
                           <string>Unconfirmed: less than 20 confirmations
 Immature: confirmed, but less than 3 mints of the same denomination after it was minted</string>
@@ -996,7 +996,7 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
                         </widget>
                        </item>
                        <item row="4" column="0">
-                        <widget class="QLabel" name="labelzBalanceText">
+                        <widget class="QLabel" name="heading3__labelzBalanceText">
                          <property name="toolTip">
                           <string>Your current zODIN balance, unconfirmed and immature zODIN included.</string>
                          </property>
@@ -1069,7 +1069,7 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_right" stretch="1">
                <item>
-                <widget class="QFrame" name="frame_RecentTransactions">
+                <widget class="QFrame" name="cardFrame_RecentTransactions">
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
@@ -1086,7 +1086,7 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_2">
                     <item>
-                     <widget class="QLabel" name="label_4">
+                     <widget class="QLabel" name="heading1__label_4">
                       <property name="minimumSize">
                        <size>
                         <width>0</width>

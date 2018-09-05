@@ -271,7 +271,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     QSettings settings;
     bool settingShowAllBalances = !settings.value("fHideZeroBalances").toBool();
     bool showSumAvailable = settingShowAllBalances || sumTotalBalance != availableTotalBalance;
-    ui->labelBalanceTextz->setVisible(showSumAvailable);
+    ui->heading3__labelBalanceTextz->setVisible(showSumAvailable);
     ui->labelBalancez->setVisible(showSumAvailable);
     bool showODINAvailable = settingShowAllBalances || odinAvailableBalance != nTotalBalance;
     bool showWatchOnlyODINAvailable = watchOnlyBalance != nTotalWatchBalance;
@@ -283,26 +283,26 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     bool showWatchOnlyImmature = watchImmatureBalance != 0;
     bool showWatchOnly = nTotalWatchBalance != 0;
     ui->labelBalance->setVisible(showODINAvailable || showWatchOnlyODINAvailable);
-    ui->labelBalanceText->setVisible(showODINAvailable || showWatchOnlyODINAvailable);
+    ui->heading3__labelBalanceText->setVisible(showODINAvailable || showWatchOnlyODINAvailable);
     ui->labelWatchAvailable->setVisible(showODINAvailable && showWatchOnly);
     ui->labelUnconfirmed->setVisible(showODINPending || showWatchOnlyODINPending);
-    ui->labelPendingText->setVisible(showODINPending || showWatchOnlyODINPending);
+    ui->heading3__labelPendingText->setVisible(showODINPending || showWatchOnlyODINPending);
     ui->labelWatchPending->setVisible(showODINPending && showWatchOnly);
     ui->labelLockedBalance->setVisible(showODINLocked || showWatchOnlyODINLocked);
-    ui->labelLockedBalanceText->setVisible(showODINLocked || showWatchOnlyODINLocked);
+    ui->heading3__labelLockedBalanceText->setVisible(showODINLocked || showWatchOnlyODINLocked);
     ui->labelWatchLocked->setVisible(showODINLocked && showWatchOnly);
     ui->labelImmature->setVisible(showImmature || showWatchOnlyImmature); // for symmetry reasons also show immature label when the watch-only one is shown
-    ui->labelImmatureText->setVisible(showImmature || showWatchOnlyImmature);
+    ui->heading3__labelImmatureText->setVisible(showImmature || showWatchOnlyImmature);
     ui->labelWatchImmature->setVisible(showImmature && showWatchOnly); // show watch-only immature balance
     bool showzODINAvailable = settingShowAllBalances || zerocoinBalance != matureZerocoinBalance;
     bool showzODINUnconfirmed = settingShowAllBalances || unconfirmedZerocoinBalance != 0;
     bool showzODINImmature = settingShowAllBalances || immatureZerocoinBalance != 0;
     ui->labelzBalanceMature->setVisible(showzODINAvailable);
-    ui->labelzBalanceMatureText->setVisible(showzODINAvailable);
+    ui->heading3__labelzBalanceMatureText->setVisible(showzODINAvailable);
     ui->labelzBalanceUnconfirmed->setVisible(showzODINUnconfirmed);
-    ui->labelzBalanceUnconfirmedText->setVisible(showzODINUnconfirmed);
+    ui->heading3__labelzBalanceUnconfirmedText->setVisible(showzODINUnconfirmed);
     ui->labelzBalanceImmature->setVisible(showzODINImmature);
-    ui->labelzBalanceImmatureText->setVisible(showzODINImmature);
+    ui->heading3__labelzBalanceImmatureText->setVisible(showzODINImmature);
     bool showPercentages = ! (zerocoinBalance == 0 && nTotalBalance == 0);
     ui->labelODINPercent->setVisible(showPercentages);
     ui->labelzODINPercent->setVisible(showPercentages);

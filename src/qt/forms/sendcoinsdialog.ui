@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>978</width>
-    <height>695</height>
+    <height>735</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -58,7 +58,7 @@
            <number>6</number>
           </property>
           <item>
-           <widget class="QLabel" name="labelOverviewHeaderLeft">
+           <widget class="QLabel" name="pageHeading__labelOverviewHeaderLeft">
             <property name="minimumSize">
              <size>
               <width>464</width>
@@ -79,7 +79,7 @@
              </font>
             </property>
             <property name="text">
-             <string>SEND</string>
+             <string>SEND ODIN</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -211,7 +211,7 @@
                    <number>6</number>
                   </property>
                   <item>
-                   <widget class="QLabel" name="labelCoinControlFeatures">
+                   <widget class="QLabel" name="heading1__labelCoinControlFeatures">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                       <horstretch>0</horstretch>
@@ -897,8 +897,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>944</width>
-             <height>68</height>
+             <width>938</width>
+             <height>72</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1">
@@ -939,7 +939,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QFrame" name="frameFee">
+         <widget class="QFrame" name="cardFrame__frameFee">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -1611,7 +1611,7 @@
               <string>S&amp;end</string>
              </property>
              <property name="icon">
-              <iconset resource="../odin.qrc">
+              <iconset>
                <normaloff>:/icons/send</normaloff>:/icons/send</iconset>
              </property>
              <property name="autoDefault">
@@ -1637,7 +1637,7 @@
               <string>Clear &amp;All</string>
              </property>
              <property name="icon">
-              <iconset resource="../odin.qrc">
+              <iconset>
                <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
              </property>
              <property name="autoDefault">
@@ -1654,7 +1654,7 @@
               <string>Add &amp;Recipient</string>
              </property>
              <property name="icon">
-              <iconset resource="../odin.qrc">
+              <iconset>
                <normaloff>:/icons/add</normaloff>:/icons/add</iconset>
              </property>
              <property name="autoDefault">
@@ -1757,12 +1757,10 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../odin.qrc"/>
- </resources>
+ <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="groupFee"/>
   <buttongroup name="groupCustomFee"/>
+  <buttongroup name="groupFee"/>
  </buttongroups>
 </ui>
