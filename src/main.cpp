@@ -2161,19 +2161,19 @@ int64_t GetBlockValue(int nHeight)
       return 250000 * COIN;
   }
 
-  if (nHeight <= 7500) {
-    nSubsidy = 13200 * COIN;  // PoW Pre-mine Period
-  } else if (nHeight >= 7501 && nHeight <= 13981) {     
+  if (nHeight <= 3600) {
+    nSubsidy = 27500 * COIN;  // PoW Pre-mine Period
+  } else if (nHeight >= 3601 && nHeight <= 10081) {     
     nSubsidy = 10 * COIN;     // PoS Switch Period
-  } else if (nHeight >= 13982 && nHeight <= 36302) {
+  } else if (nHeight >= 10082 && nHeight <= 32402) {
     nSubsidy = 355 * COIN;    // Ragnarök Period
-  } else if (nHeight >= 36303 && nHeight <= 80203) {
+  } else if (nHeight >= 32403 && nHeight <= 76323) {
     nSubsidy = 195 * COIN;    // Valhalla Period
-  } else if (nHeight >= 80204 && nHeight <= 339424) {
+  } else if (nHeight >= 76324 && nHeight <= 339124) {
     nSubsidy = 53 * COIN;     // Year 1 - Year 2
-  } else if (nHeight >= 339425 && nHeight <= 598625) {
+  } else if (nHeight >= 339125 && nHeight <= 602645) {
     nSubsidy = 45 * COIN;     // Year 2 - Year 3
-  } else if (nHeight >= 598626) {
+  } else if (nHeight >= 602646) {
     nSubsidy = 33 * COIN;     // Year 3 ONWARDS
   }
   else {

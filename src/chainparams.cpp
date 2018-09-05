@@ -161,7 +161,7 @@ class CMainParams : public CChainParams
         nMasternodeCountDrift   = 20;
         nMaxMoneyOut            = 2000000000 * COIN;
         bnProofOfWorkLimit      = ~uint256(0) >> 1;
-        nLastPOWBlock           = 7500;   // Last Proof-of-Work block
+        nLastPOWBlock           = 200;   // Last Proof-of-Work block
         nModifierUpdateBlock    = 999999999;
 
         // Zerocoin Configurations
@@ -173,7 +173,7 @@ class CMainParams : public CChainParams
         nDefaultSecurityLevel             = 100;      // full security level for accumulators
         nZerocoinHeaderVersion            = 4;        // Block headers must be this version once zerocoin is active
         nBudgetFeeConfirmations           = 6;        // Number of confirmations for the finalization fee
-        nZerocoinStartHeight              = 501;
+        nZerocoinStartHeight              = 201;
 
         /**
          * Build the genesis block. Note that the output of the genesis coinbase cannot
