@@ -10,6 +10,7 @@
 #include <boost/lexical_cast.hpp>
 
 #include "db.h"
+#include "chainparams.h"
 #include "kernel.h"
 #include "script/interpreter.h"
 #include "timedata.h"
@@ -22,7 +23,6 @@ bool fTestNet = false; //Params().NetworkID() == CBaseChainParams::TESTNET;
 // Modifier interval: time to elapse before new modifier is computed
 // Set to 3-hour for production network and 20-minute for test network
 unsigned int nModifierInterval;
-int nStakeTargetSpacing = 60;
 unsigned int getIntervalVersion(bool fTestNet)
 {
     if (fTestNet)
@@ -38,7 +38,7 @@ static std::map<int, unsigned int> mapStakeModifierCheckpoints =
 // Get time weight
 int64_t GetWeight(int64_t nIntervalBeginning, int64_t nIntervalEnd)
 {
-    return nIntervalEnd - nIntervalBeginning - nStakeMinAge;
+    return nIntervalEnd - nIntervalBeginning - Params().GetMinStakeAge();
 }
 
 // Get the last stake modifier and its generation time from a given block
@@ -178,7 +178,7 @@ bool ComputeNextStakeModifier(const CBlockIndex* pindexPrev, uint64_t& nStakeMod
 
     // Sort candidate blocks by timestamp
     vector<pair<int64_t, uint256> > vSortedByTimestamp;
-    vSortedByTimestamp.reserve(64 * getIntervalVersion(fTestNet) / nStakeTargetSpacing);
+    vSortedByTimestamp.reserve(64 * getIntervalVersion(fTestNet) / Params().TargetSpacing());
     int64_t nSelectionInterval = GetStakeModifierSelectionInterval();
     int64_t nSelectionIntervalStart = (pindexPrev->GetBlockTime() / getIntervalVersion(fTestNet)) * getIntervalVersion(fTestNet) - nSelectionInterval;
     const CBlockIndex* pindex = pindexPrev;
@@ -301,9 +301,9 @@ bool CheckStakeKernelHash(unsigned int nBits, const CBlock blockFrom, const CTra
     if (nTimeTx < nTimeBlockFrom) // Transaction timestamp violation
         return error("CheckStakeKernelHash() : nTime violation");
 
-    if (nTimeBlockFrom + nStakeMinAge > nTimeTx) // Min age requirement
-        return false;
-        //return error("CheckStakeKernelHash() : min age violation - nTimeBlockFrom=%d nStakeMinAge=%d nTimeTx=%d", nTimeBlockFrom, nStakeMinAge, nTimeTx);
+    if (nTimeBlockFrom + Params().GetMinStakeAge() > nTimeTx) // Min age requirement
+        // return false;
+        return error("CheckStakeKernelHash() : min age violation - nTimeBlockFrom=%d nMinStakeAge=%d nTimeTx=%d", nTimeBlockFrom, Params().GetMinStakeAge(), nTimeTx);
 
     //grab difficulty
     uint256 bnTargetPerCoinDay;

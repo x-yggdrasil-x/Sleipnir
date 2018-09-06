@@ -152,17 +152,18 @@ class CMainParams : public CChainParams
         nToCheckBlockUpgradeMajority = 1000;
 
         // Primary configurations
-        nDefaultPort            = 34221;  // Main (mainnet) P2P Port
+        nDefaultPort            = 34221;    // Main (mainnet) P2P Port
         nMaxReorganizationDepth = 100;
         nMinerThreads           = 0;
-        nTargetTimespan         = 1 * 60; // Odin: 1 day
-        nTargetSpacing          = 2 * 60; // Odin: 1 minute
-        nMaturity               = 9;      // Transaction maturity
+        nTargetTimespan         = 1 * 60;   // Odin: 1 day
+        nTargetSpacing          = 2 * 60;   // Odin: 1 minute
+        nMaturity               = 9;        // Transaction maturity
         nMasternodeCountDrift   = 20;
         nMaxMoneyOut            = 2000000000 * COIN;
         bnProofOfWorkLimit      = ~uint256(0) >> 1;
-        nLastPOWBlock           = 200;   // Last Proof-of-Work block
+        nLastPOWBlock           = 200;      // Last Proof-of-Work block
         nModifierUpdateBlock    = 999999999;
+        nMinStakeAge            = 60 * 60;  // 1 Hour
 
         // Zerocoin Configurations
         nZerocoinLastOldParams            = 99999999; // Updated to defer zerocoin v2 for further testing.
@@ -299,6 +300,8 @@ public:
         nTargetSpacing          = 1 * 10;     // Blocktime aim, ODIN: 1 minute
         bnProofOfWorkLimit      = ~uint256(0) >> 1;
 
+        nMinStakeAge = 60 * 60 * 24 * 7;      // 7 days
+
         // Zerocoin Configurations
         nBudgetFeeConfirmations = 3;          // Number of confirmations for the finalization fee
                                               // We have to make this very short here because we only 
@@ -398,6 +401,8 @@ public:
         nTargetTimespan         = 24 * 60 * 60; // TODO
         nTargetSpacing          = 1 * 60;       // Blocktime aim, ODIN: 1 minute
         bnProofOfWorkLimit      = ~uint256(0) >> 1;
+
+        nMinStakeAge = 60 * 60 * 24 * 7;        // 7 days
 
         // Zerocoin Configurations
         nZerocoinLastOldParams  = 499;  // TODO - Updated to defer zerocoin v2 for further testing.

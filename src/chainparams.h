@@ -114,6 +114,8 @@ public:
     int Zerocoin_StartHeight() const { return nZerocoinStartHeight; }
     int Zerocoin_LastOldParams() const { return nZerocoinLastOldParams; }
 
+    int64_t GetMinStakeAge() const { return nMinStakeAge; }
+
 protected:
     CChainParams() {}
 
@@ -165,6 +167,7 @@ protected:
     int64_t nBudgetFeeConfirmations;
     int nZerocoinStartHeight;
     int nZerocoinLastOldParams;
+    int64_t nMinStakeAge;
 };
 
 /**
