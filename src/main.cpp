@@ -115,7 +115,7 @@ static void CheckBlockIndex();
 /** Constant stuff for coinbase transactions we create: */
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "DarkNet Signed Message:\n";
+const string strMessageMagic = "Huginn hath Signed Message:\n";
 
 // Internal stuff
 namespace
@@ -2150,43 +2150,66 @@ double ConvertBitsToDouble(unsigned int nBits)
     return dDiff;
 }
 
-int64_t GetBlockValue(int nHeight)
+int64_t GetBlockValue(int nHeight, bool fBudgetBlock)
 {
-  int64_t nSubsidy = 0;
 
-  if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-    if (nHeight < 200 && nHeight > 0)
-      return 250000 * COIN;
+  /**
+   * ODIN Block Reward Structure:
+   * PoW Premine:   Block 0       -   3,600 = 27,500 Ø
+   * PoS Launch:    Block 3,601   -  10,081 = 10 Ø
+   * Ragnarök:      Block 10,082  -  32,402 = 355 Ø
+   * Valhalla:      Block 32,403  -  76,323 = 195 Ø
+   * Y1 Yggdrasil:  Block 76,324  - 339,124 = 53 Ø
+   * Y2 Midgard:    Block 339,125 - 602,645 = 45 Ø
+   * Y3 Nidhogg:    Block 602,646 - 865,446 = 33 Ø
+   * 
+   * PoW Schedule -  0% to proposals
+   * PoS Schedule - 10% to proposals for all phases
+   * 90% distributed to Stake wallet and Masternode
+   */
+
+  int64_t nBudgetMultiplier = COIN;
+  if (!fBudgetBlock)
+    nBudgetMultiplier = COIN - (Params().GetBudgetPercent() * CENT);
+
+  CAmount nSubsidy = 33 * nBudgetMultiplier;
+
+  if (nHeight <= 50) {
+    nSubsidy = 27500 * COIN;
+  } else if (nHeight >= 51 && nHeight <= 100) {     
+    nSubsidy = 20000;
+  } else if (nHeight >= 101 && nHeight <= 200) {
+    nSubsidy = 10000 * nBudgetMultiplier;
   }
 
-  if (nHeight <= 3600) {
-    nSubsidy = 27500 * COIN;  // PoW Pre-mine Period
-  } else if (nHeight >= 3601 && nHeight <= 10081) {     
-    nSubsidy = 10 * COIN;     // PoS Switch Period
-  } else if (nHeight >= 10082 && nHeight <= 32402) {
-    nSubsidy = 355 * COIN;    // Ragnarök Period
-  } else if (nHeight >= 32403 && nHeight <= 76323) {
-    nSubsidy = 195 * COIN;    // Valhalla Period
-  } else if (nHeight >= 76324 && nHeight <= 339124) {
-    nSubsidy = 53 * COIN;     // Year 1 - Year 2
-  } else if (nHeight >= 339125 && nHeight <= 602645) {
-    nSubsidy = 45 * COIN;     // Year 2 - Year 3
-  } else if (nHeight >= 602646) {
-    nSubsidy = 33 * COIN;     // Year 3 ONWARDS
-  }
-  else {
-    nSubsidy = 33 * COIN;
-  }
-  
-  LogPrintf("COIN=%d, Subsidy=%d\n", COIN, nSubsidy);
+  LogPrintf("GetBlockValue COIN=%d, Subsidy=%d\n", COIN, nSubsidy);
 
   return nSubsidy;
+
+  // if (nHeight <= 3600) {
+  //   nSubsidy = 27500 * COIN;
+  // } else if (nHeight >= 3601 && nHeight <= 10081) {     
+  //   nSubsidy = 10 * nBudgetMultiplier;
+  // } else if (nHeight >= 10082 && nHeight <= 32402) {
+  //   nSubsidy = 355 * nBudgetMultiplier;
+  // } else if (nHeight >= 32403 && nHeight <= 76323) {
+  //   nSubsidy = 195 * nBudgetMultiplier;
+  // } else if (nHeight >= 76324 && nHeight <= 339124) {
+  //   nSubsidy = 53 * nBudgetMultiplier;
+  // } else if (nHeight >= 339125 && nHeight <= 602645) {
+  //   nSubsidy = 45 * nBudgetMultiplier;
+  // } else if (nHeight >= 602646) {
+  //   nSubsidy = 33 * nBudgetMultiplier;
+  // }
+
+  // LogPrintf("COIN=%d, Subsidy=%d\n", COIN, nSubsidy);
+
+  // return nSubsidy;
 }
 
-int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount)
+int64_t GetMasternodePayment(CAmount nTotalBlockReward)
 {
-    int64_t ret = blockValue / 5 * 3;
-    return ret;
+  return nTotalBlockReward / COIN * (Params().GetMasternodeRewardPercent() * CENT);
 }
 
 bool IsInitialBlockDownload()

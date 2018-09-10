@@ -115,6 +115,11 @@ public:
     int Zerocoin_LastOldParams() const { return nZerocoinLastOldParams; }
 
     int64_t GetMinStakeAge() const { return nMinStakeAge; }
+    unsigned int GetModifierInterval() const { return nModifierInterval; }
+    unsigned int GetModifierIntervalRatio() const { return nModifierIntervalRatio; }
+    int64_t GetBudgetPercent() const { return nBudgetPercent; }
+    int64_t GetMasternodeRewardPercent() const { return nMasternodeRewardPercent; }
+    CAmount GetRequiredMasternodeCollateral() const { return nRequiredMasternodeCollateral; }
 
 protected:
     CChainParams() {}
@@ -167,7 +172,13 @@ protected:
     int64_t nBudgetFeeConfirmations;
     int nZerocoinStartHeight;
     int nZerocoinLastOldParams;
+    
     int64_t nMinStakeAge;
+    unsigned int nModifierInterval;
+    unsigned int nModifierIntervalRatio;
+    int64_t nBudgetPercent;
+    int64_t nMasternodeRewardPercent;
+    CAmount nRequiredMasternodeCollateral;
 };
 
 /**

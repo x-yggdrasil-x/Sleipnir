@@ -449,7 +449,7 @@ vector<COutput> CActiveMasternode::SelectCoinsMasternode()
 
     // Filter
     BOOST_FOREACH (const COutput& out, vCoins) {
-        if (out.tx->vout[out.i].nValue == 25000 * COIN) { //exactly
+        if (out.tx->vout[out.i].nValue == Params().GetRequiredMasternodeCollateral() * COIN) { //exactly
             filteredCoins.push_back(out);
         }
     }

@@ -156,7 +156,7 @@ class CMainParams : public CChainParams
         nMaxReorganizationDepth = 100;
         nMinerThreads           = 0;
         nTargetTimespan         = 1 * 60;   // Odin: 1 day
-        nTargetSpacing          = 2 * 60;   // Odin: 1 minute
+        nTargetSpacing          = 2 * 60;   // Odin: 2 minute
         nMaturity               = 9;        // Transaction maturity
         nMasternodeCountDrift   = 20;
         nMaxMoneyOut            = 2000000000 * COIN;
@@ -164,6 +164,17 @@ class CMainParams : public CChainParams
         nLastPOWBlock           = 200;      // Last Proof-of-Work block
         nModifierUpdateBlock    = 999999999;
         nMinStakeAge            = 60 * 60;  // 1 Hour
+
+        // Modifier interval: time to elapse before new modifier is computed
+        // Set to 3-hour for production network and 20-minute for test network
+        // MODIFIER_INTERVAL: time to elapse before new modifier is computed
+        nModifierInterval = 60;
+
+        //ratio of group interval length between the last group and the first group
+        nModifierIntervalRatio = 3;
+        nBudgetPercent = 10;
+        nMasternodeRewardPercent = 60; // % of block reward that goes to masternodes
+        nRequiredMasternodeCollateral = 25000 * COIN; // 25,000 Ø required
 
         // Zerocoin Configurations
         nZerocoinLastOldParams            = 99999999; // Updated to defer zerocoin v2 for further testing.

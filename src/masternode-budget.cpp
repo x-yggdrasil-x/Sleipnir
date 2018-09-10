@@ -907,17 +907,11 @@ std::string CBudgetManager::GetRequiredPaymentsString(int nBlockHeight)
 
 CAmount CBudgetManager::GetTotalBudget(int nHeight)
 {
-    if (chainActive.Tip() == NULL) return 0;
+  if (chainActive.Tip() == NULL) return 0;
 
-    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-        CAmount nSubsidy = 500 * COIN;
-        return ((nSubsidy / 100) * 10) * 146;
-    }
+  CAmount nSubsidy = GetBlockValue(nHeight, true);
 
-    if (nHeight > 200 && nHeight <= 250000) {
-        return 0.77 * COIN * 1440 * 30;
-    }
-    return 1 * COIN * 1440 * 30;
+  return nSubsidy * Params().GetBudgetPercent() * GetBudgetPaymentCycleBlocks();
 }
 
 void CBudgetManager::NewBlock()
