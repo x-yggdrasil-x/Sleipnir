@@ -5805,12 +5805,14 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             vRecv >> LIMITED_STRING(pfrom->strSubVer, 256);
             pfrom->cleanSubVer = SanitizeString(pfrom->strSubVer);
         }
+        // TODO no longer instaban
         // broken releases with wrong blockchain data
-        if (pfrom->cleanSubVer == "/ODIN Core:1.1.0/") {
-            LOCK(cs_main);
-            Misbehaving(pfrom->GetId(), 100); // instantly ban them because they have old/bad block data
-            return false;
-        }
+        // if (pfrom->cleanSubVer == "/ODIN Core:1.1.0/") {
+        //     LOCK(cs_main);
+        //     LogPrint("net", "instant ban, caught blocked wallet version: ODIN Core:1.1.0\n");
+        //     Misbehaving(pfrom->GetId(), 100); // instantly ban them because they have old/bad block data
+        //     return false;
+        // }
         if (!vRecv.empty())
             vRecv >> pfrom->nStartingHeight;
         if (!vRecv.empty())
