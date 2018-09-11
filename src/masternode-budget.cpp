@@ -1039,8 +1039,9 @@ void CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
             if (nProp == 0) {
                 if (pfrom->HasFulfilledRequest(NetMsgType::MNVS)) {
                     LogPrint("mnbudget","mnvs - peer already asked me for the list\n");
-                    LogPrintf("Misbehaving: ASKED FOR LIST\n");
-                    Misbehaving(pfrom->GetId(), 20);
+                    // TODO: Determine why this happens often and is bannable offense
+                    // LogPrintf("Misbehaving: ASKED FOR LIST\n");
+                    // Misbehaving(pfrom->GetId(), 20);
                     return;
                 }
                 pfrom->FulfilledRequest(NetMsgType::MNVS);

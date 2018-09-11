@@ -364,8 +364,9 @@ void CMasternodePayments::ProcessMessageMasternodePayments(CNode* pfrom, std::st
         if (Params().NetworkID() == CBaseChainParams::MAIN) {
             if (pfrom->HasFulfilledRequest(NetMsgType::MNGET)) {
                 LogPrint("masternode","mnget - peer already asked me for the list\n");
-                LogPrintf("Misbehaving: HAS DONE REQUEST\n");
-                Misbehaving(pfrom->GetId(), 20);
+                // TODO: Determine why this happens often and is bannable offense
+                // LogPrintf("Misbehaving: HAS DONE REQUEST\n");
+                // Misbehaving(pfrom->GetId(), 20);
                 return;
             }
         }
