@@ -1001,6 +1001,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         if (fAcceptable) {
             if (GetInputAge(vin) < MASTERNODE_MIN_CONFIRMATIONS) {
                 LogPrint("masternode","dsee - Input must have least %d confirmations\n", MASTERNODE_MIN_CONFIRMATIONS);
+                LogPrintf("Misbehaving: INPUT LACKS CONFIRMATIONS\n");
                 Misbehaving(pfrom->GetId(), 20);
                 return;
             }

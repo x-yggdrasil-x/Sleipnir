@@ -145,7 +145,11 @@ class CMainParams : public CChainParams
         pchMessageStart[2] = 0x69;
         pchMessageStart[3] = 0x53;
 
-        vAlertPubKey = ParseHex("048e8c3d748796606a5b22ddb5bc7daf1db2f2428529c7836d41a897c675e8e247dade5476751ef5984e7da30e6b927c13a7a61197281b2d16275d81f63982fd6c");
+        vAlertPubKey = ParseHex("048e8c3d748796606a5b22ddb5bc7d"
+          "af1db2f2428529c7836d41a897c675"
+          "e8e247dade5476751ef5984e7da30e"
+          "6b927c13a7a61197281b2d16275d81"
+          "f63982fd6c");
 
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
@@ -262,7 +266,12 @@ class CMainParams : public CChainParams
         fHeadersFirstSyncingActive = false;
 
         nPoolMaxTransactions = 3;
-        strSporkKey = "04472764f5675aa5ae3c8f0b2b5d54bbd6d91b020a8dbd688350ed8646bc82f211f626c9db8bbdc1e51660f1630ffccca9736217cc6daa660c0154e459353a2a29";
+        vSporkKey = ParseHex("0437d020e253ede1f3b60c63b8fca7"
+          "1e2ad650ef3baf59b6b5138f8f86d0"
+          "c17784f7c7eb8fa81761b711e8f16b"
+          "e7674fb6944679bc34193f690b1b6c"
+          "a04aefeb34");
+
 	      strObfuscationPoolDummyAddress = "oPjJyuGDrFfT3vmiv1SHzFf9bgFwheKxpx";
         //nStartMasternodePayments = genesis.nTime + 500; //Wed, 25 Jun 2014 20:36:16 GMT
 
@@ -293,7 +302,11 @@ public:
         pchMessageStart[2] = 0x37;
         pchMessageStart[3] = 0x22;
 
-        vAlertPubKey = ParseHex("0402063889d534fb2b51e521c6f730586f86db8577cad991fb0f07c0c54cbc0cac32d8e42ca3cc6b98a76c2216e727ddb298b2489cf392dda006c551acf2f2e991");
+        vAlertPubKey = ParseHex("0402063889d534fb2b51e521c6f730"
+          "586f86db8577cad991fb0f07c0c54c"
+          "bc0cac32d8e42ca3cc6b98a76c2216"
+          "e727ddb298b2489cf392dda006c551"
+          "acf2f2e991");
 
         nEnforceBlockUpgradeMajority = 51;
         nRejectBlockOutdatedMajority = 75;
@@ -368,7 +381,13 @@ public:
         fTestnetToBeDeprecatedFieldRPC = true;
 
         nPoolMaxTransactions = 2;
-        strSporkKey = "04659d53bd8f7ad9d34a17281febedac754e5a6eb136142d3a9c6c0ea21b6ed7498ceb3d872eed00ae755f7aeadaeb1d9ab5e1a8f1e7efcd0ddcb39d4623c12790";
+
+        vSporkKey = ParseHex("04125c0726a76ca511fdd3847c42a6"
+          "61c4152c578f9cc66f5ff0e877d34f"
+          "835edbd742b453d763f9efaf75d25a"
+          "a028fdf8cdaf458ce0c4792a360903"
+          "e35f6b8272");
+
         strObfuscationPoolDummyAddress = "PCYiHgGJJ6xGHqivmdZrYjRnhaYf6AJ2Mp";
         //nStartMasternodePayments = 1505224800; //Fri, 09 Jan 2015 21:05:58 GMT
     }
@@ -448,7 +467,11 @@ public:
         fMineBlocksOnDemand = true;
         fTestnetToBeDeprecatedFieldRPC = false;
 
-        strSporkKey = "04866dc02c998b7e1ab16fe14e0d86554595da90c36acb706a4d763b58ed0edb1f82c87e3ced065c5b299b26e12496956b9e5f9f19aa008b5c46229b15477c875a";
+        vSporkKey = ParseHex("04125c0726a76ca511fdd3847c42a6"
+          "61c4152c578f9cc66f5ff0e877d34f"
+          "835edbd742b453d763f9efaf75d25a"
+          "a028fdf8cdaf458ce0c4792a360903"
+          "e35f6b8272");
     }
     const Checkpoints::CCheckpointData& Checkpoints() const
     {

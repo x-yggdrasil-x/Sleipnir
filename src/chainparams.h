@@ -91,7 +91,7 @@ public:
     const std::vector<CAddress>& FixedSeeds() const { return vFixedSeeds; }
     virtual const Checkpoints::CCheckpointData& Checkpoints() const = 0;
     int PoolMaxTransactions() const { return nPoolMaxTransactions; }
-    std::string SporkKey() const { return strSporkKey; }
+    std::vector<unsigned char> SporkKey() const { return vSporkKey; }
     std::string ObfuscationPoolDummyAddress() const { return strObfuscationPoolDummyAddress; }
     int64_t BudgetFeeConfirmations() const { return nBudgetFeeConfirmations; }
     CBaseChainParams::Network NetworkID() const { return networkID; }
@@ -159,7 +159,7 @@ protected:
     bool fTestnetToBeDeprecatedFieldRPC;
     bool fHeadersFirstSyncingActive;
     int nPoolMaxTransactions;
-    std::string strSporkKey;
+    std::vector<unsigned char> vSporkKey;
     std::string strObfuscationPoolDummyAddress;
     std::string zerocoinModulus;
     std::string oldZerocoinModulus;

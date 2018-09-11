@@ -2342,8 +2342,10 @@ void static InvalidBlockFound(CBlockIndex* pindex, const CValidationState& state
         if (it != mapBlockSource.end() && State(it->second)) {
             CBlockReject reject = {state.GetRejectCode(), state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH), pindex->GetBlockHash()};
             State(it->second)->rejects.push_back(reject);
-            if (nDoS > 0)
-                Misbehaving(it->second, nDoS);
+            if (nDoS > 0) {
+              LogPrintf("Misbehaving: InvalidBlockFound\n");
+              Misbehaving(it->second, nDoS);
+            }
         }
     }
     if (!state.CorruptionPossible()) {
@@ -5939,6 +5941,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         if (pfrom->nVersion < CADDR_TIME_VERSION && addrman.size() > 1000)
             return true;
         if (vAddr.size() > 1000) {
+            LogPrintf("Misbehaving: Address older than 1000 %u\n", vAddr.size());
             Misbehaving(pfrom->GetId(), 20);
             return error("message addr size() = %u", vAddr.size());
         }
@@ -6001,6 +6004,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         vRecv >> vInv;
         if (vInv.size() > MAX_INV_SZ) {
             LOCK(cs_main);
+            LogPrintf("Misbehaving: Message > MAX_INV (%u > %u)\n", vInv.size(), MAX_INV_SZ);
             Misbehaving(pfrom->GetId(), 20);
             return error("message inv size() = %u", vInv.size());
         }
@@ -6065,6 +6069,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         vRecv >> vInv;
         if (vInv.size() > MAX_INV_SZ) {
             LOCK(cs_main);
+            LogPrintf("Misbehaving: Message(GETDATA) > MAX_INV (%u > %u)\n", vInv.size(), MAX_INV_SZ);
             Misbehaving(pfrom->GetId(), 20);
             return error("message getdata size() = %u", vInv.size());
         }
@@ -6255,6 +6260,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                         if (stateDummy.IsInvalid(nDos) && nDos > 0 && (!state.CorruptionPossible() || State(fromPeer)->fHaveWitness))
                         {
                             // Punish peer that gave us an invalid orphan tx
+                            LogPrintf("Misbehaving: Peer gave orphan TX DOS %d\n", nDos);
                             Misbehaving(fromPeer, nDos);
                             setMisbehaving.insert(fromPeer);
                             LogPrint("mempool", "   invalid orphan tx %s\n", orphanHash.ToString());
@@ -6318,8 +6324,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             if (state.GetRejectCode() < REJECT_INTERNAL)
                 pfrom->PushMessage(NetMsgType::REJECT, strCommand, state.GetRejectCode(),
                     state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH), inv.hash);
-            if (nDoS > 0 && (!state.CorruptionPossible() || State(pfrom->id)->fHaveWitness))
+            if (nDoS > 0 && (!state.CorruptionPossible() || State(pfrom->id)->fHaveWitness)) {
+                LogPrintf("Misbehaving: mempoolreject\n");
                 Misbehaving(pfrom->GetId(), nDoS);
+            }
         }
     }
 
@@ -6332,6 +6340,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         unsigned int nCount = ReadCompactSize(vRecv);
         if (nCount > MAX_HEADERS_RESULTS) {
             LOCK(cs_main);
+            LogPrintf("Misbehaving: nCount > MAX_HEADERS_RESULT (%u > %u)\n", nCount, MAX_HEADERS_RESULTS);
             Misbehaving(pfrom->GetId(), 20);
             return error("headers message size = %u", nCount);
         }
@@ -6352,6 +6361,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             CValidationState state;
             if (pindexLast != NULL && header.hashPrevBlock != pindexLast->GetBlockHash()) {
                 LOCK(cs_main);
+                LogPrintf("Misbehaving: headerPREV != lastHASH\n");
                 Misbehaving(pfrom->GetId(), 20);
                 return error("non-continuous headers sequence");
             }
@@ -6362,8 +6372,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             if (!AcceptBlockHeader((CBlock)header, state, &pindexLast)) {
                 int nDoS;
                 if (state.IsInvalid(nDoS)) {
-                    if (nDoS > 0)
+                    if (nDoS > 0) {
+                        LogPrintf("Misbehaving:Blockheader invalid?\n");
                         Misbehaving(pfrom->GetId(), nDoS);
+                    }
                     std::string strError = "invalid header received " + header.GetHash().ToString();
                     return error(strError.c_str());
                 }
