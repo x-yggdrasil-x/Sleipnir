@@ -27,20 +27,17 @@ std::vector<CFinalizedBudgetBroadcast> vecImmatureFinalizedBudgets;
 int nSubmittedFinalBudget;
 
 CAmount GetBudgetSystemCollateralAmount(int nHeight) {
-    if (nHeight <= 250000) {
-        return 50 * COIN;
-    } else {
-        return 25 * COIN;
-    }
+  return 50 * COIN;
 }
 
 int GetBudgetPaymentCycleBlocks()
 {
     // Amount of blocks in a months period of time (using 1 minutes per) = (60*24*30)
-    if (Params().NetworkID() == CBaseChainParams::MAIN) return 43200;
-    //for testing purposes
+    if (Params().NetworkID() == CBaseChainParams::MAIN)
+      return 150;
 
-    return 144; //ten times per day
+    // for testing purposes
+    return 144;
 }
 
 bool IsBudgetCollateralValid(uint256 nTxCollateralHash, uint256 nExpectedHash, std::string& strError, int64_t& nTime, int& nConf, bool fBudgetFinalization)
@@ -1493,7 +1490,7 @@ bool CBudgetProposal::IsValid(std::string& strError, bool fCheckCollateral)
     //     }
     // }
 
-    //can only pay out 10% of the possible coins (min value of coins)
+    // can only pay out 10% of the possible coins (min value of coins)
     if (nAmount > budget.GetTotalBudget(nBlockStart)) {
         strError = "Proposal " + strProposalName + ": Payment more than max";
         return false;
