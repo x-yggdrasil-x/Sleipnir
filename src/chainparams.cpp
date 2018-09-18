@@ -10,7 +10,6 @@
 #include "libzerocoin/Params.h"
 #include "chainparams.h"
 #include "random.h"
-#include "spork.h"
 #include "util.h"
 #include "utilstrencodings.h"
 
@@ -216,9 +215,6 @@ class CMainParams : public CChainParams
         genesis.nTime           = 1537275388; // Sept 18, 2018 (date +%s)
         genesis.nBits           = 0x207fffff;
         genesis.nNonce          = 0;
-
-        printf("ODIN MAIN\n");
-        printf("BLOCKED-->%d", GetSporkValue(SPORK_16_ZEROCOIN_MAINTENANCE_MODE));
 
         hashGenesisBlock = genesis.GetHash();
 
