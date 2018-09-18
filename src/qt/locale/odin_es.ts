@@ -4580,8 +4580,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "ODIN Alert" admin@foo.com
         <translation>Debes especificar un masternodeprivkey en la configuración. Por favor mira la documentación por ayuda.</translation>
     </message>
     <message>
-        <source>(34221 could be used only on mainnet)</source>
-        <translation>(34221 puede ser utilizado solo en mainnet)</translation>
+        <source>(22100 could be used only on mainnet)</source>
+        <translation>(22100 puede ser utilizado solo en mainnet)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -4592,8 +4592,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "ODIN Alert" admin@foo.com
         <translation>(predeterminado: 1)</translation>
     </message>
     <message>
-        <source>(must be 34221 for mainnet)</source>
-        <translation>(debe ser 34221 para un mainnet)</translation>
+        <source>(must be 22100 for mainnet)</source>
+        <translation>(debe ser 22100 para un mainnet)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>

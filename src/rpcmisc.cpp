@@ -345,7 +345,7 @@ UniValue spork(const UniValue& params, bool fHelp)
 
     throw runtime_error(
         "spork <name> [<value>]\n"
-        "<name> is the corresponding spork name, or 'show' to show all current spork settings, active to show which sporks are active"
+        "<name> is the corresponding spork name, or 'show' to show all current spork settings, active to show which sporks are active\n"
         "<value> is a epoch datetime to enable or disable spork" +
         HelpRequiringPassphrase());
 }

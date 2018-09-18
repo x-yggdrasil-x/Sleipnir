@@ -23,7 +23,13 @@ bool fTestNet = false; //Params().NetworkID() == CBaseChainParams::TESTNET;
 
 // Hard checkpoints of stake modifiers to ensure they are deterministic
 static std::map<int, unsigned int> mapStakeModifierCheckpoints =
-    boost::assign::map_list_of(0, 0xfd11f4e7u);
+    boost::assign::map_list_of
+    (0, 0x00);
+    // ( 301, 0x1709ef555ac9448aa5ec5dec842cbd03f742238de2ccabf65a2978b0482b8294 )
+    // ( 401, 0xc7a454c54a1926c85e8ba3d227395819355479a268aca65e1d7d756770eaa7c0 )
+    // ( 501, 0xc9f08db642f4f300ce37a7dc0949fc4141704105fce48509f5b92ca34155bd09 )
+    // ( 99999, 0xf555cfd2u )
+    // (219999, 0x91b7444du );
 
 // Get time weight
 int64_t GetWeight(int64_t nIntervalBeginning, int64_t nIntervalEnd)

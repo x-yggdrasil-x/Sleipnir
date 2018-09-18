@@ -3490,8 +3490,8 @@ https://www.transifex.com/</translation>
         <translation>Você deve especificar uma masternodeprivkey na configuração. Favor verificar o manual para obter ajuda.</translation>
     </message>
     <message>
-        <source>(34221 could be used only on mainnet)</source>
-        <translation>(34221 could be used only on mainnet)</translation>
+        <source>(22100 could be used only on mainnet)</source>
+        <translation>(22100 could be used only on mainnet)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -3502,8 +3502,8 @@ https://www.transifex.com/</translation>
         <translation>(padrão: 1)</translation>
     </message>
     <message>
-        <source>(must be 34221 for mainnet)</source>
-        <translation>(deve ser 34221 para mainnet)</translation>
+        <source>(must be 22100 for mainnet)</source>
+        <translation>(deve ser 22100 para mainnet)</translation>
     </message>
     <message>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
