@@ -290,7 +290,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 {
     QActionGroup* tabGroup = new QActionGroup(this);
 
-    overviewAction = new QAction(QIcon(":/icons/overview"), tr("&Overview"), this);
+    overviewAction = new QAction(QIcon(":/icons/overview-active"), tr(""), this);
     overviewAction->setStatusTip(tr("Show general overview of wallet"));
     overviewAction->setToolTip(overviewAction->statusTip());
     overviewAction->setCheckable(true);
@@ -301,7 +301,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 #endif
     tabGroup->addAction(overviewAction);
 
-    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send"), this);
+    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr(""), this);
     sendCoinsAction->setStatusTip(tr("Send coins to a ODIN address"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);
@@ -312,7 +312,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 #endif
     tabGroup->addAction(sendCoinsAction);
 
-    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
+    receiveCoinsAction = new QAction(QIcon(":/icons/receive"), tr(""), this);
     receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and ODIN: URIs)"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
@@ -323,7 +323,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 #endif
     tabGroup->addAction(receiveCoinsAction);
 
-    historyAction = new QAction(QIcon(":/icons/history"), tr("&Transactions"), this);
+    historyAction = new QAction(QIcon(":/icons/history"), tr(""), this);
     historyAction->setStatusTip(tr("Browse transaction history"));
     historyAction->setToolTip(historyAction->statusTip());
     historyAction->setCheckable(true);
@@ -334,7 +334,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 #endif
     tabGroup->addAction(historyAction);
 
-    privacyAction = new QAction(QIcon(":/icons/privacy"), tr("&Privacy"), this);
+    privacyAction = new QAction(QIcon(":/icons/privacy"), tr(""), this);
     privacyAction->setStatusTip(tr("Privacy Actions for zODIN"));
     privacyAction->setToolTip(privacyAction->statusTip());
     privacyAction->setCheckable(true);
@@ -349,7 +349,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 
     QSettings settings;
     if (settings.value("fShowMasternodesTab").toBool()) {
-        masternodeAction = new QAction(QIcon(":/icons/masternodes"), tr("&Masternodes"), this);
+        masternodeAction = new QAction(QIcon(":/icons/masternodes"), tr(""), this);
         masternodeAction->setStatusTip(tr("Browse masternodes"));
         masternodeAction->setToolTip(masternodeAction->statusTip());
         masternodeAction->setCheckable(true);
@@ -441,7 +441,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 
     multisigCreateAction = new QAction(QIcon(":/icons/address-book"), tr("&Multisignature creation..."), this);
     multisigCreateAction->setStatusTip(tr("Create a new multisignature address and add it to this wallet"));
-    multisigSpendAction = new QAction(QIcon(":/icons/send"), tr("&Multisignature spending..."), this);
+    multisigSpendAction = new QAction(QIcon(":/icons/send_dark"), tr("&Multisignature spending..."), this);
     multisigSpendAction->setStatusTip(tr("Spend from a multisignature address"));
     multisigSignAction = new QAction(QIcon(":/icons/editpaste"), tr("&Multisignature signing..."), this);
     multisigSignAction->setStatusTip(tr("Sign with a multisignature address"));
@@ -566,7 +566,7 @@ void BitcoinGUI::createToolBars()
         }
         toolbar->setMovable(false); // remove unused icon in upper left corner
         toolbar->setOrientation(Qt::Vertical);
-        toolbar->setIconSize(QSize(40,40));
+        toolbar->setIconSize(QSize(85,85));
         overviewAction->setChecked(true);
 
         /** Create additional container for toolbar and walletFrame and make it the central widget.
@@ -575,7 +575,7 @@ void BitcoinGUI::createToolBars()
         QVBoxLayout* layout = new QVBoxLayout;
         layout->addWidget(toolbar);
         layout->addWidget(walletFrame);
-        layout->setSpacing(0);
+        layout->setSpacing(10);
         layout->setContentsMargins(QMargins());
         layout->setDirection(QBoxLayout::LeftToRight);
         QWidget* containerWidget = new QWidget();
@@ -776,6 +776,21 @@ void BitcoinGUI::showHelpMessageClicked()
 }
 
 #ifdef ENABLE_WALLET
+
+void BitcoinGUI::resetToolbarActionIcons()
+{
+  overviewAction->setIcon(QIcon(":/icons/overview"));
+  historyAction->setIcon(QIcon(":/icons/history"));
+  receiveCoinsAction->setIcon(QIcon(":/icons/receive"));
+  sendCoinsAction->setIcon(QIcon(":/icons/send"));
+  privacyAction->setIcon(QIcon(":/icons/privacy"));
+
+  QSettings settings;
+  if (settings.value("fShowMasternodesTab").toBool()) {
+    masternodeAction->setIcon(QIcon(":/icons/masternodes"));
+  }
+}
+
 void BitcoinGUI::openClicked()
 {
     OpenURIDialog dlg(this);
@@ -787,12 +802,16 @@ void BitcoinGUI::openClicked()
 void BitcoinGUI::gotoOverviewPage()
 {
     overviewAction->setChecked(true);
+    resetToolbarActionIcons();
+    overviewAction->setIcon(QIcon(":/icons/overview-active"));
     if (walletFrame) walletFrame->gotoOverviewPage();
 }
 
 void BitcoinGUI::gotoHistoryPage()
 {
     historyAction->setChecked(true);
+    resetToolbarActionIcons();
+    historyAction->setIcon(QIcon(":/icons/history-active"));
     if (walletFrame) walletFrame->gotoHistoryPage();
 }
 
@@ -801,6 +820,8 @@ void BitcoinGUI::gotoMasternodePage()
     QSettings settings;
     if (settings.value("fShowMasternodesTab").toBool()) {
         masternodeAction->setChecked(true);
+        resetToolbarActionIcons();
+        masternodeAction->setIcon(QIcon(":/icons/masternodes-active"));
         if (walletFrame) walletFrame->gotoMasternodePage();
     }
 }
@@ -808,18 +829,24 @@ void BitcoinGUI::gotoMasternodePage()
 void BitcoinGUI::gotoReceiveCoinsPage()
 {
     receiveCoinsAction->setChecked(true);
+    resetToolbarActionIcons();
+    receiveCoinsAction->setIcon(QIcon(":/icons/receive-active"));
     if (walletFrame) walletFrame->gotoReceiveCoinsPage();
 }
 
 void BitcoinGUI::gotoPrivacyPage()
 {
     privacyAction->setChecked(true);
+    resetToolbarActionIcons();
+    privacyAction->setIcon(QIcon(":/icons/privacy-active"));
     if (walletFrame) walletFrame->gotoPrivacyPage();
 }
 
 void BitcoinGUI::gotoSendCoinsPage(QString addr)
 {
     sendCoinsAction->setChecked(true);
+    resetToolbarActionIcons();
+    sendCoinsAction->setIcon(QIcon(":/icons/send-active"));
     if (walletFrame) walletFrame->gotoSendCoinsPage(addr);
 }
 

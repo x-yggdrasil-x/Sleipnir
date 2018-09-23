@@ -197,6 +197,8 @@ public slots:
 
 private slots:
 #ifdef ENABLE_WALLET
+    /** Reset iconography for primary toolbar action menu */
+    void resetToolbarActionIcons();
     /** Switch to overview (home) page */
     void gotoOverviewPage();
     /** Switch to history (transactions) page */

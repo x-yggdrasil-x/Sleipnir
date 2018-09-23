@@ -32,9 +32,9 @@ CAmount GetBudgetSystemCollateralAmount(int nHeight) {
 
 int GetBudgetPaymentCycleBlocks()
 {
-    // Amount of blocks in a months period of time (using 1 minutes per) = (60*24*30)
+    // Amount of blocks in a months period of time (using 2 minutes per)
     if (Params().NetworkID() == CBaseChainParams::MAIN)
-      return 150;
+      return (30 * 24 * 30); // estimate 30 blocks an hour * hours in a day * avg. days in a month
 
     // for testing purposes
     return 144;

@@ -82,7 +82,7 @@ QDialog[objectName="AddressBookPage"],
 QDialog[objectName="MultisigDialog"],
 QDialog[objectName="AskPassphraseDialog"],
 QDialog[objectName="Bip38ToolDialog"],
-QDialog[objectName="MultiSendDialog"], QTabWidget[objectName="multisigTabWidget"],
+QDialog[objectName="MultiSendDialog"], QTabWidget[objectName="multisigTabWidget"], QWidget[objectName="addMultisigTab"], QWidget[objectName="createTransactionTab"], QWidget[objectName="signMultisigTransaction"],
 QDialog[objectName="OptionsDialog"],
 QDialog[objectName="BlockExplorer"] {
   background: none #FCF9F1;
@@ -136,29 +136,29 @@ QTextEdit {
 **  Default :: QMenu
 ************************************/
 QMenuBar {
-background-color:#fff;
+  background-color:#fff;
 }
 
 QMenuBar::item {
-background-color:#fff;
-color:#333;
+  background-color:#fff;
+  color:#333;
 }
 
 QMenuBar::item:selected {
-background-color:#f8f6f6;
+  background-color:#f8f6f6;
 }
 
 QMenu {
-background-color:#f8f6f6;
+  background-color:#f8f6f6;
 }
 
 QMenu::item {
-color:#333;
+  color:#333;
 }
 
 QMenu::item:selected {
-background-color:#f2f0f0;
-color:#333;
+  background-color:#f2f0f0;
+  color:#333;
 }
 
 
@@ -166,29 +166,33 @@ color:#333;
 **  Default :: Wallet Nav-bar
 ************************************/
 QToolBar {
-background-color:#00A56C;
-border:0px solid #000;
-padding:0;
-margin:0;
+  background: none #1d2323 !important;
+  border: 0 solid #000;
+  padding: 10px;
+  margin: 0;
+}
+
+QToolBar[objectName="Main-Toolbar"] {
+  /* border: 2px solid #ffffff !important; */
 }
 
 QToolBar > QToolButton {
-background-color:#00A56C;
-border:0px solid #333;
-min-height:2.5em;
-padding: 0em 1em;
-font-weight:bold;
-color:#fff;
+  background: none transparent;
+  border: 0 solid #333;
+  min-height: 0;
+  padding: 0 0;
+  font-weight: normal;
+  color: #ffffff;
 }
 
 QToolBar > QToolButton:checked {
-background-color:#fff;
-color:#333;
-font-weight:bold;
+  background: none transparent;
+  color: #333333;
+  font-weight: normal;
 }
 
 QMessageBox {
-background-color:#F8F6F6;
+  background-color:#F8F6F6;
 }
 
 
@@ -261,12 +265,14 @@ QLabel[objectName*="heading3"] {
   font-size: 14px;
 }
 
-QLabel[objectName*="pageHeading"] {
-  font-family: 'Odin', arial, helvetica, sans-serif;
-  color: #333333;
-  font-size: 21px;
-  border-left: 2px solid #DD6B40;
-  text-transform: uppercase;
+QLabel[objectName*="pageHeading"],
+.QLabel[objectName*="pageHeading"] {
+  font-family: 'Odin', arial, helvetica, sans-serif !important;
+  color: #333333 !important;
+  font-size: 21px !important;
+  border-left: 2px solid #DD6B40 !important;
+  font-weight: normal !important;
+  text-transform: uppercase !important;
 }
 
 QLabel[objectName*="userInput"],
@@ -771,6 +777,27 @@ width:15px;
 
 QDialog .QTabWidget .QWidget QComboBox {
 min-height:15px;
+}
+
+
+/** MULTISIG DIALOG **/
+QDialog[objectName="MultisigDialog"] QTextEdit[objectName="addMultisigStatus"] {
+  border: 1px solid #dddddd;
+}
+
+QDialog[objectName="MultisigDialog"] QWidget[objectName="addAddressWidget"],
+QDialog[objectName="MultisigDialog"] QWidget[objectName="addAddressWidget"] QWidget {
+  background: none #ffffff !important;
+}
+
+QDialog[objectName="MultisigDialog"] QWidget[objectName="txInputsWidget"],
+QDialog[objectName="MultisigDialog"] QWidget[objectName="txInputsWidget"] QWidget {
+  background: none #ffffff !important;
+}
+
+QDialog[objectName="MultisigDialog"] QWidget[objectName="destinationsScrollAreaContents"],
+QDialog[objectName="MultisigDialog"] QWidget[objectName="destinationsScrollAreaContents"] QWidget {
+  background: none #ffffff !important;
 }
 
 /**************************** FILE MENU *************************************************/

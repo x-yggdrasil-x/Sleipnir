@@ -160,7 +160,7 @@ class CMainParams : public CChainParams
         nMinerThreads           = 0;
         nTargetTimespan         = 2 * 60;   // Odin: 2 minutes
         nTargetSpacing          = 2 * 60;   // Odin: 2 minutes
-        nMaturity               = 9;        // Transaction maturity
+        nMaturity               = 5;        // Transaction maturity
         nMasternodeCountDrift   = 20;
         nMaxMoneyOut            = 2000000000 * COIN; // Max Ø per transaction
         bnProofOfWorkLimit      = ~uint256(0) >> 1;

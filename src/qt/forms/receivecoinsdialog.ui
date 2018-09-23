@@ -311,7 +311,7 @@
                  </property>
                  <property name="icon">
                   <iconset>
-                   <normaloff>:/icons/receiving_addresses</normaloff>:/icons/receiving_addresses</iconset>
+                   <normaloff>:/icons/receive_dark</normaloff>:/icons/receive_dark</iconset>
                  </property>
                 </widget>
                </item>
