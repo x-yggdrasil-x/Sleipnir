@@ -64,7 +64,8 @@ static Checkpoints::MapCheckpoints mapCheckpoints =
     (    0, uint256("0x31ca29566549e444cf227a0e2e067aed847c2acc541d3bbf9ca1ae89f4fd57d7"))
     (   1000, uint256("0x00000015b27306e60b6e837050de648bfd3408fee36fc23d217f6e9d37746b93"))
     (   2000, uint256("0x0000000a7f6ed7a1fb0c0fde5f4865d0c686647f00468858642ef420d6e11e72"))
-    (   3009, uint256("0x0000001a36d1df4680abcb3efa3636471cadc9a79738103b099e60b01e44beed"));
+    (   3000, uint256("0x0000000e41766bcd823a35a565dd9d1b5c2810875bdd0ad47f763c53468a734d"))
+    (   3600, uint256("0x0000000f9b2354ef4b4d717c580a0dc653c4b04e53a37e585d94a9030157167a"));
 
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
@@ -167,7 +168,7 @@ class CMainParams : public CChainParams
         nMasternodeCountDrift   = 20;
         nMaxMoneyOut            = 2000000000 * COIN; // Max Ø per transaction
         bnProofOfWorkLimit      = ~uint256(0) >> 1;
-        nLastPOWBlock           = 3600;     // Last Proof-of-Work block
+        nLastPOWBlock           = 4001;     // Last Proof-of-Work block
         nModifierUpdateBlock    = 999999999;
         nMinStakeAge            = 60 * 60 * 24; // 24 hours
 
@@ -230,6 +231,10 @@ class CMainParams : public CChainParams
         vSeeds.push_back(CDNSSeedData("sfo1.odinblockchain.org", "sfo1.odinblockchain.org")); // MN 04
         vSeeds.push_back(CDNSSeedData("blr1.odinblockchain.org", "blr1.odinblockchain.org")); // MN 05
         vSeeds.push_back(CDNSSeedData("ams1.odinblockchain.org", "ams1.odinblockchain.org")); // MN 06
+        vSeeds.push_back(CDNSSeedData("tyo1.odinblockchain.org", "tyo1.odinblockchain.org")); // MN 07
+        vSeeds.push_back(CDNSSeedData("chi1.odinblockchain.org", "chi1.odinblockchain.org")); // MN 08
+        vSeeds.push_back(CDNSSeedData("syd1.odinblockchain.org", "syd1.odinblockchain.org")); // MN 09
+        vSeeds.push_back(CDNSSeedData("sgp1.odinblockchain.org", "sgp1.odinblockchain.org")); // MN 10
 
         // value prefixed to addresses that consist of public keys
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 115);
