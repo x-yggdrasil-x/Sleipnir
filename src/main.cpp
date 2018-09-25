@@ -2166,6 +2166,8 @@ int64_t GetBlockValue(int nHeight, bool fBudgetBlock)
    * PoW Schedule -  0% to proposals
    * PoS Schedule - 10% to proposals for all phases starting in Ragnarök
    * 90% distributed to Stake wallet and Masternode
+   * 
+   * 1 Day = 720 Blocks
    */
 
   int64_t nBudgetMultiplier = COIN;
@@ -2174,25 +2176,23 @@ int64_t GetBlockValue(int nHeight, bool fBudgetBlock)
 
   CAmount nSubsidy = 33 * nBudgetMultiplier;
 
-  if (nHeight <= 3600) {
-    nSubsidy = 27500 * COIN;
-  } else if (nHeight >= 3601 && nHeight <= 4000) {
-    nSubsidy = 5 * COIN;
-  } else if (nHeight >= 4001 && nHeight <= 10081) {     
+  if (nHeight <= 200) {
+    nSubsidy = 495000 * COIN;
+  } else if (nHeight >= 201 && nHeight <= 3800) {
     nSubsidy = 10 * COIN;
-  } else if (nHeight >= 10082 && nHeight <= 32402) {
+  } else if (nHeight >= 3801 && nHeight <= 26121) {
     nSubsidy = 355 * nBudgetMultiplier;
-  } else if (nHeight >= 32403 && nHeight <= 76323) {
+  } else if (nHeight >= 26122 && nHeight <= 70042) {
     nSubsidy = 195 * nBudgetMultiplier;
-  } else if (nHeight >= 76324 && nHeight <= 339124) {
+  } else if (nHeight >= 70043 && nHeight <= 332843) {
     nSubsidy = 53 * nBudgetMultiplier;
-  } else if (nHeight >= 339125 && nHeight <= 602645) {
+  } else if (nHeight >= 332844 && nHeight <= 596364) {
     nSubsidy = 45 * nBudgetMultiplier;
-  } else if (nHeight >= 602646) {
+  } else if (nHeight >= 596365) {
     nSubsidy = 33 * nBudgetMultiplier;
   }
 
-  LogPrintf("GetBlockValue COIN=%d, Subsidy=%d, CommunityBudget=%d\n", COIN, nSubsidy, Params().GetBudgetPercent());
+  LogPrintf("GetBlockValue Subsidy=%d, CommunityBudget=%d\n", nSubsidy, Params().GetBudgetPercent());
   return nSubsidy;
 }
 
