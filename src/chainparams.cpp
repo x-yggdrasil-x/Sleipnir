@@ -65,12 +65,14 @@ static Checkpoints::MapCheckpoints mapCheckpoints =
     (   1000, uint256("0x00000015b27306e60b6e837050de648bfd3408fee36fc23d217f6e9d37746b93"))
     (   2000, uint256("0x0000000a7f6ed7a1fb0c0fde5f4865d0c686647f00468858642ef420d6e11e72"))
     (   3000, uint256("0x0000000e41766bcd823a35a565dd9d1b5c2810875bdd0ad47f763c53468a734d"))
-    (   3600, uint256("0x0000000f9b2354ef4b4d717c580a0dc653c4b04e53a37e585d94a9030157167a"));
+    (   3600, uint256("0x0000000f9b2354ef4b4d717c580a0dc653c4b04e53a37e585d94a9030157167a"))
+    (   3800, uint256("0x0000001266535c2e97b125dc5ec505cd65d205ddf5a2988bdf88d9d371de91a9"))
+    (   4040, uint256("0x1c196a4ffc94dbf4b32218e3fd38ad5090b6b737acfb1861865a32f9aa0fdfd2"));
 
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1537275388, // * UNIX timestamp of last checkpoint block
-    0,          // * total number of transactions between genesis and last checkpoint
+    1537832694, // * UNIX timestamp of last checkpoint block
+    4154,       // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     3600        // * estimated number of transactions per day after checkpoint
 };
@@ -162,20 +164,21 @@ class CMainParams : public CChainParams
         nDefaultPort            = 22100;    // Main (mainnet) P2P Port
         nMaxReorganizationDepth = 100;
         nMinerThreads           = 0;
-        nTargetTimespan         = 2 * 60;   // Odin: 2 minutes
-        nTargetSpacing          = 2 * 60;   // Odin: 2 minutes
+        nTargetTimespan         = 60 * 2;   // Odin: 2 minutes
+        nTargetSpacing          = 60 * 2;   // Odin: 2 minutes
         nMaturity               = 5;        // Transaction maturity
         nMasternodeCountDrift   = 20;
-        nMaxMoneyOut            = 2000000000 * COIN; // Max Ø per transaction
+        nMaxMoneyOut            = 20000000 * COIN; // Max 20kk Ø per transaction
         bnProofOfWorkLimit      = ~uint256(0) >> 1;
-        nLastPOWBlock           = 4001;     // Last Proof-of-Work block
-        nModifierUpdateBlock    = 999999999;
-        nMinStakeAge            = 60 * 60 * 24; // 24 hours
+        nLastPOWBlock           = 4101;     // Last Proof-of-Work block
+        nModifierUpdateBlock    = 4101;
+        nMinStakeAge            = 60 * 5; // 5 minutes ~~24 hours~~
 
         // Modifier interval: time to elapse before new modifier is computed
-        // Set to 3-hour for production network and 20-minute for test network
+        // ~~Set to 3-hour for production network and 20-minute for test network~~
+        // Every block retargeting
         // MODIFIER_INTERVAL: time to elapse before new modifier is computed
-        nModifierInterval = 60 * 60 * 3;
+        nModifierInterval = 60 * 2;
 
         nModifierIntervalRatio        = 3;  // ratio of group interval length between the last group and the first group
         nBudgetPercent                = 10; // % of block reward that goes to community proposals
