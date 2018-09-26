@@ -13,7 +13,7 @@ using namespace std;
 void CChain::SetTip(CBlockIndex* pindex)
 {
     //TODO:pixel
-    LogPrintf("CChain SetTip index:%s\n", pindex->ToString());
+    //LogPrintf("CChain SetTip index:%s\n", pindex->ToString());
 
     if (pindex == NULL) {
         vChain.clear();

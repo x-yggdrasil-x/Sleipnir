@@ -164,8 +164,8 @@ class CMainParams : public CChainParams
         nDefaultPort            = 22100;    // Main (mainnet) P2P Port
         nMaxReorganizationDepth = 100;
         nMinerThreads           = 0;
-        nTargetTimespan         = 60 * 2;   // Odin: 2 minutes
-        nTargetSpacing          = 60 * 2;   // Odin: 2 minutes
+        nTargetTimespan         = 60 * 1;   // Odin: 1 day
+        nTargetSpacing          = 60 * 1;   // Odin: 1 minute
         nMaturity               = 5;        // Transaction maturity
         nMasternodeCountDrift   = 20;
         nMaxMoneyOut            = 20000000 * COIN; // Max 20kk Ø per transaction
@@ -178,9 +178,10 @@ class CMainParams : public CChainParams
         // ~~Set to 3-hour for production network and 20-minute for test network~~
         // Every block retargeting
         // MODIFIER_INTERVAL: time to elapse before new modifier is computed
-        nModifierInterval = 60 * 2;
-
-        nModifierIntervalRatio        = 3;  // ratio of group interval length between the last group and the first group
+        // MODIFIER_RATIO: ratio of group interval length between the last group and the first group
+        nModifierInterval = 60;
+        nModifierIntervalRatio = 3;
+        
         nBudgetPercent                = 10; // % of block reward that goes to community proposals
         nMasternodeRewardPercent      = 60; // % of block reward that goes to masternodes
         nRequiredMasternodeCollateral = 25000 * COIN; // 25,000 Ø required

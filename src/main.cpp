@@ -2178,18 +2178,18 @@ int64_t GetBlockValue(int nHeight, bool fBudgetBlock)
 
   if (nHeight <= 200) {
     nSubsidy = 495000 * COIN;
-  } else if (nHeight >= 201 && nHeight <= 3800) {
-    nSubsidy = 10 * COIN;
-  } else if (nHeight >= 3801 && nHeight <= 26121) {
-    nSubsidy = 355 * nBudgetMultiplier;
-  } else if (nHeight >= 26122 && nHeight <= 70042) {
-    nSubsidy = 195 * nBudgetMultiplier;
-  } else if (nHeight >= 70043 && nHeight <= 332843) {
-    nSubsidy = 53 * nBudgetMultiplier;
-  } else if (nHeight >= 332844 && nHeight <= 596364) {
-    nSubsidy = 45 * nBudgetMultiplier;
-  } else if (nHeight >= 596365) {
-    nSubsidy = 33 * nBudgetMultiplier;
+  } else if (nHeight >= 201 && nHeight <= 7401) {
+    nSubsidy = 5 * COIN;
+  } else if (nHeight >= 7402 && nHeight <= 21802) {
+    nSubsidy = 175 * nBudgetMultiplier;
+  } else if (nHeight >= 21803 && nHeight <= 66443) {
+    nSubsidy = 95 * nBudgetMultiplier;
+  } else if (nHeight >= 66444 && nHeight <= 154284) {
+    nSubsidy = 25 * nBudgetMultiplier;
+  } else if (nHeight >= 154285 && nHeight <= 679885) {
+    nSubsidy = 20 * nBudgetMultiplier;
+  } else if (nHeight >= 679886) {
+    nSubsidy = 15 * nBudgetMultiplier;
   }
 
   LogPrintf("GetBlockValue Subsidy=%d, CommunityBudget=%d\n", nSubsidy, Params().GetBudgetPercent());
