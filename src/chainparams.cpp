@@ -135,8 +135,8 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60; // Phore: 1 day
-        nTargetSpacing = 1 * 60;  // Phore: 1 minute
+        nTargetTimespan = 2 * 60; // Phore: 1 day
+        nTargetSpacing = 2 * 60;  // Phore: 1 minute
         nMaturity = 50;
         nMasternodeCountDrift = 20;
         nMaxMoneyOut = 1000000000 * COIN;
@@ -174,8 +174,13 @@ public:
         assert(hashGenesisBlock == uint256("0x2b1a0f66712aad59ad283662d5b919415a25921ce89511d73019107e380485bf"));
         assert(genesis.hashMerkleRoot == uint256("0x894177137a45952cfed89dd395e7fc85208a53548f34defc7c1a85cb0736b3a3"));
 
-        vSeeds.push_back(CDNSSeedData("0", "dns0.phore.io")); // run by Moonshot
-        vSeeds.push_back(CDNSSeedData("1", "phore.seed.rho.industries")); // run by Julian Meyer (meyer9)
+        // vSeeds.push_back(CDNSSeedData("0", "dns0.phore.io")); // run by Moonshot
+        // vSeeds.push_back(CDNSSeedData("1", "phore.seed.rho.industries")); // run by Julian Meyer (meyer9)
+
+        vSeeds.push_back(CDNSSeedData("tyo1.odinblockchain.org", "tyo1.odinblockchain.org")); // MN 07
+        vSeeds.push_back(CDNSSeedData("chi1.odinblockchain.org", "chi1.odinblockchain.org")); // MN 08
+        vSeeds.push_back(CDNSSeedData("syd1.odinblockchain.org", "syd1.odinblockchain.org")); // MN 09
+        vSeeds.push_back(CDNSSeedData("sgp1.odinblockchain.org", "sgp1.odinblockchain.org")); // MN 10
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 55);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 13);
