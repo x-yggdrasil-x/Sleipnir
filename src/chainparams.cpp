@@ -170,9 +170,9 @@ class CMainParams : public CChainParams
         nMasternodeCountDrift   = 20;
         nMaxMoneyOut            = 20000000 * COIN; // Max 20kk Ø per transaction
         bnProofOfWorkLimit      = ~uint256(0) >> 1;
-        nLastPOWBlock           = 200;     // Last Proof-of-Work block
-        nModifierUpdateBlock    = 200;
-        nMinStakeAge            = 60 * 5; // 5 minutes ~~24 hours~~
+        nLastPOWBlock           = 300;     // Last Proof-of-Work block
+        nModifierUpdateBlock    = 300;
+        nMinStakeAge            = 60 * 2; // 2 minutes ~~24 hours~~
 
         // Modifier interval: time to elapse before new modifier is computed
         // ~~Set to 3-hour for production network and 20-minute for test network~~

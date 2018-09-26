@@ -3838,7 +3838,7 @@ bool ReconsiderBlock(CValidationState& state, CBlockIndex* pindex)
 CBlockIndex* AddToBlockIndex(const CBlock& block)
 {
     //TODO:pixel
-    LogPrintf("AddToBlockIndex hash=%s", block.GetHash().ToString().c_str());
+    LogPrintf("AddToBlockIndex hash=%s\n", block.GetHash().ToString().c_str());
 
     // Check for duplicate
     uint256 hash = block.GetHash();
@@ -3887,7 +3887,7 @@ CBlockIndex* AddToBlockIndex(const CBlock& block)
         uint64_t nStakeModifier = 0;
         bool fGeneratedStakeModifier = false;
         //TODO:pixel
-        LogPrintf(">>ComputeNextStakeModifier %s", pindexNew->ToString().c_str());
+        LogPrintf(">>ComputeNextStakeModifier %s\n", pindexNew->ToString().c_str());
         if (!ComputeNextStakeModifier(pindexNew->pprev, nStakeModifier, fGeneratedStakeModifier))
             LogPrintf("AddToBlockIndex() : ComputeNextStakeModifier() failed \n");
         pindexNew->SetStakeModifier(nStakeModifier, fGeneratedStakeModifier);
@@ -4175,7 +4175,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
 bool CheckWork(const CBlock block, CBlockIndex* const pindexPrev)
 {
   //TODO:pixel
-  LogPrintf("CheckWork() block:%s", block.ToString().c_str());
+  LogPrintf("CheckWork() block:%s\n", block.ToString().c_str());
 
   if (pindexPrev == NULL)
       return error("%s : null pindexPrev for block %s", __func__, block.GetHash().ToString().c_str());

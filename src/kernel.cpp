@@ -243,7 +243,7 @@ bool ComputeNextStakeModifier(const CBlockIndex* pindexPrev, uint64_t& nStakeMod
 bool GetKernelStakeModifier(uint256 hashBlockFrom, uint64_t& nStakeModifier, int& nStakeModifierHeight, int64_t& nStakeModifierTime, bool fPrintProofOfStake)
 {
     //TODO:pixel
-    LogPrintf("GetKernelStakeModifier() - hashBlockFrom:%s", hashBlockFrom.ToString().c_str());
+    LogPrintf("GetKernelStakeModifier() - hashBlockFrom:%s\n", hashBlockFrom.ToString().c_str());
 
     nStakeModifier = 0;
     if (!mapBlockIndex.count(hashBlockFrom))
@@ -251,7 +251,10 @@ bool GetKernelStakeModifier(uint256 hashBlockFrom, uint64_t& nStakeModifier, int
     const CBlockIndex* pindexFrom = mapBlockIndex[hashBlockFrom];
 
     //TODO:pixel
-    LogPrintf("GetKernelStakeModifier() - pindexFrom:%s", pindexFrom->ToString().c_str());
+    LogPrintf("GetKernelStakeModifier() - pindexFrom:%s\n", pindexFrom->ToString().c_str());
+
+    //TODO:pixel
+    LogPrintf("GetKernelStakeModifier() chainActive height:%d\n", chainActive.Height());
 
     nStakeModifierHeight = pindexFrom->nHeight;
     nStakeModifierTime = pindexFrom->GetBlockTime();
@@ -260,21 +263,24 @@ bool GetKernelStakeModifier(uint256 hashBlockFrom, uint64_t& nStakeModifier, int
     CBlockIndex* pindexNext = chainActive[pindexFrom->nHeight + 1];
 
     //TODO:pixel
-    LogPrintf("GetKernelStakeModifier() - height:%d, pindexNext:%s", pindexFrom->nHeight, pindexNext->ToString().c_str());
+    LogPrintf("GetKernelStakeModifier() - height:%d, pindexNext:%s\n", pindexFrom->nHeight, pindexNext->ToString().c_str());
 
     // loop to find the stake modifier later by a selection interval
     while (nStakeModifierTime < pindexFrom->GetBlockTime() + nStakeModifierSelectionInterval) {
-        if (!pindexNext) {
-            // Should never happen
-            return error("Null pindexNext\n");
-        }
+      //TODO:pixel
+      LogPrintf("GetKernelStakeModifier() - LOOP nStakeModifierTime=%d < pindexFromBlockTime=%d + nStakeModifierSelectionInterval=%d", nStakeModifierTime, pindexFrom->GetBlockTime(), nStakeModifierSelectionInterval);
+      
+      if (!pindexNext) {
+          // Should never happen
+          return error("Null pindexNext\n");
+      }
 
-        pindex = pindexNext;
-        pindexNext = chainActive[pindexNext->nHeight + 1];
-        if (pindex->GeneratedStakeModifier()) {
-            nStakeModifierHeight = pindex->nHeight;
-            nStakeModifierTime = pindex->GetBlockTime();
-        }
+      pindex = pindexNext;
+      pindexNext = chainActive[pindexNext->nHeight + 1];
+      if (pindex->GeneratedStakeModifier()) {
+          nStakeModifierHeight = pindex->nHeight;
+          nStakeModifierTime = pindex->GetBlockTime();
+      }
     }
     nStakeModifier = pindex->nStakeModifier;
     return true;
@@ -301,7 +307,7 @@ bool stakeTargetHit(uint256 hashProofOfStake, int64_t nValueIn, uint256 bnTarget
 bool CheckStakeKernelHash(unsigned int nBits, const CBlock blockFrom, const CTransaction txPrev, const COutPoint prevout, unsigned int& nTimeTx, unsigned int nHashDrift, bool fCheck, uint256& hashProofOfStake, bool fPrintProofOfStake)
 {
     //TODO:pixel
-    LogPrintf("CheckStakeKernelHash() - blockFrom.hash:%s", blockFrom.GetHash().ToString().c_str());
+    LogPrintf("CheckStakeKernelHash() - blockFrom.hash:%s\n", blockFrom.GetHash().ToString().c_str());
 
     //assign new variables to make it easier to read
     int64_t nValueIn = txPrev.vout[prevout.n].nValue;
@@ -382,7 +388,7 @@ bool CheckStakeKernelHash(unsigned int nBits, const CBlock blockFrom, const CTra
 bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake)
 {
     //TODO:pixel
-    LogPrintf("CheckProofOfStake() block:%s", block.ToString().c_str());
+    LogPrintf("CheckProofOfStake() block:%s\n", block.ToString().c_str());
 
     const CTransaction tx = block.vtx[1];
     if (!tx.IsCoinStake())
@@ -414,7 +420,7 @@ bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake)
         return error("CheckProofOfStake(): INFO: failed to find block");
 
     //TODO:pixel
-    LogPrintf("CheckProofOfStake() blockprev:%s", blockprev.ToString().c_str());
+    LogPrintf("CheckProofOfStake() blockprev:%s\n", blockprev.ToString().c_str());
 
     unsigned int nInterval = 0;
     unsigned int nTime = block.nTime;
