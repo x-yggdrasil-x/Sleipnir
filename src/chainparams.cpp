@@ -61,18 +61,18 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
  */
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (    0, uint256("0x31ca29566549e444cf227a0e2e067aed847c2acc541d3bbf9ca1ae89f4fd57d7"))
-    (   1000, uint256("0x00000015b27306e60b6e837050de648bfd3408fee36fc23d217f6e9d37746b93"))
-    (   2000, uint256("0x0000000a7f6ed7a1fb0c0fde5f4865d0c686647f00468858642ef420d6e11e72"))
-    (   3000, uint256("0x0000000e41766bcd823a35a565dd9d1b5c2810875bdd0ad47f763c53468a734d"))
-    (   3600, uint256("0x0000000f9b2354ef4b4d717c580a0dc653c4b04e53a37e585d94a9030157167a"))
-    (   3800, uint256("0x0000001266535c2e97b125dc5ec505cd65d205ddf5a2988bdf88d9d371de91a9"))
-    (   4040, uint256("0x1c196a4ffc94dbf4b32218e3fd38ad5090b6b737acfb1861865a32f9aa0fdfd2"));
+    (    0, uint256("0x31ca29566549e444cf227a0e2e067aed847c2acc541d3bbf9ca1ae89f4fd57d7"));
+    // (   1000, uint256("0x00000015b27306e60b6e837050de648bfd3408fee36fc23d217f6e9d37746b93"))
+    // (   2000, uint256("0x0000000a7f6ed7a1fb0c0fde5f4865d0c686647f00468858642ef420d6e11e72"))
+    // (   3000, uint256("0x0000000e41766bcd823a35a565dd9d1b5c2810875bdd0ad47f763c53468a734d"))
+    // (   3600, uint256("0x0000000f9b2354ef4b4d717c580a0dc653c4b04e53a37e585d94a9030157167a"))
+    // (   3800, uint256("0x0000001266535c2e97b125dc5ec505cd65d205ddf5a2988bdf88d9d371de91a9"))
+    // (   4040, uint256("0x1c196a4ffc94dbf4b32218e3fd38ad5090b6b737acfb1861865a32f9aa0fdfd2"));
 
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1537832694, // * UNIX timestamp of last checkpoint block
-    4154,       // * total number of transactions between genesis and last checkpoint
+    1537275388, // * UNIX timestamp of last checkpoint block
+    0,       // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     3600        // * estimated number of transactions per day after checkpoint
 };
@@ -170,8 +170,8 @@ class CMainParams : public CChainParams
         nMasternodeCountDrift   = 20;
         nMaxMoneyOut            = 20000000 * COIN; // Max 20kk Ø per transaction
         bnProofOfWorkLimit      = ~uint256(0) >> 1;
-        nLastPOWBlock           = 300;     // Last Proof-of-Work block
-        nModifierUpdateBlock    = 300;
+        nLastPOWBlock           = 200;     // Last Proof-of-Work block
+        nModifierUpdateBlock    = 200;
         nMinStakeAge            = 60 * 2; // 2 minutes ~~24 hours~~
 
         // Modifier interval: time to elapse before new modifier is computed
