@@ -245,18 +245,34 @@ bool ComputeNextStakeModifier(const CBlockIndex* pindexPrev, uint64_t& nStakeMod
 // modifier about a selection interval later than the coin generating the kernel
 bool GetKernelStakeModifier(uint256 hashBlockFrom, uint64_t& nStakeModifier, int& nStakeModifierHeight, int64_t& nStakeModifierTime, bool fPrintProofOfStake)
 {
+    //TODO:pixel
+    LogPrintf("GetKernelStakeModifier() - hashBlockFrom:%s\n", hashBlockFrom.ToString().c_str());
+
     nStakeModifier = 0;
     if (!mapBlockIndex.count(hashBlockFrom))
         return error("GetKernelStakeModifier() : block not indexed");
     const CBlockIndex* pindexFrom = mapBlockIndex[hashBlockFrom];
+
+    //TODO:pixel
+    LogPrintf("GetKernelStakeModifier() - pindexFrom:%s\n", pindexFrom->ToString().c_str());
+
+    //TODO:pixel
+    LogPrintf("GetKernelStakeModifier() chainActive height:%d\n", chainActive.Height());
+
     nStakeModifierHeight = pindexFrom->nHeight;
     nStakeModifierTime = pindexFrom->GetBlockTime();
     int64_t nStakeModifierSelectionInterval = GetStakeModifierSelectionInterval();
     const CBlockIndex* pindex = pindexFrom;
     CBlockIndex* pindexNext = chainActive[pindexFrom->nHeight + 1];
 
+    //TODO:pixel
+    LogPrintf("GetKernelStakeModifier() - height:%d, pindexNext:%s\n", pindexFrom->nHeight, pindexNext->ToString().c_str());
+
     // loop to find the stake modifier later by a selection interval
     while (nStakeModifierTime < pindexFrom->GetBlockTime() + nStakeModifierSelectionInterval) {
+        //TODO:pixel
+        LogPrintf("GetKernelStakeModifier() - LOOP nStakeModifierTime=%d < pindexFromBlockTime=%d + nStakeModifierSelectionInterval=%d\n", nStakeModifierTime, pindexFrom->GetBlockTime(), nStakeModifierSelectionInterval);
+
         if (!pindexNext) {
             // Should never happen
             return error("Null pindexNext\n");
