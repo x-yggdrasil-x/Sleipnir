@@ -61,20 +61,16 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
  */
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (    0, uint256("0x31ca29566549e444cf227a0e2e067aed847c2acc541d3bbf9ca1ae89f4fd57d7"));
-    // (   1000, uint256("0x00000015b27306e60b6e837050de648bfd3408fee36fc23d217f6e9d37746b93"))
-    // (   2000, uint256("0x0000000a7f6ed7a1fb0c0fde5f4865d0c686647f00468858642ef420d6e11e72"))
-    // (   3000, uint256("0x0000000e41766bcd823a35a565dd9d1b5c2810875bdd0ad47f763c53468a734d"))
-    // (   3600, uint256("0x0000000f9b2354ef4b4d717c580a0dc653c4b04e53a37e585d94a9030157167a"))
-    // (   3800, uint256("0x0000001266535c2e97b125dc5ec505cd65d205ddf5a2988bdf88d9d371de91a9"))
-    // (   4040, uint256("0x1c196a4ffc94dbf4b32218e3fd38ad5090b6b737acfb1861865a32f9aa0fdfd2"));
+    (    0, uint256("0x31ca29566549e444cf227a0e2e067aed847c2acc541d3bbf9ca1ae89f4fd57d7"))
+    ( 1000, uint256("0x869cae77bdedd249258bb0722720dfc8fd438242bfce49d3af00a654fcac880b"))
+    ( 2000, uint256("0xc03f99c818aae2ab6a9705439d4ab961f6168ddc1b1080ccf08a871eca482a1b"));
 
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1537275388, // * UNIX timestamp of last checkpoint block
-    0,       // * total number of transactions between genesis and last checkpoint
+    1538071599, // * UNIX timestamp of last checkpoint block
+    4200,       // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
-    3600        // * estimated number of transactions per day after checkpoint
+    2880        // * estimated number of transactions per day after checkpoint
 };
 
 
@@ -150,41 +146,39 @@ class CMainParams : public CChainParams
         pchMessageStart[2] = 0x79;
         pchMessageStart[3] = 0x37;
 
-        vAlertPubKey = ParseHex("048e8c3d748796606a5b22ddb5bc7d"
-          "af1db2f2428529c7836d41a897c675"
-          "e8e247dade5476751ef5984e7da30e"
-          "6b927c13a7a61197281b2d16275d81"
-          "f63982fd6c");
+        vAlertPubKey = ParseHex("046820882af87cbd9d6728b5c386374229544f79d0afe23750aa217269b1b892fc2516d609d6757c1453412bfac500993782b18bde56b4b61d5e3fa2f8cce7a935");
 
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
 
         // Primary configurations
-        nDefaultPort            = 22100;    // Main (mainnet) P2P Port
+        nDefaultPort            = 22100; // Main (mainnet) P2P Port
         nMaxReorganizationDepth = 100;
         nMinerThreads           = 0;
-        nTargetTimespan         = 60 * 1;   // Odin: 1 day
-        nTargetSpacing          = 60 * 1;   // Odin: 1 minute
-        nMaturity               = 5;        // Transaction maturity
+        nTargetTimespan         = 60 * 1; // Odin: 1 day
+        nTargetSpacing          = 60 * 1; // Odin: 1 minute
+        nMaturity               = 10; // Transaction maturity
         nMasternodeCountDrift   = 20;
         nMaxMoneyOut            = 20000000 * COIN; // Max 20kk Ø per transaction
         bnProofOfWorkLimit      = ~uint256(0) >> 1;
-        nLastPOWBlock           = 200;     // Last Proof-of-Work block
+        nLastPOWBlock           = 200; // Last Proof-of-Work block
         nModifierUpdateBlock    = 200;
-        nMinStakeAge            = 60 * 2; // 2 minutes ~~24 hours~~
-
-        // Modifier interval: time to elapse before new modifier is computed
-        // ~~Set to 3-hour for production network and 20-minute for test network~~
-        // Every block retargeting
+        nMinStakeAge            = 60 * 60 * 6; // 6 hours
+        
         // MODIFIER_INTERVAL: time to elapse before new modifier is computed
         // MODIFIER_RATIO: ratio of group interval length between the last group and the first group
         nModifierInterval = 60;
         nModifierIntervalRatio = 3;
         
-        nBudgetPercent                = 10; // % of block reward that goes to community proposals
-        nMasternodeRewardPercent      = 60; // % of block reward that goes to masternodes
-        nRequiredMasternodeCollateral = 25000 * COIN; // 25,000 Ø required
+        // BUDGET_PERCENT: % of block reward that goes to community proposals
+        // BUDGET_COLLATERAL: amount of Ø required to submit a community proposal
+        // MASTERNODE_REWARD: % of block reward that goes to masternodes
+        // MASTERNODE_COLLATERAL: amount of Ø required for a masternode
+        nBudgetPercent                = 10; 
+        nBudgetSubmissionCollateral   = 50;
+        nMasternodeRewardPercent      = 60;
+        nRequiredMasternodeCollateral = 25000 * COIN;
 
         // Zerocoin Configurations
         nZerocoinLastOldParams            = 99999999; // Updated to defer zerocoin v2 for further testing.
@@ -195,7 +189,7 @@ class CMainParams : public CChainParams
         nDefaultSecurityLevel             = 100;      // full security level for accumulators
         nZerocoinHeaderVersion            = 4;        // Block headers must be this version once zerocoin is active
         nBudgetFeeConfirmations           = 6;        // Number of confirmations for the finalization fee
-        nZerocoinStartHeight              = 339124;   // Aim for Yggdrasil Release
+        nZerocoinStartHeight              = 143446;   // Aim for Yggdrasil Release
 
         /**
          * Build the genesis block. Note that the output of the genesis coinbase cannot
@@ -305,11 +299,7 @@ public:
         pchMessageStart[2] = 0x25;
         pchMessageStart[3] = 0x84;
 
-        vAlertPubKey = ParseHex("0402063889d534fb2b51e521c6f730"
-          "586f86db8577cad991fb0f07c0c54c"
-          "bc0cac32d8e42ca3cc6b98a76c2216"
-          "e727ddb298b2489cf392dda006c551"
-          "acf2f2e991");
+        vAlertPubKey = ParseHex("04b9fb4c92f20b633da21eb532edc892bf63b3c0460bd7addf53c7d8911e831201d75d8f12dc70fe82179ed9e09d86e506c09e609dd259b55d09ad35265872507c");
 
         nEnforceBlockUpgradeMajority = 51;
         nRejectBlockOutdatedMajority = 75;
@@ -322,14 +312,15 @@ public:
         nMaturity               = 5;        // Transaction maturity
         nMasternodeCountDrift   = 4;
         bnProofOfWorkLimit      = ~uint256(0) >> 1;
-        nLastPOWBlock           = 3600;      // Last Proof-of-Work block
-        nModifierUpdateBlock    = 999999999;
-        nMinStakeAge            = 60 * 60 * 1; // 1 hour
+        nLastPOWBlock           = 200;      // Last Proof-of-Work block
+        nModifierUpdateBlock    = 200;
+        nMinStakeAge            = 60 * 60;  // 1 minute
 
         // Modifier interval: time to elapse before new modifier is computed
         // Set to 3-hour for production network and 20-minute for test network
         // MODIFIER_INTERVAL: time to elapse before new modifier is computed
-        nModifierInterval = 60 * 20;
+        nModifierInterval = 60;
+        nModifierIntervalRatio = 3;
 
         // Zerocoin Configurations
         nZerocoinLastOldParams            = 99999999; // Updated to defer zerocoin v2 for further testing.

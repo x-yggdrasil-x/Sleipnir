@@ -27,17 +27,18 @@ std::vector<CFinalizedBudgetBroadcast> vecImmatureFinalizedBudgets;
 int nSubmittedFinalBudget;
 
 CAmount GetBudgetSystemCollateralAmount(int nHeight) {
-  return 50 * COIN;
+  return (Params().GetBudgetSubmissionCollateral() * COIN);
 }
 
 int GetBudgetPaymentCycleBlocks()
 {
-    // Amount of blocks in a months period of time (using 2 minutes per)
+    // Amount of blocks in a months period of time (using 1 minutes per block)
+    // estimate 30 blocks an hour * hours in a day * avg. days in a month
     if (Params().NetworkID() == CBaseChainParams::MAIN)
-      return (30 * 24 * 30); // estimate 30 blocks an hour * hours in a day * avg. days in a month
+      return (60 * 24 * 30); 
 
     // for testing purposes
-    return 144;
+    return 1000;
 }
 
 bool IsBudgetCollateralValid(uint256 nTxCollateralHash, uint256 nExpectedHash, std::string& strError, int64_t& nTime, int& nConf, bool fBudgetFinalization)
@@ -65,8 +66,6 @@ bool IsBudgetCollateralValid(uint256 nTxCollateralHash, uint256 nExpectedHash, s
         }
         if (fBudgetFinalization) {
             // Collateral for budget finalization
-            // Note: there are still old valid budgets out there, but the check for the new 5 PIV finalization collateral
-            //       will also cover the old 50 PIV finalization collateral.
             LogPrint("mnbudget", "Final Budget: o.scriptPubKey(%s) == findScript(%s) ?\n", o.scriptPubKey.ToString(), findScript.ToString());
             if (o.scriptPubKey == findScript) {
                 LogPrint("mnbudget", "Final Budget: o.nValue(%ld) >= BUDGET_FEE_TX(%ld) ?\n", o.nValue, GetBudgetSystemCollateralAmount(chainActive.Height()));

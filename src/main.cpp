@@ -2154,41 +2154,51 @@ int64_t GetBlockValue(int nHeight, bool fBudgetBlock)
 {
   /**
    * ODIN Block Reward Structure:
-   * PoW Premine:   Block 0       -   3,600 = 27,500 Ø ~5 days
-   * PoS Launch:    Block 3,601   -  10,081 = 10 Ø ~10 days
-   * Ragnarök:      Block 10,082  -  32,402 = 355 Ø ~31 days
-   * Valhalla:      Block 32,403  -  76,323 = 195 Ø ~61 days
-   * Y1 Yggdrasil:  Block 76,324  - 339,124 = 53 Ø ~365 days
-   * Y2 Midgard:    Block 339,125 - 602,645 = 45 Ø ~366 days
-   * Y3 Nidhogg:    Block 602,646 - 865,446 = 33 Ø ~365 days
-   * Y4 ONWARDS:    Block 865,447           = 33 Ø
+   * PoW Premine:   Block         0 -         200 = 495,000 Ø ~3 hours
+   * PoS Launch:    Block       201 -      14,601 =       5 Ø ~10 days
+   * Ragnarök:      Block    14,602 -      52,042 =     175 Ø ~26 days
+   * Valhalla:      Block    52,043 -     139,883 =      95 Ø ~61 days
+   * Y1 Yggdrasil:  Block   139,884 -     665,484 =      25 Ø ~365 days
+   * Y2 Midgard:    Block   665,485 -   1,192,526 =      20 Ø ~366 days
+   * Y3 Nidhogg:    Block 1,192,526 -             =      15 Ø ~365 days
+   * Y4 ONWARDS:    Block 1,192,526               =      15 Ø
    * 
    * PoW Schedule -  0% to proposals
    * PoS Schedule - 10% to proposals for all phases starting in Ragnarök
    * 90% distributed to Stake wallet and Masternode
    * 
-   * 1 Day = 720 Blocks
+   * 1 Day    =  ~1440 Blocks
+   * 1 Month  = ~43800 Blocks
+   * 
+   * ~1.4813x faster in initial blockchain growth
    */
 
   int64_t nBudgetMultiplier = COIN;
   if (!fBudgetBlock)
     nBudgetMultiplier = COIN - (Params().GetBudgetPercent() * CENT);
 
-  CAmount nSubsidy = 33 * nBudgetMultiplier;
+  CAmount nSubsidy = 15 * nBudgetMultiplier;
 
   if (nHeight <= 200) {
+    // Premine
     nSubsidy = 495000 * COIN;
-  } else if (nHeight >= 201 && nHeight <= 7401) {
+  } else if (nHeight >= 201 && nHeight <= 14601) {
+    // PoS Launch 10 days
     nSubsidy = 5 * COIN;
-  } else if (nHeight >= 7402 && nHeight <= 21802) {
+  } else if (nHeight >= 14602 && nHeight <= 52042) {
+    // Ragnarök 26 days
     nSubsidy = 175 * nBudgetMultiplier;
-  } else if (nHeight >= 21803 && nHeight <= 66443) {
+  } else if (nHeight >= 52043 && nHeight <= 139883) {
+    // Valhalla 61 days
     nSubsidy = 95 * nBudgetMultiplier;
-  } else if (nHeight >= 66444 && nHeight <= 154284) {
+  } else if (nHeight >= 139884 && nHeight <= 665484) {
+    // Yggdrasil 365 days
     nSubsidy = 25 * nBudgetMultiplier;
-  } else if (nHeight >= 154285 && nHeight <= 679885) {
+  } else if (nHeight >= 665485 && nHeight <= 1192525) {
+    // Midgard 366 days
     nSubsidy = 20 * nBudgetMultiplier;
-  } else if (nHeight >= 679886) {
+  } else if (nHeight >= 1192526) {
+    // Nidhogg
     nSubsidy = 15 * nBudgetMultiplier;
   }
 
@@ -3838,7 +3848,7 @@ bool ReconsiderBlock(CValidationState& state, CBlockIndex* pindex)
 CBlockIndex* AddToBlockIndex(const CBlock& block)
 {
     //TODO:pixel
-    LogPrintf("AddToBlockIndex hash=%s\n", block.GetHash().ToString().c_str());
+    // LogPrintf(">>AddToBlockIndex hash=%s\n", block.GetHash().ToString().c_str());
 
     // Check for duplicate
     uint256 hash = block.GetHash();
@@ -3887,11 +3897,14 @@ CBlockIndex* AddToBlockIndex(const CBlock& block)
         uint64_t nStakeModifier = 0;
         bool fGeneratedStakeModifier = false;
         //TODO:pixel
-        LogPrintf(">>ComputeNextStakeModifier %s\n", pindexNew->ToString().c_str());
+        // LogPrintf(">>ComputeNextStakeModifier %s\n", pindexNew->ToString().c_str());
+
         if (!ComputeNextStakeModifier(pindexNew->pprev, nStakeModifier, fGeneratedStakeModifier))
             LogPrintf("AddToBlockIndex() : ComputeNextStakeModifier() failed \n");
+
         pindexNew->SetStakeModifier(nStakeModifier, fGeneratedStakeModifier);
         pindexNew->nStakeModifierChecksum = GetStakeModifierChecksum(pindexNew);
+
         if (!CheckStakeModifierCheckpoints(pindexNew->nHeight, pindexNew->nStakeModifierChecksum))
             LogPrintf("AddToBlockIndex() : Rejected by stake modifier checkpoint height=%d, modifier=%s \n", pindexNew->nHeight, boost::lexical_cast<std::string>(nStakeModifier));
     }
@@ -4175,7 +4188,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
 bool CheckWork(const CBlock block, CBlockIndex* const pindexPrev)
 {
   //TODO:pixel
-  LogPrintf("CheckWork() block:%s\n", block.ToString().c_str());
+  // LogPrintf(">>CheckWork() block:%s\n", block.ToString().c_str());
 
   if (pindexPrev == NULL)
       return error("%s : null pindexPrev for block %s", __func__, block.GetHash().ToString().c_str());

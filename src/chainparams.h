@@ -118,6 +118,7 @@ public:
     unsigned int GetModifierInterval() const { return nModifierInterval; }
     unsigned int GetModifierIntervalRatio() const { return nModifierIntervalRatio; }
     int64_t GetBudgetPercent() const { return nBudgetPercent; }
+    int64_t GetBudgetSubmissionCollateral() const { return nBudgetSubmissionCollateral; }
     int64_t GetMasternodeRewardPercent() const { return nMasternodeRewardPercent; }
     CAmount GetRequiredMasternodeCollateral() const { return nRequiredMasternodeCollateral; }
 
@@ -177,6 +178,7 @@ protected:
     unsigned int nModifierInterval;
     unsigned int nModifierIntervalRatio;
     int64_t nBudgetPercent;
+    int64_t nBudgetSubmissionCollateral;
     int64_t nMasternodeRewardPercent;
     CAmount nRequiredMasternodeCollateral;
 };
