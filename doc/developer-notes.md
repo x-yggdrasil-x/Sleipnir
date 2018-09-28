@@ -10,7 +10,7 @@ gradually.
   (/contrib/devtools/README.md#clang-formatpy).
   - Braces on new lines for namespaces, classes, functions, methods.
   - Braces on the same line for everything else.
-  - 4 space indentation (no tabs) for every block except namespaces.
+  - 2 space indentation (no tabs) for every block except namespaces.
   - No indentation for public/protected/private or for namespaces.
   - No extra spaces inside parenthesis; don't do ( this )
   - No space after function names; one space after if, for and while.
@@ -21,19 +21,19 @@ namespace foo
 {
 class Class
 {
-    bool Function(char* psz, int n)
-    {
-        // Comment summarising what this section of code does
-        for (int i = 0; i < n; i++) {
-            // When something fails, return early
-            if (!Something())
-                return false;
-            ...
-        }
+  bool Function(char* psz, int n)
+  {
+    // Comment summarising what this section of code does
+    for (int i = 0; i < n; i++) {
+      // When something fails, return early
+      if (!Something())
+        return false;
+        ...
+      }
 
-        // Success return is usually at the end
-        return true;
-    }
+      // Success return is usually at the end
+      return true;
+  }
 }
 }
 ```

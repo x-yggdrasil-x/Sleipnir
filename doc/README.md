@@ -13,23 +13,26 @@ The following are some helpful notes on how to run ODIN on your native platform.
 
 Unpack the files into a directory and run:
 
-- bin/32/odin-qt (GUI, 32-bit) or bin/32/odind (headless, 32-bit)
-- bin/64/odin-qt (GUI, 64-bit) or bin/64/odind (headless, 64-bit)
+- `bin/32/odin-qt` (GUI, 32-bit) or `bin/32/odind` (headless, 32-bit)
+- `bin/64/odin-qt` (GUI, 64-bit) or `bin/64/odind` (headless, 64-bit)
 
 ### Windows
 
-Unpack the files into a directory, and then run odin-qt.exe.
+Unpack the files into a directory, and then run `odin-qt.exe`.
 
 ### OSX
 
-Drag ODIN-Qt to your applications folder, and then run ODIN-Qt.
+Drag ODIN-Qt to your applications folder, and then run `ODIN-Qt`.
 
 ### Need Help?
 
-* See the documentation at the [ODIN Wiki](https://github.com/odinblockchain/odin/wiki) ***TODO***
+* See the documentation at the [ODIN Wiki](https://github.com/odinblockchain/wiki/wiki)
 for help and more information.
 * Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=4798428).
+* Report an issue on [Github](https://github.com/odinblockchain/odin/issues).
 * Join our Discord Community [ODIN Official Discord](https://discord.me/odinblockchain).
+* Join our Reddit Community [ODIN Official Reddit](https://www.reddit.com/r/OdinBlockchain/).
+* Join our Telegram Community [ODIN Official Telegram](https://t.me/ODINchain).
 
 Building
 ---------------------
@@ -55,8 +58,9 @@ The ODIN repo's [root README](https://github.com/odinblockahin/Odin/blob/master/
 
 ### Resources
 
-* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=4798428).
+* Report an issue on [Github](https://github.com/odinblockchain/odin/issues).
 * Join our Discord Community [ODIN Official Discord](https://discord.me/odinblockchain).
+* Join our Reddit Community [ODIN Official Reddit](https://www.reddit.com/r/OdinBlockchain/).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

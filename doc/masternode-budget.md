@@ -1,7 +1,7 @@
 Masternode Budget API
 =======================
 
-ODIN now supports full decentralized budgets that are paid directly from the blockchain via superblocks once per month.
+ODIN now supports full decentralized budgets that are paid directly from the blockchain via superblocks once per month (*estimated*).
 
 Budgets go through a series of stages before being paid:
 * prepare - create a special transaction that destroys coins in order to make a proposal
@@ -20,7 +20,7 @@ mnbudget prepare \<proposal-name\> \<url\> \<payment_count\> \<block_start\> \<o
 
 Example:
 ```
-mnbudget prepare cool-project http://www.cool-project/one.json 12 100000 y6R9oN12KnB9zydzTLc3LikD9cCjjQzYG7 1200 true
+mnbudget prepare cool-project http://www.cool-project/ 12 10000 o6R9oN12KnB9zydzTLc3LikD9cCjjQzYG7 1200 true
 ```
 
 Output: `464a0eb70ea91c94295214df48c47baa72b3876cfb658744aaf863c7b5bf1ff0` - This is the collateral hash, copy this output for the next step
@@ -36,7 +36,7 @@ mnbudget submit \<proposal-name\> \<url\> \<payment_count\> \<block_start\> \<od
 
 Example:
 ```
-mnbudget submit cool-project http://www.cool-project/one.json 12 100000 y6R9oN12KnB9zydzTLc3LikD9cCjjQzYG7 1200 464a0eb70ea91c94295214df48c47baa72b3876cfb658744aaf863c7b5bf1ff0
+mnbudget submit cool-project http://www.cool-project/ 12 10000 o6R9oN12KnB9zydzTLc3LikD9cCjjQzYG7 1200 464a0eb70ea91c94295214df48c47baa72b3876cfb658744aaf863c7b5bf1ff0
 ```
 
 Output: `a2b29778ae82e45a973a94309ffa6aa2e2388b8f95b39ab3739f0078835f0491` - This is your proposal hash, which other nodes will use to vote on it
@@ -58,12 +58,12 @@ Output:
     "Name" : "cool-project",
     "Hash" : "a2b29778ae82e45a973a94309ffa6aa2e2388b8f95b39ab3739f0078835f0491",
     "FeeHash" : "464a0eb70ea91c94295214df48c47baa72b3876cfb658744aaf863c7b5bf1ff0",
-    "URL" : "http://www.cool-project/one.json",
-    "BlockStart" : 100000,
+    "URL" : "http://www.cool-project/",
+    "BlockStart" : 10000,
     "BlockEnd" : 100625,
     "TotalPaymentCount" : 12,
     "RemainingPaymentCount" : 12,
-    "PaymentAddress" : "y6R9oN12KnB9zydzTLc3LikD9cCjjQzYG7",
+    "PaymentAddress" : "o6R9oN12KnB9zydzTLc3LikD9cCjjQzYG7",
     "Ratio" : 0.00000000,
     "Yeas" : 0,
     "Nays" : 0,
@@ -102,12 +102,12 @@ Output:
     "cool-project" : {
 	    "Hash" : "a2b29778ae82e45a973a94309ffa6aa2e2388b8f95b39ab3739f0078835f0491",
 	    "FeeHash" : "464a0eb70ea91c94295214df48c47baa72b3876cfb658744aaf863c7b5bf1ff0",
-	    "URL" : "http://www.cool-project/one.json",
-	    "BlockStart" : 100000,
-	    "BlockEnd" : 100625,
+	    "URL" : "http://www.cool-project/",
+	    "BlockStart" : 10000,
+	    "BlockEnd" : 10625,
 	    "TotalPaymentCount" : 12,
 	    "RemainingPaymentCount" : 12,
-	    "PaymentAddress" : "y6R9oN12KnB9zydzTLc3LikD9cCjjQzYG7",
+	    "PaymentAddress" : "o6R9oN12KnB9zydzTLc3LikD9cCjjQzYG7",
 	    "Ratio" : 1.00000000,
 	    "Yeas" : 33,
 	    "Nays" : 0,
@@ -127,8 +127,8 @@ Finalized budget
 "main" : {
         "FeeTX" : "d6b8de9a4cadfe148f91e8fe8eed407199f96639b482f956ae6f539b8339f87c",
         "Hash" : "6e8bbaba5113de592f6888f200f146448440b7e606fcf62ef84e60e1d5ac7d64",
-        "BlockStart" : 100000,
-        "BlockEnd" : 100000,
+        "BlockStart" : 10000,
+        "BlockEnd" : 10000,
         "Proposals" : "cool-project",
         "VoteCount" : 46,
         "Status" : "OK"
@@ -138,7 +138,7 @@ Finalized budget
 Get paid
 ------------------------
 
-When block `1000000` is reached you'll receive a payment for `1200` ODIN.
+When block `10000` is reached you'll receive a payment for `1200` ODIN.
 
 
 RPC Commands
