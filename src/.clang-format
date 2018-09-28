@@ -1,5 +1,5 @@
 Language:        Cpp
-AccessModifierOffset: -4
+AccessModifierOffset: -2
 AlignAfterOpenBracket: false
 AlignEscapedNewlinesLeft: true
 AlignTrailingComments: true
@@ -18,15 +18,15 @@ BreakConstructorInitializersBeforeComma: false
 ColumnLimit:     0
 CommentPragmas:  '^ IWYU pragma:'
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
-ConstructorInitializerIndentWidth: 4
-ContinuationIndentWidth: 4
+ConstructorInitializerIndentWidth: 2
+ContinuationIndentWidth: 2
 Cpp11BracedListStyle: true
 DerivePointerAlignment: false
 DisableFormat:   false
 ForEachMacros:   [ foreach, Q_FOREACH, BOOST_FOREACH, BOOST_REVERSE_FOREACH ]
 IndentCaseLabels: false
 IndentFunctionDeclarationAfterType: false
-IndentWidth:     4
+IndentWidth:     2
 KeepEmptyLinesAtTheStartOfBlocks: false
 MaxEmptyLinesToKeep: 2
 NamespaceIndentation: None
@@ -48,5 +48,5 @@ SpacesInContainerLiterals: true
 SpacesInCStyleCastParentheses: false
 SpacesInParentheses: false
 Standard:        Cpp03
-TabWidth:        8
+TabWidth:        4
 UseTab:          Never

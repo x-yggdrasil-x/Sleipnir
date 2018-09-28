@@ -3,38 +3,40 @@ Phore Core
 
 Setup
 ---------------------
-[Phore Core](http://phore.org/wallet) is the original Phore client and it builds the backbone of the network. However, it downloads and stores the entire history of Phore transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
+[ODIN Core](https://odinblockchain.org/wallet) is the original ODIN client and it builds the backbone of the network. However, it downloads and stores the entire history of ODIN transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
 
 Running
 ---------------------
-The following are some helpful notes on how to run Phore on your native platform.
+The following are some helpful notes on how to run ODIN on your native platform.
 
 ### Unix
 
 Unpack the files into a directory and run:
 
-- bin/32/phore-qt (GUI, 32-bit) or bin/32/phored (headless, 32-bit)
-- bin/64/phore-qt (GUI, 64-bit) or bin/64/phored (headless, 64-bit)
+- `bin/32/odin-qt` (GUI, 32-bit) or `bin/32/odind` (headless, 32-bit)
+- `bin/64/odin-qt` (GUI, 64-bit) or `bin/64/odind` (headless, 64-bit)
 
 ### Windows
 
-Unpack the files into a directory, and then run phore-qt.exe.
+Unpack the files into a directory, and then run `odin-qt.exe`.
 
 ### OSX
 
-Drag Phore-Qt to your applications folder, and then run Phore-Qt.
+Drag ODIN-Qt to your applications folder, and then run `ODIN-Qt`.
 
 ### Need Help?
 
-* See the documentation at the [Phore Wiki](https://en.bitcoin.it/wiki/Main_Page) ***TODO***
+* See the documentation at the [ODIN Wiki](https://github.com/odinblockchain/wiki/wiki)
 for help and more information.
-* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or on the [Phore Forum](http://forum.phore.org/).
-* Join one of our Slack groups [Phore Slack Groups](https://phore.org/slack-logins/).
-* Join our Discord server [Discord Server](https://discord.gg/dTRhamf)
+* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=4798428).
+* Report an issue on [Github](https://github.com/odinblockchain/odin/issues).
+* Join our Discord Community [ODIN Official Discord](https://discord.me/odinblockchain).
+* Join our Reddit Community [ODIN Official Reddit](https://www.reddit.com/r/OdinBlockchain/).
+* Join our Telegram Community [ODIN Official Telegram](https://t.me/ODINchain).
 
 Building
 ---------------------
-The following are developer notes on how to build Phore on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build ODIN on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [OSX Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
@@ -42,7 +44,7 @@ The following are developer notes on how to build Phore on your native platform.
 
 Development
 ---------------------
-The Phore repo's [root README](https://github.com/phoreproject/Phore/blob/master/README.md) contains relevant information on the development process and automated testing.
+The ODIN repo's [root README](https://github.com/odinblockahin/Odin/blob/master/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Multiwallet Qt Development](multiwallet-qt.md)
@@ -56,8 +58,9 @@ The Phore repo's [root README](https://github.com/phoreproject/Phore/blob/master
 
 ### Resources
 
-* Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or the [Phore](http://forum.phore.org/) forum.
-* Join the [Phore-Dev](https://phore-dev.slack.com/) Slack group ([Sign-Up](https://phore-dev.herokuapp.com/)).
+* Report an issue on [Github](https://github.com/odinblockchain/odin/issues).
+* Join our Discord Community [ODIN Official Discord](https://discord.me/odinblockchain).
+* Join our Reddit Community [ODIN Official Reddit](https://www.reddit.com/r/OdinBlockchain/).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

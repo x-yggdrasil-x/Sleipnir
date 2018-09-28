@@ -312,7 +312,8 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
     }
 
     CAmount blockValue = GetBlockValue(pindexPrev->nHeight);
-    CAmount masternodePayment = GetMasternodePayment(pindexPrev->nHeight, blockValue);
+    // TODO adjust reward schema to lower regular staking and heighten proposal rewards
+    CAmount masternodePayment = GetMasternodePayment(blockValue);
 
     if (!fProofOfStake) {
         txNew.vout[0].nValue = blockValue - (hasPayment ? masternodePayment : 0);
@@ -363,7 +364,9 @@ void CMasternodePayments::ProcessMessageMasternodePayments(CNode* pfrom, std::st
         if (Params().NetworkID() == CBaseChainParams::MAIN) {
             if (pfrom->HasFulfilledRequest(NetMsgType::MNGET)) {
                 LogPrint("masternode","mnget - peer already asked me for the list\n");
-                Misbehaving(pfrom->GetId(), 20);
+                // TODO: Determine why this happens often and is bannable offense
+                // LogPrintf("Misbehaving: HAS DONE REQUEST\n");
+                // Misbehaving(pfrom->GetId(), 20);
                 return;
             }
         }
@@ -410,7 +413,10 @@ void CMasternodePayments::ProcessMessageMasternodePayments(CNode* pfrom, std::st
 
         if (!winner.SignatureValid()) {
             LogPrint("masternode","mnw - invalid signature\n");
-            if (masternodeSync.IsSynced()) Misbehaving(pfrom->GetId(), 20);
+            if (masternodeSync.IsSynced()) {
+              LogPrintf("Misbehaving: winner INVALID SIG\n");
+              Misbehaving(pfrom->GetId(), 20);
+            }
             // it could just be a non-synced masternode
             mnodeman.AskForMN(pfrom, winner.vinMasternode);
             return;
@@ -537,7 +543,7 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
         nMasternode_Drift_Count = mnodeman.size() + Params().MasternodeCountDrift();
     }
 
-    CAmount requiredMasternodePayment = GetMasternodePayment(nBlockHeight, nReward, nMasternode_Drift_Count);
+    CAmount requiredMasternodePayment = GetMasternodePayment(nReward);
 
     //require at least 6 signatures
     BOOST_FOREACH (CMasternodePayee& payee, vecPayments)

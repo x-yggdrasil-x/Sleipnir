@@ -2,37 +2,37 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-bin_PROGRAMS += qt/phore-qt
+bin_PROGRAMS += qt/odin-qt
 EXTRA_LIBRARIES += qt/libbitcoinqt.a
 
-# phore qt core #
+# odin qt core #
 QT_TS = \
-  qt/locale/phore_bg.ts \
-  qt/locale/phore_ca.ts \
-  qt/locale/phore_cs.ts \
-  qt/locale/phore_da.ts \
-  qt/locale/phore_de.ts \
-  qt/locale/phore_en.ts \
-  qt/locale/phore_en_US.ts \
-  qt/locale/phore_es.ts \
-  qt/locale/phore_fi.ts \
-  qt/locale/phore_fr_FR.ts \
-  qt/locale/phore_hr.ts \
-  qt/locale/phore_it.ts \
-  qt/locale/phore_ja.ts \
-  qt/locale/phore_ko_KR.ts \
-  qt/locale/phore_nl.ts \
-  qt/locale/phore_pl.ts \
-  qt/locale/phore_pt.ts \
-  qt/locale/phore_pt_BR.ts \
-  qt/locale/phore_ro_RO.ts \
-  qt/locale/phore_ru.ts \
-  qt/locale/phore_sk.ts \
-  qt/locale/phore_sv.ts \
-  qt/locale/phore_tr.ts \
-  qt/locale/phore_uk.ts \
-  qt/locale/phore_zh_CN.ts \
-  qt/locale/phore_zh_TW.ts
+  qt/locale/odin_bg.ts \
+  qt/locale/odin_ca.ts \
+  qt/locale/odin_cs.ts \
+  qt/locale/odin_da.ts \
+  qt/locale/odin_de.ts \
+  qt/locale/odin_en.ts \
+  qt/locale/odin_en_US.ts \
+  qt/locale/odin_es.ts \
+  qt/locale/odin_fi.ts \
+  qt/locale/odin_fr_FR.ts \
+  qt/locale/odin_hr.ts \
+  qt/locale/odin_it.ts \
+  qt/locale/odin_ja.ts \
+  qt/locale/odin_ko_KR.ts \
+  qt/locale/odin_nl.ts \
+  qt/locale/odin_pl.ts \
+  qt/locale/odin_pt.ts \
+  qt/locale/odin_pt_BR.ts \
+  qt/locale/odin_ro_RO.ts \
+  qt/locale/odin_ru.ts \
+  qt/locale/odin_sk.ts \
+  qt/locale/odin_sv.ts \
+  qt/locale/odin_tr.ts \
+  qt/locale/odin_uk.ts \
+  qt/locale/odin_zh_CN.ts \
+  qt/locale/odin_zh_TW.ts
 
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
@@ -58,7 +58,7 @@ QT_FORMS_UI = \
   qt/forms/sendcoinsentry.ui \
   qt/forms/signverifymessagedialog.ui \
   qt/forms/transactiondescdialog.ui \
-  qt/forms/zphrcontroldialog.ui
+  qt/forms/zodincontroldialog.ui
 
 QT_MOC_CPP = \
   qt/moc_addressbookpage.cpp \
@@ -112,23 +112,23 @@ QT_MOC_CPP = \
   qt/moc_walletframe.cpp \
   qt/moc_walletmodel.cpp \
   qt/moc_walletview.cpp \
-  qt/moc_zphrcontroldialog.cpp
+  qt/moc_zodincontroldialog.cpp
 
 BITCOIN_MM = \
   qt/macdockiconhandler.mm \
   qt/macnotificationhandler.mm
 
 QT_MOC = \
-  qt/phore.moc \
+  qt/odin.moc \
   qt/bitcoinamountfield.moc \
   qt/intro.moc \
   qt/overviewpage.moc \
   qt/rpcconsole.moc
 
-QT_QRC_CPP = qt/qrc_phore.cpp
-QT_QRC = qt/phore.qrc
-QT_QRC_LOCALE_CPP = qt/qrc_phore_locale.cpp
-QT_QRC_LOCALE = qt/phore_locale.qrc
+QT_QRC_CPP = qt/qrc_odin.cpp
+QT_QRC = qt/odin.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_odin_locale.cpp
+QT_QRC_LOCALE = qt/odin_locale.qrc
 
 PROTOBUF_CC = qt/paymentrequest.pb.cc
 PROTOBUF_H = qt/paymentrequest.pb.h
@@ -193,7 +193,7 @@ BITCOIN_QT_H = \
   qt/walletmodeltransaction.h \
   qt/walletview.h \
   qt/winshutdownmonitor.h \
-  qt/zphrcontroldialog.h
+  qt/zodincontroldialog.h
 
 RES_ICONS = \
   qt/res/icons/add.png \
@@ -225,18 +225,24 @@ RES_ICONS = \
   qt/res/icons/eye_plus.png \
   qt/res/icons/filesave.png \
   qt/res/icons/history.png \
+  qt/res/icons/history-active.png \
   qt/res/icons/key.png \
   qt/res/icons/lock_closed.png \
   qt/res/icons/lock_open.png \
   qt/res/icons/masternodes.png \
+  qt/res/icons/masternodes-active.png \
   qt/res/icons/overview.png \
+  qt/res/icons/overview-active.png \
   qt/res/icons/qrcode.png \
   qt/res/icons/quit.png \
   qt/res/icons/receive.png \
+  qt/res/icons/receive-active.png \
   qt/res/icons/receive_dark.png \
   qt/res/icons/privacy.png \
+  qt/res/icons/privacy-active.png \
   qt/res/icons/remove.png \
   qt/res/icons/send.png \
+  qt/res/icons/send-active.png \
   qt/res/icons/send_dark.png \
   qt/res/icons/staking_active.png \
   qt/res/icons/staking_inactive.png \
@@ -249,12 +255,12 @@ RES_ICONS = \
   qt/res/icons/tx_input.png \
   qt/res/icons/tx_output.png \
   qt/res/icons/tx_mined.png \
-  qt/res/icons/unit_phore.png \
-  qt/res/icons/unit_mphore.png \
-  qt/res/icons/unit_uphore.png \
-  qt/res/icons/unit_tphore.png \
-  qt/res/icons/unit_tmphore.png \
-  qt/res/icons/unit_tuphore.png
+  qt/res/icons/unit_odin.png \
+  qt/res/icons/unit_modin.png \
+  qt/res/icons/unit_uodin.png \
+  qt/res/icons/unit_todin.png \
+  qt/res/icons/unit_tmodin.png \
+  qt/res/icons/unit_tuodin.png
 
 BITCOIN_QT_CPP = \
   qt/bantablemodel.cpp \
@@ -320,7 +326,7 @@ BITCOIN_QT_CPP += \
   qt/walletmodel.cpp \
   qt/walletmodeltransaction.cpp \
   qt/walletview.cpp \
-  qt/zphrcontroldialog.cpp
+  qt/zodincontroldialog.cpp
 
 endif
 
@@ -328,7 +334,7 @@ RES_IMAGES = \
   qt/res/images/about.png \
   qt/res/images/splash.png \
   qt/res/images/splash_testnet.png \
-  qt/res/images/phore_logo_horizontal.png \
+  qt/res/images/odin_logo_horizontal.png \
   qt/res/images/downArrow_dark.png \
   qt/res/images/downArrow_small_dark.png \
   qt/res/images/downArrow_small.png \
@@ -346,7 +352,7 @@ RES_CSS = \
 
 RES_MOVIES = $(wildcard $(srcdir)/qt/res/movies/spinner-*.png)
 
-BITCOIN_RC = qt/res/phore-qt-res.rc
+BITCOIN_RC = qt/res/odin-qt-res.rc
 
 BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
   -I$(builddir)/qt/forms
@@ -368,72 +374,72 @@ QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:
 # Most files will depend on the forms and moc files as includes. Generate them
 # before anything else.
 $(QT_MOC): $(QT_FORMS_H)
-$(qt_libbitcoinqt_a_OBJECTS) $(qt_phore_qt_OBJECTS) : | $(QT_MOC)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_odin_qt_OBJECTS) : | $(QT_MOC)
 
 #Generating these with a half-written protobuf header leads to wacky results.
 #This makes sure it's done.
 $(QT_MOC): $(PROTOBUF_H)
 $(QT_MOC_CPP): $(PROTOBUF_H)
 
-# phore-qt binary #
-qt_phore_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+# odin-qt binary #
+qt_odin_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
-qt_phore_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_odin_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
 qt_bitcoin_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
 
-qt_phore_qt_SOURCES = qt/phore.cpp
+qt_odin_qt_SOURCES = qt/odin.cpp
 if TARGET_DARWIN
-  qt_phore_qt_SOURCES += $(BITCOIN_MM)
+  qt_odin_qt_SOURCES += $(BITCOIN_MM)
 endif
 if TARGET_WINDOWS
-  qt_phore_qt_SOURCES += $(BITCOIN_RC)
+  qt_odin_qt_SOURCES += $(BITCOIN_RC)
 endif
-qt_phore_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+qt_odin_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
 if ENABLE_WALLET
-qt_phore_qt_LDADD += $(LIBBITCOIN_WALLET)
+qt_odin_qt_LDADD += $(LIBBITCOIN_WALLET)
 endif
 if ENABLE_ZMQ
-qt_phore_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+qt_odin_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
-qt_phore_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBBITCOIN_ZEROCOIN) $(LIBLEVELDB) $(LIBMEMENV) \
+qt_odin_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBBITCOIN_ZEROCOIN) $(LIBLEVELDB) $(LIBMEMENV) \
   $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
-qt_phore_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-qt_phore_qt_LIBTOOLFLAGS = --tag CXX
+qt_odin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_odin_qt_LIBTOOLFLAGS = --tag CXX
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM=$(QT_TS:.ts=.qm)
 
 SECONDARY: $(QT_QM)
 
-$(srcdir)/qt/phorestrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_zmq_a_SOURCES) $(libbitcoin_util_a_SOURCES)
+$(srcdir)/qt/odinstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_zmq_a_SOURCES) $(libbitcoin_util_a_SOURCES)
 	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
 	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
 
-translate: $(srcdir)/qt/phorestrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+translate: $(srcdir)/qt/odinstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
 	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/phore_en.ts
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/odin_en.ts
 
 $(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
 	@test -f $(RCC)
 	@cp -f $< $(@D)/temp_$(<F)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name phore_locale $(@D)/temp_$(<F) | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name odin_locale $(@D)/temp_$(<F) | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 	@rm $(@D)/temp_$(<F)
 
 $(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(RES_MOVIES) $(PROTOBUF_H)
 	@test -f $(RCC)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name phore $< | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name odin $< | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
-CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/temp_phore_locale.qrc
+CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/temp_odin_locale.qrc
 
 CLEANFILES += $(CLEAN_QT)
 
-phore_qt_clean: FORCE
-	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_phore_qt_OBJECTS) qt/phore-qt$(EXEEXT) $(LIBBITCOINQT)
+odin_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_odin_qt_OBJECTS) qt/odin-qt$(EXEEXT) $(LIBBITCOINQT)
 
-phore_qt : qt/phore-qt$(EXEEXT)
+odin_qt : qt/odin-qt$(EXEEXT)
 
 ui_%.h: %.ui
 	@test -f $(UIC)

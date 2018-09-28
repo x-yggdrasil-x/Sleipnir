@@ -6,7 +6,7 @@
 #define BITCOIN_QT_BITCOINGUI_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/phore-config.h"
+#include "config/odin-config.h"
 #endif
 
 #include "amount.h"
@@ -197,6 +197,8 @@ public slots:
 
 private slots:
 #ifdef ENABLE_WALLET
+    /** Reset iconography for primary toolbar action menu */
+    void resetToolbarActionIcons();
     /** Switch to overview (home) page */
     void gotoOverviewPage();
     /** Switch to history (transactions) page */

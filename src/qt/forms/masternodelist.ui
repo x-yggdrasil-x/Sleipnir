@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>723</width>
+    <width>968</width>
     <height>457</height>
    </rect>
   </property>
@@ -49,7 +49,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_Header" stretch="1,0,1">
           <item>
-           <widget class="QLabel" name="labelOverviewHeaderLeft">
+           <widget class="QLabel" name="pageHeading__labelOverviewHeaderLeft">
             <property name="minimumSize">
              <size>
               <width>464</width>
@@ -65,8 +65,8 @@
             <property name="font">
              <font>
               <pointsize>20</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
@@ -158,7 +158,7 @@
               <number>2</number>
              </property>
              <item row="0" column="0">
-              <widget class="QFrame" name="frameList">
+              <widget class="QFrame" name="cardFrame__frameList">
                <layout class="QVBoxLayout" name="verticalLayout_2">
                 <property name="bottomMargin">
                  <number>1</number>

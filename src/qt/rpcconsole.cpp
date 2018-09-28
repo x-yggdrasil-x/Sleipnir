@@ -293,7 +293,7 @@ RPCConsole::RPCConsole(QWidget* parent) : QDialog(parent),
     ui->openSSLVersion->setText(SSLeay_version(SSLEAY_VERSION));
 #ifdef ENABLE_WALLET
     std::string strPathCustom = GetArg("-backuppath", "");
-    std::string strzphrPathCustom = GetArg("-zphrbackuppath", "");
+    std::string strzodinPathCustom = GetArg("-zodinbackuppath", "");
     int nCustomBackupThreshold = GetArg("-custombackupthreshold", DEFAULT_CUSTOMBACKUPTHRESHOLD);
 
     if(!strPathCustom.empty()) {
@@ -302,13 +302,13 @@ RPCConsole::RPCConsole(QWidget* parent) : QDialog(parent),
         ui->wallet_custombackuppath->show();
     }
 
-    if(!strzphrPathCustom.empty()) {
-        ui->wallet_customzphrbackuppath->setText(QString::fromStdString(strzphrPathCustom));
-        ui->wallet_customzphrbackuppath_label->setVisible(true);
-        ui->wallet_customzphrbackuppath->setVisible(true);
+    if(!strzodinPathCustom.empty()) {
+        ui->wallet_customzodinbackuppath->setText(QString::fromStdString(strzodinPathCustom));
+        ui->wallet_customzodinbackuppath_label->setVisible(true);
+        ui->wallet_customzodinbackuppath->setVisible(true);
     }
 
-    if((!strPathCustom.empty() || !strzphrPathCustom.empty()) && nCustomBackupThreshold > 0) {
+    if((!strPathCustom.empty() || !strzodinPathCustom.empty()) && nCustomBackupThreshold > 0) {
         ui->wallet_custombackupthreshold->setText(QString::fromStdString(std::to_string(nCustomBackupThreshold)));
         ui->wallet_custombackupthreshold_label->setVisible(true);
         ui->wallet_custombackupthreshold->setVisible(true);
@@ -633,7 +633,7 @@ void RPCConsole::clear()
         "td.cmd-error { color: red; } "
         "b { color: #006060; } ");
 
-    message(CMD_REPLY, (tr("Welcome to the Phore RPC console.") + "<br>" +
+    message(CMD_REPLY, (tr("Welcome to the ODIN RPC console.") + "<br>" +
                            tr("Use up and down arrows to navigate history, and <b>Ctrl-L</b> to clear screen.") + "<br>" +
                            tr("Type <b>help</b> for an overview of available commands.")),
         true);

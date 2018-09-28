@@ -26,7 +26,7 @@
       <string notr="true">QScrollArea{border: 1px solid #5b4c7c;}</string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="addMultisigTab">
       <property name="sizePolicy">
@@ -97,7 +97,7 @@
             <string>&amp;Add Address / Key</string>
            </property>
            <property name="icon">
-            <iconset resource="../phore.qrc">
+            <iconset>
              <normaloff>:/icons/add</normaloff>:/icons/add</iconset>
            </property>
            <property name="autoDefault">
@@ -149,8 +149,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>759</width>
-            <height>166</height>
+            <width>729</width>
+            <height>125</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -194,7 +194,7 @@
             <string>C&amp;reate</string>
            </property>
            <property name="icon">
-            <iconset resource="../phore.qrc">
+            <iconset>
              <normaloff>:/icons/filesave</normaloff>:/icons/filesave</iconset>
            </property>
            <property name="autoDefault">
@@ -268,8 +268,8 @@ Please be patient after clicking import.</string>
             <string>&amp;Import Redeem</string>
            </property>
            <property name="icon">
-            <iconset resource="../phore.qrc">
-             <normaloff>:/icons/receiving_addresses</normaloff>:/icons/receiving_addresses</iconset>
+            <iconset>
+             <normaloff>:/icons/receive_dark</normaloff>:/icons/receive_dark</iconset>
            </property>
           </widget>
          </item>
@@ -374,7 +374,7 @@ Please be patient after clicking import.</string>
                 <string>Add a Raw Input</string>
                </property>
                <property name="icon">
-                <iconset resource="../phore.qrc">
+                <iconset>
                  <normaloff>:/css/default</normaloff>:/css/default</iconset>
                </property>
               </widget>
@@ -397,8 +397,8 @@ Please be patient after clicking import.</string>
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>747</width>
-                <height>131</height>
+                <width>713</width>
+                <height>116</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -440,13 +440,13 @@ Please be patient after clicking import.</string>
                 </sizepolicy>
                </property>
                <property name="toolTip">
-                <string>Add destinations to send PHR to</string>
+                <string>Add destinations to send ODIN to</string>
                </property>
                <property name="text">
                 <string>Add &amp;Destination</string>
                </property>
                <property name="icon">
-                <iconset resource="../phore.qrc">
+                <iconset>
                  <normaloff>:/icons/add</normaloff>:/icons/add</iconset>
                </property>
               </widget>
@@ -482,8 +482,8 @@ Please be patient after clicking import.</string>
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>747</width>
-                <height>130</height>
+                <width>713</width>
+                <height>100</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -530,7 +530,7 @@ Please be patient after clicking import.</string>
                 <string>Cr&amp;eate</string>
                </property>
                <property name="icon">
-                <iconset resource="../phore.qrc">
+                <iconset>
                  <normaloff>:/icons/export</normaloff>:/icons/export</iconset>
                </property>
                <property name="autoDefault">
@@ -651,7 +651,7 @@ txScrollArea:{
                 <string>S&amp;ign</string>
                </property>
                <property name="icon">
-                <iconset resource="../phore.qrc">
+                <iconset>
                  <normaloff>:/icons/edit</normaloff>:/icons/edit</iconset>
                </property>
                <property name="autoDefault">
@@ -683,8 +683,8 @@ txScrollArea:{
                 <string>Co&amp;mmit</string>
                </property>
                <property name="icon">
-                <iconset resource="../phore.qrc">
-                 <normaloff>:/icons/send</normaloff>:/icons/send</iconset>
+                <iconset>
+                 <normaloff>:/icons/send_dark</normaloff>:/icons/send_dark</iconset>
                </property>
                <property name="autoDefault">
                 <bool>true</bool>
@@ -708,7 +708,7 @@ txScrollArea:{
                   <string>Add Private &amp;Key</string>
                  </property>
                  <property name="icon">
-                  <iconset resource="../phore.qrc">
+                  <iconset>
                    <normaloff>:/icons/add</normaloff>:/icons/add</iconset>
                  </property>
                 </widget>
@@ -779,8 +779,8 @@ txScrollArea:{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>98</width>
-                <height>28</height>
+                <width>725</width>
+                <height>76</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -827,8 +827,6 @@ txScrollArea:{
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../phore.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

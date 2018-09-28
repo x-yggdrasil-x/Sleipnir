@@ -116,7 +116,7 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
 
     GUIUtil::restoreWindowGeometry("nWindow", QSize(850, 550), this);
 
-    QString windowTitle = tr("Phore Core") + " - ";
+    QString windowTitle = tr("ODIN Core") + " - ";
 #ifdef ENABLE_WALLET
     /* if compiled with wallet support, -disablewallet can still disable the wallet */
     enableWallet = !GetBoolArg("-disablewallet", false);
@@ -290,7 +290,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 {
     QActionGroup* tabGroup = new QActionGroup(this);
 
-    overviewAction = new QAction(QIcon(":/icons/overview"), tr("&Overview"), this);
+    overviewAction = new QAction(QIcon(":/icons/overview-active"), tr(""), this);
     overviewAction->setStatusTip(tr("Show general overview of wallet"));
     overviewAction->setToolTip(overviewAction->statusTip());
     overviewAction->setCheckable(true);
@@ -301,8 +301,8 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 #endif
     tabGroup->addAction(overviewAction);
 
-    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send"), this);
-    sendCoinsAction->setStatusTip(tr("Send coins to a Phore address"));
+    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr(""), this);
+    sendCoinsAction->setStatusTip(tr("Send coins to a ODIN address"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);
 #ifdef Q_OS_MAC
@@ -312,8 +312,8 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 #endif
     tabGroup->addAction(sendCoinsAction);
 
-    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
-    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and phore: URIs)"));
+    receiveCoinsAction = new QAction(QIcon(":/icons/receive"), tr(""), this);
+    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and ODIN: URIs)"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
 #ifdef Q_OS_MAC
@@ -323,7 +323,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 #endif
     tabGroup->addAction(receiveCoinsAction);
 
-    historyAction = new QAction(QIcon(":/icons/history"), tr("&Transactions"), this);
+    historyAction = new QAction(QIcon(":/icons/history"), tr(""), this);
     historyAction->setStatusTip(tr("Browse transaction history"));
     historyAction->setToolTip(historyAction->statusTip());
     historyAction->setCheckable(true);
@@ -334,8 +334,8 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 #endif
     tabGroup->addAction(historyAction);
 
-    privacyAction = new QAction(QIcon(":/icons/privacy"), tr("&Privacy"), this);
-    privacyAction->setStatusTip(tr("Privacy Actions for zPHR"));
+    privacyAction = new QAction(QIcon(":/icons/privacy"), tr(""), this);
+    privacyAction->setStatusTip(tr("Privacy Actions for zODIN"));
     privacyAction->setToolTip(privacyAction->statusTip());
     privacyAction->setCheckable(true);
 #ifdef Q_OS_MAC
@@ -349,7 +349,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 
     QSettings settings;
     if (settings.value("fShowMasternodesTab").toBool()) {
-        masternodeAction = new QAction(QIcon(":/icons/masternodes"), tr("&Masternodes"), this);
+        masternodeAction = new QAction(QIcon(":/icons/masternodes"), tr(""), this);
         masternodeAction->setStatusTip(tr("Browse masternodes"));
         masternodeAction->setToolTip(masternodeAction->statusTip());
         masternodeAction->setCheckable(true);
@@ -381,8 +381,8 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     quitAction->setStatusTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(networkStyle->getAppIcon(), tr("&About Phore Core"), this);
-    aboutAction->setStatusTip(tr("Show information about Phore Core"));
+    aboutAction = new QAction(networkStyle->getAppIcon(), tr("&About ODIN Core"), this);
+    aboutAction->setStatusTip(tr("Show information about ODIN Core"));
     aboutAction->setMenuRole(QAction::AboutRole);
 #if QT_VERSION < 0x050000
     aboutQtAction = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
@@ -392,7 +392,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     aboutQtAction->setStatusTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
-    optionsAction->setStatusTip(tr("Modify configuration options for Phore"));
+    optionsAction->setStatusTip(tr("Modify configuration options for ODIN"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
     toggleHideAction = new QAction(networkStyle->getAppIcon(), tr("&Show / Hide"), this);
     toggleHideAction->setStatusTip(tr("Show or hide the main Window"));
@@ -408,9 +408,9 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     unlockWalletAction->setToolTip(tr("Unlock wallet"));
     lockWalletAction = new QAction(tr("&Lock Wallet"), this);
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
-    signMessageAction->setStatusTip(tr("Sign messages with your Phore addresses to prove you own them"));
+    signMessageAction->setStatusTip(tr("Sign messages with your ODIN addresses to prove you own them"));
     verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
-    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified Phore addresses"));
+    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified ODIN addresses"));
     bip38ToolAction = new QAction(QIcon(":/icons/key"), tr("&BIP38 tool"), this);
     bip38ToolAction->setToolTip(tr("Encrypt and decrypt private keys using a passphrase"));
     multiSendAction = new QAction(QIcon(":/icons/edit"), tr("&MultiSend"), this);
@@ -441,19 +441,19 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 
     multisigCreateAction = new QAction(QIcon(":/icons/address-book"), tr("&Multisignature creation..."), this);
     multisigCreateAction->setStatusTip(tr("Create a new multisignature address and add it to this wallet"));
-    multisigSpendAction = new QAction(QIcon(":/icons/send"), tr("&Multisignature spending..."), this);
+    multisigSpendAction = new QAction(QIcon(":/icons/send_dark"), tr("&Multisignature spending..."), this);
     multisigSpendAction->setStatusTip(tr("Spend from a multisignature address"));
     multisigSignAction = new QAction(QIcon(":/icons/editpaste"), tr("&Multisignature signing..."), this);
     multisigSignAction->setStatusTip(tr("Sign with a multisignature address"));
 
     openAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_FileIcon), tr("Open &URI..."), this);
-    openAction->setStatusTip(tr("Open a Phore: URI or payment request"));
+    openAction->setStatusTip(tr("Open a ODIN: URI or payment request"));
     openBlockExplorerAction = new QAction(QIcon(":/icons/explorer"), tr("&Blockchain explorer"), this);
     openBlockExplorerAction->setStatusTip(tr("Block explorer window"));
 
     showHelpMessageAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the Phore Core help message to get a list with possible Phore command-line options"));
+    showHelpMessageAction->setStatusTip(tr("Show the ODIN Core help message to get a list with possible ODIN command-line options"));
 
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
@@ -566,7 +566,7 @@ void BitcoinGUI::createToolBars()
         }
         toolbar->setMovable(false); // remove unused icon in upper left corner
         toolbar->setOrientation(Qt::Vertical);
-        toolbar->setIconSize(QSize(40,40));
+        toolbar->setIconSize(QSize(85,85));
         overviewAction->setChecked(true);
 
         /** Create additional container for toolbar and walletFrame and make it the central widget.
@@ -575,7 +575,7 @@ void BitcoinGUI::createToolBars()
         QVBoxLayout* layout = new QVBoxLayout;
         layout->addWidget(toolbar);
         layout->addWidget(walletFrame);
-        layout->setSpacing(0);
+        layout->setSpacing(10);
         layout->setContentsMargins(QMargins());
         layout->setDirection(QBoxLayout::LeftToRight);
         QWidget* containerWidget = new QWidget();
@@ -682,7 +682,7 @@ void BitcoinGUI::createTrayIcon(const NetworkStyle* networkStyle)
 {
 #ifndef Q_OS_MAC
     trayIcon = new QSystemTrayIcon(this);
-    QString toolTip = tr("Phore Core client") + " " + networkStyle->getTitleAddText();
+    QString toolTip = tr("ODIN Core client") + " " + networkStyle->getTitleAddText();
     trayIcon->setToolTip(toolTip);
     trayIcon->setIcon(networkStyle->getAppIcon());
     trayIcon->hide();
@@ -776,6 +776,21 @@ void BitcoinGUI::showHelpMessageClicked()
 }
 
 #ifdef ENABLE_WALLET
+
+void BitcoinGUI::resetToolbarActionIcons()
+{
+  overviewAction->setIcon(QIcon(":/icons/overview"));
+  historyAction->setIcon(QIcon(":/icons/history"));
+  receiveCoinsAction->setIcon(QIcon(":/icons/receive"));
+  sendCoinsAction->setIcon(QIcon(":/icons/send"));
+  privacyAction->setIcon(QIcon(":/icons/privacy"));
+
+  QSettings settings;
+  if (settings.value("fShowMasternodesTab").toBool()) {
+    masternodeAction->setIcon(QIcon(":/icons/masternodes"));
+  }
+}
+
 void BitcoinGUI::openClicked()
 {
     OpenURIDialog dlg(this);
@@ -787,12 +802,16 @@ void BitcoinGUI::openClicked()
 void BitcoinGUI::gotoOverviewPage()
 {
     overviewAction->setChecked(true);
+    resetToolbarActionIcons();
+    overviewAction->setIcon(QIcon(":/icons/overview-active"));
     if (walletFrame) walletFrame->gotoOverviewPage();
 }
 
 void BitcoinGUI::gotoHistoryPage()
 {
     historyAction->setChecked(true);
+    resetToolbarActionIcons();
+    historyAction->setIcon(QIcon(":/icons/history-active"));
     if (walletFrame) walletFrame->gotoHistoryPage();
 }
 
@@ -801,6 +820,8 @@ void BitcoinGUI::gotoMasternodePage()
     QSettings settings;
     if (settings.value("fShowMasternodesTab").toBool()) {
         masternodeAction->setChecked(true);
+        resetToolbarActionIcons();
+        masternodeAction->setIcon(QIcon(":/icons/masternodes-active"));
         if (walletFrame) walletFrame->gotoMasternodePage();
     }
 }
@@ -808,18 +829,24 @@ void BitcoinGUI::gotoMasternodePage()
 void BitcoinGUI::gotoReceiveCoinsPage()
 {
     receiveCoinsAction->setChecked(true);
+    resetToolbarActionIcons();
+    receiveCoinsAction->setIcon(QIcon(":/icons/receive-active"));
     if (walletFrame) walletFrame->gotoReceiveCoinsPage();
 }
 
 void BitcoinGUI::gotoPrivacyPage()
 {
     privacyAction->setChecked(true);
+    resetToolbarActionIcons();
+    privacyAction->setIcon(QIcon(":/icons/privacy-active"));
     if (walletFrame) walletFrame->gotoPrivacyPage();
 }
 
 void BitcoinGUI::gotoSendCoinsPage(QString addr)
 {
     sendCoinsAction->setChecked(true);
+    resetToolbarActionIcons();
+    sendCoinsAction->setIcon(QIcon(":/icons/send-active"));
     if (walletFrame) walletFrame->gotoSendCoinsPage(addr);
 }
 
@@ -894,7 +921,7 @@ void BitcoinGUI::setNumConnections(int count)
     }
     QIcon connectionItem = QIcon(icon).pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE);
     labelConnectionsIcon->setIcon(connectionItem);
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to Phore network", "", count));
+    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to ODIN network", "", count));
 }
 
 void BitcoinGUI::setNumBlocks(int count)
@@ -1024,7 +1051,7 @@ void BitcoinGUI::setNumBlocks(int count)
 
 void BitcoinGUI::message(const QString& title, const QString& message, unsigned int style, bool* ret)
 {
-    QString strTitle = tr("Phore Core"); // default title
+    QString strTitle = tr("ODIN Core"); // default title
     // Default to information icon
     int nMBoxIcon = QMessageBox::Information;
     int nNotifyIcon = Notificator::Information;
@@ -1049,7 +1076,7 @@ void BitcoinGUI::message(const QString& title, const QString& message, unsigned 
             break;
         }
     }
-    // Append title to "Phore - "
+    // Append title to "ODIN - "
     if (!msgType.isEmpty())
         strTitle += " - " + msgType;
 

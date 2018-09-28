@@ -11,27 +11,28 @@
 
 BOOST_AUTO_TEST_SUITE(main_tests)
 
-CAmount nMoneySupplyPoWEnd = 18000000 * COIN;
+CAmount nMoneySupplyPoWEnd = 250000000 * COIN; // pre-mine 250,000,000 M ODIN
 
 BOOST_AUTO_TEST_CASE(subsidy_limit_test)
 {
     CAmount nSum = 0;
     for (int nHeight = 0; nHeight < 1; nHeight += 1) {
-        /* premine in block 1 (17,500,000 PHR) */
+        /* premine in block 1 (166,667 ODIN) */
         CAmount nSubsidy = GetBlockValue(nHeight);
-        BOOST_CHECK(nSubsidy <= 17500000 * COIN);
+        BOOST_CHECK(nSubsidy <= 166667 * COIN);
         nSum += nSubsidy;
     }
 
-    for (int nHeight = 1; nHeight < 201; nHeight += 1) {
-        /* PoW premine (500,000 PHR) */
+    for (int nHeight = 1; nHeight < 1501; nHeight += 1) {
+        /* PoW premine (249,833,333 ODIN) */
         CAmount nSubsidy = GetBlockValue(nHeight);
-        BOOST_CHECK(nSubsidy <= 2500 * COIN);
+        BOOST_CHECK(nSubsidy <= 249833333 * COIN);
         nSum += nSubsidy;
     }
 
     BOOST_CHECK(nSum > 0 && nSum <= nMoneySupplyPoWEnd);
 
+    // TODO: Adjust with PoS blocks
     for (int nHeight = 201; nHeight < 775601; nHeight += 1) {
         /* PoS Phase One */
         CAmount nSubsidy = GetBlockValue(nHeight);

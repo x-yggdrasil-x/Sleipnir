@@ -27,20 +27,18 @@ std::vector<CFinalizedBudgetBroadcast> vecImmatureFinalizedBudgets;
 int nSubmittedFinalBudget;
 
 CAmount GetBudgetSystemCollateralAmount(int nHeight) {
-    if (nHeight <= 250000) {
-        return 50 * COIN;
-    } else {
-        return 25 * COIN;
-    }
+  return (Params().GetBudgetSubmissionCollateral() * COIN);
 }
 
 int GetBudgetPaymentCycleBlocks()
 {
-    // Amount of blocks in a months period of time (using 1 minutes per) = (60*24*30)
-    if (Params().NetworkID() == CBaseChainParams::MAIN) return 43200;
-    //for testing purposes
+    // Amount of blocks in a months period of time (using 1 minutes per block)
+    // estimate 30 blocks an hour * hours in a day * avg. days in a month
+    if (Params().NetworkID() == CBaseChainParams::MAIN)
+      return (60 * 24 * 30); 
 
-    return 144; //ten times per day
+    // for testing purposes
+    return 1000;
 }
 
 bool IsBudgetCollateralValid(uint256 nTxCollateralHash, uint256 nExpectedHash, std::string& strError, int64_t& nTime, int& nConf, bool fBudgetFinalization)
@@ -68,8 +66,6 @@ bool IsBudgetCollateralValid(uint256 nTxCollateralHash, uint256 nExpectedHash, s
         }
         if (fBudgetFinalization) {
             // Collateral for budget finalization
-            // Note: there are still old valid budgets out there, but the check for the new 5 PIV finalization collateral
-            //       will also cover the old 50 PIV finalization collateral.
             LogPrint("mnbudget", "Final Budget: o.scriptPubKey(%s) == findScript(%s) ?\n", o.scriptPubKey.ToString(), findScript.ToString());
             if (o.scriptPubKey == findScript) {
                 LogPrint("mnbudget", "Final Budget: o.nValue(%ld) >= BUDGET_FEE_TX(%ld) ?\n", o.nValue, GetBudgetSystemCollateralAmount(chainActive.Height()));
@@ -907,17 +903,11 @@ std::string CBudgetManager::GetRequiredPaymentsString(int nBlockHeight)
 
 CAmount CBudgetManager::GetTotalBudget(int nHeight)
 {
-    if (chainActive.Tip() == NULL) return 0;
+  if (chainActive.Tip() == NULL) return 0;
 
-    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-        CAmount nSubsidy = 500 * COIN;
-        return ((nSubsidy / 100) * 10) * 146;
-    }
+  CAmount nSubsidy = GetBlockValue(nHeight, true);
 
-    if (nHeight > 200 && nHeight <= 250000) {
-        return 0.77 * COIN * 1440 * 30;
-    }
-    return 1 * COIN * 1440 * 30;
+  return nSubsidy * Params().GetBudgetPercent() * GetBudgetPaymentCycleBlocks();
 }
 
 void CBudgetManager::NewBlock()
@@ -1048,7 +1038,9 @@ void CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
             if (nProp == 0) {
                 if (pfrom->HasFulfilledRequest(NetMsgType::MNVS)) {
                     LogPrint("mnbudget","mnvs - peer already asked me for the list\n");
-                    Misbehaving(pfrom->GetId(), 20);
+                    // TODO: Determine why this happens often and is bannable offense
+                    // LogPrintf("Misbehaving: ASKED FOR LIST\n");
+                    // Misbehaving(pfrom->GetId(), 20);
                     return;
                 }
                 pfrom->FulfilledRequest(NetMsgType::MNVS);
@@ -1116,7 +1108,10 @@ void CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         mapSeenMasternodeBudgetVotes.insert(make_pair(vote.GetHash(), vote));
         if (!vote.SignatureValid(true)) {
             LogPrint("mnbudget","mvote - signature invalid\n");
-            if (masternodeSync.IsSynced()) Misbehaving(pfrom->GetId(), 20);
+            if (masternodeSync.IsSynced()) {
+              LogPrintf("Misbehaving: SYNCED VOTES INSERTT\n");
+              Misbehaving(pfrom->GetId(), 20);
+            }
             // it could just be a non-synced masternode
             mnodeman.AskForMN(pfrom, vote.vin);
             return;
@@ -1188,7 +1183,10 @@ void CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         mapSeenFinalizedBudgetVotes.insert(make_pair(vote.GetHash(), vote));
         if (!vote.SignatureValid(true)) {
             LogPrint("mnbudget","fbvote - signature invalid\n");
-            if (masternodeSync.IsSynced()) Misbehaving(pfrom->GetId(), 20);
+            if (masternodeSync.IsSynced()) {
+              LogPrintf("Misbehaving: SYNCED SIG INVALID\n");
+              Misbehaving(pfrom->GetId(), 20);
+            }
             // it could just be a non-synced masternode
             mnodeman.AskForMN(pfrom, vote.vin);
             return;
@@ -1499,7 +1497,7 @@ bool CBudgetProposal::IsValid(std::string& strError, bool fCheckCollateral)
     //     }
     // }
 
-    //can only pay out 10% of the possible coins (min value of coins)
+    // can only pay out 10% of the possible coins (min value of coins)
     if (nAmount > budget.GetTotalBudget(nBlockStart)) {
         strError = "Proposal " + strProposalName + ": Payment more than max";
         return false;

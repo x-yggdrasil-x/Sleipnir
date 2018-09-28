@@ -1,0 +1,26 @@
+# /etc/conf.d/odind: config file for /etc/init.d/odind
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/odin/odin.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/odind"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/odind.pid"
+
+# Where to write odind data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/odind"
+
+# User and group to own odind process
+#BITCOIND_USER="odin"
+#BITCOIND_GROUP="odin"
+
+# Path to odind executable
+#BITCOIND_BIN="/usr/bin/odind"
+
+# Nice value to run odind under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""

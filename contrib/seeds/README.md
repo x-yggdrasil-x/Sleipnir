@@ -8,9 +8,12 @@ and remove old versions as necessary.
 
 The seeds compiled into the release are created from fuzzbawls' DNS seed data, like this:
 
-    curl -s http://seeder.fuzzbawls.pw/phore-mainnet.txt > seeds_main.txt
+    curl -s http://seeder.fuzzbawls.pw/pivx-mainnet.txt > seeds_main.txt
     python3 makeseeds.py < seeds_main.txt > nodes_main.txt
     python3 generate-seeds.py . > ../../src/chainparamsseeds.h
+
+### Note:
+ODIN is currently not available from fuzzbawls.pw -- We will work towards providing DNS seed data based on the current network usage at a later point.
 
 ## Dependencies
 

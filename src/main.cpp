@@ -3,6 +3,7 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2017-2018 The Phore developers
+// Copyright (c) 2018 The ODIN developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -54,7 +55,7 @@ using namespace std;
 using namespace libzerocoin;
 
 #if defined(NDEBUG)
-#error "Phore cannot be compiled without assertions."
+#error "ODIN cannot be compiled without assertions."
 #endif
 
 // 6 comes from OPCODE (1) + vch.size() (1) + BIGNUM size (4)
@@ -87,11 +88,9 @@ bool fVerifyingBlocks = false;
 unsigned int nCoinCacheSize = 5000;
 unsigned int nBytesPerSigOp = DEFAULT_BYTES_PER_SIGOP;
 bool fAlerts = DEFAULT_ALERTS;
-
-unsigned int nStakeMinAge = 3 * 60 * 60;
 int64_t nReserveBalance = 0;
 
-/** Fees smaller than this (in uphr) are considered zero fee (for relaying and mining)
+/** Fees smaller than this (in uODIN) are considered zero fee (for relaying and mining)
  * We are ~100 times smaller then bitcoin now (2015-06-23), set minRelayTxFee only 10 times higher
  * so it's still 10 times lower comparing to bitcoin.
  */
@@ -116,7 +115,7 @@ static void CheckBlockIndex();
 /** Constant stuff for coinbase transactions we create: */
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "DarkNet Signed Message:\n";
+const string strMessageMagic = "Huginn hath Signed Message:\n";
 
 // Internal stuff
 namespace
@@ -918,7 +917,7 @@ bool GetCoinAge(const CTransaction& tx, const unsigned int nTxTime, uint64_t& nC
         // Read block header
         CBlockHeader prevblock = pindex->GetBlockHeader();
 
-        if (prevblock.nTime + nStakeMinAge > nTxTime)
+        if (prevblock.nTime + Params().GetMinStakeAge() > nTxTime)
             continue; // only count coins meeting min age requirement
 
         if (nTxTime < prevblock.nTime) {
@@ -1246,16 +1245,16 @@ bool ContextualCheckZerocoinMint(const CTransaction& tx, const PublicCoin& coin,
 }
 
 bool ContextualCheckZerocoinSpend(const CTransaction& tx, const CoinSpend& spend, CBlockIndex* pindex, const uint256& hashBlock) {
-    //Check to see if the zPHR is properly signed
+    //Check to see if the zODIN is properly signed
     if (pindex->nHeight > Params().Zerocoin_LastOldParams()) {
         if (!spend.HasValidSignature())
-            return error("%s: V2 zPHR spend does not have a valid signature", __func__);
+            return error("%s: V2 zODIN spend does not have a valid signature", __func__);
 
         libzerocoin::SpendType expectedType = libzerocoin::SpendType::SPEND;
         if (tx.IsCoinStake())
             expectedType = libzerocoin::SpendType::STAKE;
         if (spend.getSpendType() != expectedType) {
-            return error("%s: trying to spend zPHR without the correct spend type. txid=%s", __func__,
+            return error("%s: trying to spend zODIN without the correct spend type. txid=%s", __func__,
                          tx.GetHash().GetHex());
         }
     }
@@ -1263,13 +1262,13 @@ bool ContextualCheckZerocoinSpend(const CTransaction& tx, const CoinSpend& spend
     //Reject serial's that are already in the blockchain
     int nHeightTx = 0;
     if (IsSerialInBlockchain(spend.getCoinSerialNumber(), nHeightTx))
-        return error("%s : zPHR spend with serial %s is already in block %d\n", __func__,
+        return error("%s : zODIN spend with serial %s is already in block %d\n", __func__,
                      spend.getCoinSerialNumber().GetHex(), nHeightTx);
 
     //Reject serial's that are not in the acceptable value range
     libzerocoin::ZerocoinParams* paramsToUse = spend.getVersion() < libzerocoin::PrivateCoin::PUBKEY_VERSION ? Params().OldZerocoin_Params() : Params().Zerocoin_Params();
     if (!spend.HasValidSerial(paramsToUse))
-        return error("%s : zPHR spend with serial %s from tx %s is not in valid range\n", __func__,
+        return error("%s : zODIN spend with serial %s from tx %s is not in valid range\n", __func__,
                      spend.getCoinSerialNumber().GetHex(), tx.GetHash().GetHex());
 
     return true;
@@ -1575,7 +1574,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransa
             //Check that txid is not already in the chain
             int nHeightTx = 0;
             if (IsTransactionInChain(tx.GetHash(), nHeightTx))
-                return state.Invalid(error("AcceptToMemoryPool : zPHR spend tx %s already in block %d",
+                return state.Invalid(error("AcceptToMemoryPool : zODIN spend tx %s already in block %d",
                                            tx.GetHash().GetHex(), nHeightTx), REJECT_DUPLICATE, "bad-txns-inputs-spent");
 
             //Check for double spending of serial #'s
@@ -1585,7 +1584,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransa
                 CoinSpend spend = TxInToZerocoinSpend(txIn);
                 if (!ContextualCheckZerocoinSpend(tx, spend, chainActive.Tip(), 0))
                     return state.Invalid(error("%s: ContextualCheckZerocoinSpend failed for tx %s", __func__,
-                                               tx.GetHash().GetHex()), REJECT_INVALID, "bad-txns-invalid-zphr");
+                                               tx.GetHash().GetHex()), REJECT_INVALID, "bad-txns-invalid-zodin");
             }
         } else {
             LOCK(pool.cs);
@@ -1607,7 +1606,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransa
                 }
             }
 
-            // Check that zPHR mints are not already known
+            // Check that zODIN mints are not already known
             if (tx.IsZerocoinMint()) {
                 for (auto& out : tx.vout) {
                     if (!out.IsZerocoinMint())
@@ -1874,7 +1873,7 @@ bool AcceptableInputs(CTxMemPool& pool, CValidationState& state, const CTransact
                 }
             }
 
-            // Check that zPHR mints are not already known
+            // Check that zODIN mints are not already known
             if (tx.IsZerocoinMint()) {
                 for (auto& out : tx.vout) {
                     if (!out.IsZerocoinMint())
@@ -2151,27 +2150,65 @@ double ConvertBitsToDouble(unsigned int nBits)
     return dDiff;
 }
 
-int64_t GetBlockValue(int nHeight)
+int64_t GetBlockValue(int nHeight, bool fBudgetBlock)
 {
-    if (nHeight == 0) {
-        return 17500000 * COIN;
-    } else if (nHeight > 0 && nHeight <= 200) {
-        return 2500 * COIN;
-    } else if (nHeight > 200 && nHeight <= 775600) {
-        return 7 * COIN;
-    } else if (nHeight > 775600 && nHeight <= 1043999) {
-        return 4.5 * COIN;
-    } else if (nHeight > 1043999 && nHeight <= 1562398) {
-        return 3.6 * COIN;
-    } else {
-        return 2.7 * COIN;
-    }
+  /**
+   * ODIN Block Reward Structure:
+   * PoW Premine:   Block         0 -         200 = 495,000 Ø ~3 hours
+   * PoS Launch:    Block       201 -      14,601 =       5 Ø ~10 days
+   * Ragnarök:      Block    14,602 -      52,042 =     175 Ø ~26 days
+   * Valhalla:      Block    52,043 -     139,883 =      95 Ø ~61 days
+   * Y1 Yggdrasil:  Block   139,884 -     665,484 =      25 Ø ~365 days
+   * Y2 Midgard:    Block   665,485 -   1,192,526 =      20 Ø ~366 days
+   * Y3 Nidhogg:    Block 1,192,526 -             =      15 Ø ~365 days
+   * Y4 ONWARDS:    Block 1,192,526               =      15 Ø
+   * 
+   * PoW Schedule -  0% to proposals
+   * PoS Schedule - 10% to proposals for all phases starting in Ragnarök
+   * 90% distributed to Stake wallet and Masternode
+   * 
+   * 1 Day    =  ~1440 Blocks
+   * 1 Month  = ~43800 Blocks
+   * 
+   * ~1.4813x faster in initial blockchain growth
+   */
+
+  int64_t nBudgetMultiplier = COIN;
+  if (!fBudgetBlock)
+    nBudgetMultiplier = COIN - (Params().GetBudgetPercent() * CENT);
+
+  CAmount nSubsidy = 15 * nBudgetMultiplier;
+
+  if (nHeight <= 200) {
+    // Premine
+    nSubsidy = 495000 * COIN;
+  } else if (nHeight >= 201 && nHeight <= 14601) {
+    // PoS Launch 10 days
+    nSubsidy = 5 * COIN;
+  } else if (nHeight >= 14602 && nHeight <= 52042) {
+    // Ragnarök 26 days
+    nSubsidy = 175 * nBudgetMultiplier;
+  } else if (nHeight >= 52043 && nHeight <= 139883) {
+    // Valhalla 61 days
+    nSubsidy = 95 * nBudgetMultiplier;
+  } else if (nHeight >= 139884 && nHeight <= 665484) {
+    // Yggdrasil 365 days
+    nSubsidy = 25 * nBudgetMultiplier;
+  } else if (nHeight >= 665485 && nHeight <= 1192525) {
+    // Midgard 366 days
+    nSubsidy = 20 * nBudgetMultiplier;
+  } else if (nHeight >= 1192526) {
+    // Nidhogg
+    nSubsidy = 15 * nBudgetMultiplier;
+  }
+
+  LogPrintf("GetBlockValue Subsidy=%d, CommunityBudget=%d\n", nSubsidy, Params().GetBudgetPercent());
+  return nSubsidy;
 }
 
-int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount)
+int64_t GetMasternodePayment(CAmount nTotalBlockReward)
 {
-    int64_t ret = blockValue / 5 * 3;
-    return ret;
+  return (nTotalBlockReward / COIN) * (Params().GetMasternodeRewardPercent() * CENT);
 }
 
 bool IsInitialBlockDownload()
@@ -2304,8 +2341,10 @@ void static InvalidBlockFound(CBlockIndex* pindex, const CValidationState& state
         if (it != mapBlockSource.end() && State(it->second)) {
             CBlockReject reject = {state.GetRejectCode(), state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH), pindex->GetBlockHash()};
             State(it->second)->rejects.push_back(reject);
-            if (nDoS > 0)
-                Misbehaving(it->second, nDoS);
+            if (nDoS > 0) {
+              LogPrintf("Misbehaving: InvalidBlockFound\n");
+              Misbehaving(it->second, nDoS);
+            }
         }
     }
     if (!state.CorruptionPossible()) {
@@ -2468,7 +2507,7 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
         const CTransaction& tx = block.vtx[i];
 
         /** UNDO ZEROCOIN DATABASING
-         * note we only undo zerocoin databasing in the following statement, value to and from Phore
+         * note we only undo zerocoin databasing in the following statement, value to and from ODIN
          * addresses should still be handled by the typical bitcoin based undo code
          * */
         if (tx.ContainsZerocoins()) {
@@ -2602,11 +2641,11 @@ static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck()
 {
-    RenameThread("phore-scriptch");
+    RenameThread("odin-scriptch");
     scriptcheckqueue.Thread();
 }
 
-void RecalculateZPHRMinted()
+void RecalculateZODINMinted()
 {
     CBlockIndex *pindex = chainActive[Params().Zerocoin_StartHeight()];
     int nHeightEnd = chainActive.Height();
@@ -2633,14 +2672,14 @@ void RecalculateZPHRMinted()
     }
 }
 
-void RecalculateZPHRSpent()
+void RecalculateZODINSpent()
 {
     CBlockIndex* pindex = chainActive[Params().Zerocoin_StartHeight()];
     while (true) {
         if (pindex->nHeight % 1000 == 0)
             LogPrintf("%s : block %d...\n", __func__, pindex->nHeight);
 
-        //Rewrite zPHR supply
+        //Rewrite zODIN supply
         CBlock block;
         assert(ReadBlockFromDisk(block, pindex));
 
@@ -2649,13 +2688,13 @@ void RecalculateZPHRSpent()
         //Reset the supply to previous block
         pindex->mapZerocoinSupply = pindex->pprev->mapZerocoinSupply;
 
-        //Add mints to zPHR supply
+        //Add mints to zODIN supply
         for (auto denom : libzerocoin::zerocoinDenomList) {
             long nDenomAdded = count(pindex->vMintDenominationsInBlock.begin(), pindex->vMintDenominationsInBlock.end(), denom);
             pindex->mapZerocoinSupply.at(denom) += nDenomAdded;
         }
 
-        //Remove spends from zPHR supply
+        //Remove spends from zODIN supply
         for (auto denom : listDenomsSpent)
             pindex->mapZerocoinSupply.at(denom)--;
 
@@ -2669,7 +2708,7 @@ void RecalculateZPHRSpent()
     }
 }
 
-bool RecalculatePHRSupply(int nHeightStart)
+bool RecalculateODINSupply(int nHeightStart)
 {
     if (nHeightStart > chainActive.Height())
         return false;
@@ -2729,7 +2768,7 @@ bool RecalculatePHRSupply(int nHeightStart)
 
 bool ReindexAccumulators(list<uint256>& listMissingCheckpoints, string& strError)
 {
-    // Phore: recalculate Accumulator Checkpoints that failed to database properly
+    // ODIN: recalculate Accumulator Checkpoints that failed to database properly
     if (!listMissingCheckpoints.empty() && chainActive.Height() >= Params().Zerocoin_StartHeight()) {
         //uiInterface.InitMessage(_("Calculating missing accumulators..."));
         LogPrintf("%s : finding missing checkpoints\n", __func__);
@@ -2776,7 +2815,7 @@ bool ReindexAccumulators(list<uint256>& listMissingCheckpoints, string& strError
     return true;
 }
 
-bool UpdateZPHRSupply(const CBlock& block, CBlockIndex* pindex)
+bool UpdateZODINSupply(const CBlock& block, CBlockIndex* pindex)
 {
     std::list<CZerocoinMint> listMints;
     BlockToZerocoinMintList(block, listMints);
@@ -2989,7 +3028,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                     return state.DoS(100, error("%s: failed to add block %s with invalid zerocoinspend", __func__, tx.GetHash().GetHex()), REJECT_INVALID);
                 }
 
-            // Check that zPHR mints are not already known
+            // Check that zODIN mints are not already known
             if (tx.IsZerocoinMint()) {
                 for (auto& out : tx.vout) {
                     if (!out.IsZerocoinMint())
@@ -3010,7 +3049,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                 return state.DoS(100, error("ConnectBlock() : inputs missing/spent"),
                     REJECT_INVALID, "bad-txns-inputs-missingorspent");
             
-            // Check that zPHR mints are not already known
+            // Check that zODIN mints are not already known
             if (tx.IsZerocoinMint()) {
                 for (auto& out : tx.vout) {
                     if (!out.IsZerocoinMint())
@@ -3072,14 +3111,14 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         pos.nTxOffset += ::GetSerializeSize(tx, SER_DISK, CLIENT_VERSION);
     }
 
-    UpdateZPHRSupply(block, pindex);
+    UpdateZODINSupply(block, pindex);
 
     // track money supply and mint amount info
     CAmount nMoneySupplyPrev = pindex->pprev ? pindex->pprev->nMoneySupply : 0;
     pindex->nMoneySupply = nMoneySupplyPrev + nValueOut - nValueIn;
     pindex->nMint = pindex->nMoneySupply - nMoneySupplyPrev + nFees;
 
-//    LogPrintf("XX69----------> ConnectBlock(): nValueOut: %s, nValueIn: %s, nFees: %s, nMint: %s zPHRSpent: %s\n",
+//    LogPrintf("XX69----------> ConnectBlock(): nValueOut: %s, nValueIn: %s, nFees: %s, nMint: %s zODINSpent: %s\n",
 //              FormatMoney(nValueOut), FormatMoney(nValueIn),
 //              FormatMoney(nFees), FormatMoney(pindex->nMint), FormatMoney(nAmountZerocoinSpent));
 
@@ -3132,7 +3171,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         setDirtyBlockIndex.insert(pindex);
     }
 
-    //Record zPHR serials
+    //Record zODIN serials
     set<uint256> setAddedTx;
     for (pair<CoinSpend, uint256> pSpend : vSpends) {
         //record spend to database
@@ -3272,7 +3311,7 @@ void static UpdateTip(CBlockIndex* pindexNew)
 {
     chainActive.SetTip(pindexNew);
 
-    // If turned on AutoZeromint will automatically convert PHR to zPHR
+    // If turned on AutoZeromint will automatically convert ODIN to zODIN
     if (pwalletMain->isZeromintEnabled ())
         pwalletMain->AutoZeromint ();
 
@@ -3808,6 +3847,9 @@ bool ReconsiderBlock(CValidationState& state, CBlockIndex* pindex)
 
 CBlockIndex* AddToBlockIndex(const CBlock& block)
 {
+    //TODO:pixel
+    // LogPrintf(">>AddToBlockIndex hash=%s\n", block.GetHash().ToString().c_str());
+
     // Check for duplicate
     uint256 hash = block.GetHash();
     BlockMap::iterator it = mapBlockIndex.find(hash);
@@ -3854,10 +3896,15 @@ CBlockIndex* AddToBlockIndex(const CBlock& block)
         // ppcoin: compute stake modifier
         uint64_t nStakeModifier = 0;
         bool fGeneratedStakeModifier = false;
+        //TODO:pixel
+        // LogPrintf(">>ComputeNextStakeModifier %s\n", pindexNew->ToString().c_str());
+
         if (!ComputeNextStakeModifier(pindexNew->pprev, nStakeModifier, fGeneratedStakeModifier))
             LogPrintf("AddToBlockIndex() : ComputeNextStakeModifier() failed \n");
+
         pindexNew->SetStakeModifier(nStakeModifier, fGeneratedStakeModifier);
         pindexNew->nStakeModifierChecksum = GetStakeModifierChecksum(pindexNew);
+
         if (!CheckStakeModifierCheckpoints(pindexNew->nHeight, pindexNew->nStakeModifierChecksum))
             LogPrintf("AddToBlockIndex() : Rejected by stake modifier checkpoint height=%d, modifier=%s \n", pindexNew->nHeight, boost::lexical_cast<std::string>(nStakeModifier));
     }
@@ -4108,7 +4155,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
                 nHeight = (*mi).second->nHeight + 1;
         }
 
-        // Phore
+        // ODIN
         // It is entierly possible that we don't have enough data and this could fail
         // (i.e. the block could indeed be valid). Store the block for later consideration
         // but issue an initial reject message.
@@ -4140,37 +4187,42 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
 
 bool CheckWork(const CBlock block, CBlockIndex* const pindexPrev)
 {
-    if (pindexPrev == NULL)
-        return error("%s : null pindexPrev for block %s", __func__, block.GetHash().ToString().c_str());
+  //TODO:pixel
+  // LogPrintf(">>CheckWork() block:%s\n", block.ToString().c_str());
 
-    unsigned int nBitsRequired = GetNextWorkRequired(pindexPrev, &block);
+  if (pindexPrev == NULL)
+      return error("%s : null pindexPrev for block %s", __func__, block.GetHash().ToString().c_str());
 
-    if (block.IsProofOfWork() && (pindexPrev->nHeight + 1 <= 68589)) {
-        double n1 = ConvertBitsToDouble(block.nBits);
-        double n2 = ConvertBitsToDouble(nBitsRequired);
+  unsigned int nBitsRequired = GetNextWorkRequired(pindexPrev, &block);
 
-        if (abs(n1 - n2) > n1 * 0.5)
-            return error("%s : incorrect proof of work (DGW pre-fork) - %f %f %f at %d", __func__, abs(n1 - n2), n1, n2, pindexPrev->nHeight + 1);
+  if (block.IsProofOfWork() && (pindexPrev->nHeight + 1 <= 68589)) {
+    double n1 = ConvertBitsToDouble(block.nBits);
+    double n2 = ConvertBitsToDouble(nBitsRequired);
 
-        return true;
-    }
-
-    if (block.nBits != nBitsRequired)
-        return error("%s : incorrect proof of work at %d", __func__, pindexPrev->nHeight + 1);
-
-    if (block.IsProofOfStake()) {
-        uint256 hashProofOfStake;
-        uint256 hash = block.GetHash();
-
-        if(!CheckProofOfStake(block, hashProofOfStake)) {
-            LogPrintf("WARNING: ProcessBlock(): check proof-of-stake failed for block %s\n", hash.ToString().c_str());
-            return false;
-        }
-        if(!mapProofOfStake.count(hash)) // add to mapProofOfStake
-            mapProofOfStake.insert(make_pair(hash, hashProofOfStake));
-    }
+    if (abs(n1 - n2) > n1 * 0.5)
+        return error("%s : incorrect proof of work (DGW pre-fork) - %f %f %f at %d", __func__, abs(n1 - n2), n1, n2, pindexPrev->nHeight + 1);
 
     return true;
+  }
+
+  if (block.nBits != nBitsRequired)
+    return error("%s : incorrect proof of work at %d", __func__, pindexPrev->nHeight + 1);
+
+  if (block.IsProofOfStake()) {
+    uint256 hashProofOfStake;
+    uint256 hash = block.GetHash();
+
+    // const int nHeight = (pindexPrev == NULL) ? 0 : pindexPrev->nHeight + 1;
+    if(!CheckProofOfStake(block, hashProofOfStake)) {
+      LogPrintf("WARNING: ProcessBlock(): check proof-of-stake failed for block %s\n", hash.ToString().c_str());
+      return false;
+    }
+
+    if(!mapProofOfStake.count(hash)) // add to mapProofOfStake
+      mapProofOfStake.insert(make_pair(hash, hashProofOfStake));
+  }
+
+  return true;
 }
 
 bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& state, CBlockIndex* const pindexPrev)
@@ -4320,13 +4372,13 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, CBlockIn
             if (!CheckTransaction(tx, true, chainActive.Height() + 1 >= Params().Zerocoin_StartHeight(), state, GetSporkValue(SPORK_17_SEGWIT_ACTIVATION) < block.nTime))
                 return error("CheckBlock() : CheckTransaction failed");
 
-            // double check that there are no double spent zPHR spends in this block
+            // double check that there are no double spent zODIN spends in this block
             if (tx.IsZerocoinSpend()) {
                 for (const CTxIn txIn : tx.vin) {
                     if (txIn.scriptSig.IsZerocoinSpend()) {
                         libzerocoin::CoinSpend spend = TxInToZerocoinSpend(txIn);
                         if (count(vBlockSerials.begin(), vBlockSerials.end(), spend.getCoinSerialNumber()))
-                            return state.DoS(100, error("%s : Double spending of zPHR serial %s in block\n Block: %s",
+                            return state.DoS(100, error("%s : Double spending of zODIN serial %s in block\n Block: %s",
                                                         __func__, spend.getCoinSerialNumber().GetHex(), block.ToString()));
                         vBlockSerials.emplace_back(spend.getCoinSerialNumber());
                     }
@@ -4334,9 +4386,11 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, CBlockIn
             }
         }
     } else {
-        if (block.nVersion >= Params().Zerocoin_HeaderVersion())
-            return state.DoS(50, error("CheckBlockHeader() : block version must be below 4 before ZerocoinStartHeight"),
-            REJECT_INVALID, "block-version");
+        if (block.nVersion >= Params().Zerocoin_HeaderVersion()) {
+          printf("height %d, block version %d, headerversion %d\n", nHeight, block.nVersion, Params().Zerocoin_HeaderVersion());
+          return state.DoS(50, error("CheckBlockHeader() : block version must be below 4 before ZerocoinStartHeight"),
+          REJECT_INVALID, "block-version");
+        }
     }
 
     // Check that all transactions are finalized
@@ -4620,7 +4674,7 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
         }
     }
     if (nMints || nSpends)
-        LogPrintf("%s : block contains %d zPHR mints and %d zPHR spends\n", __func__, nMints, nSpends);
+        LogPrintf("%s : block contains %d zODIN mints and %d zODIN spends\n", __func__, nMints, nSpends);
 
     // ppcoin: check proof-of-stake
     // Limited duplicity on stake: prevents block flood attack
@@ -5764,14 +5818,14 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             vRecv >> LIMITED_STRING(pfrom->strSubVer, 256);
             pfrom->cleanSubVer = SanitizeString(pfrom->strSubVer);
         }
+        // TODO no longer instaban
         // broken releases with wrong blockchain data
-        if (pfrom->cleanSubVer == "/Phore Core:1.1.0/" ||
-            pfrom->cleanSubVer == "/Phore Core:1.3.0/" ||
-            pfrom->cleanSubVer == "/Phore Core:1.3.1/") {
-            LOCK(cs_main);
-            Misbehaving(pfrom->GetId(), 100); // instantly ban them because they have bad block data
-            return false;
-        }
+        // if (pfrom->cleanSubVer == "/ODIN Core:1.1.0/") {
+        //     LOCK(cs_main);
+        //     LogPrint("net", "instant ban, caught blocked wallet version: ODIN Core:1.1.0\n");
+        //     Misbehaving(pfrom->GetId(), 100); // instantly ban them because they have old/bad block data
+        //     return false;
+        // }
         if (!vRecv.empty())
             vRecv >> pfrom->nStartingHeight;
         if (!vRecv.empty())
@@ -5898,6 +5952,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         if (pfrom->nVersion < CADDR_TIME_VERSION && addrman.size() > 1000)
             return true;
         if (vAddr.size() > 1000) {
+            LogPrintf("Misbehaving: Address older than 1000 %u\n", vAddr.size());
             Misbehaving(pfrom->GetId(), 20);
             return error("message addr size() = %u", vAddr.size());
         }
@@ -5960,6 +6015,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         vRecv >> vInv;
         if (vInv.size() > MAX_INV_SZ) {
             LOCK(cs_main);
+            LogPrintf("Misbehaving: Message > MAX_INV (%u > %u)\n", vInv.size(), MAX_INV_SZ);
             Misbehaving(pfrom->GetId(), 20);
             return error("message inv size() = %u", vInv.size());
         }
@@ -6024,6 +6080,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         vRecv >> vInv;
         if (vInv.size() > MAX_INV_SZ) {
             LOCK(cs_main);
+            LogPrintf("Misbehaving: Message(GETDATA) > MAX_INV (%u > %u)\n", vInv.size(), MAX_INV_SZ);
             Misbehaving(pfrom->GetId(), 20);
             return error("message getdata size() = %u", vInv.size());
         }
@@ -6214,6 +6271,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                         if (stateDummy.IsInvalid(nDos) && nDos > 0 && (!state.CorruptionPossible() || State(fromPeer)->fHaveWitness))
                         {
                             // Punish peer that gave us an invalid orphan tx
+                            LogPrintf("Misbehaving: Peer gave orphan TX DOS %d\n", nDos);
                             Misbehaving(fromPeer, nDos);
                             setMisbehaving.insert(fromPeer);
                             LogPrint("mempool", "   invalid orphan tx %s\n", orphanHash.ToString());
@@ -6277,8 +6335,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             if (state.GetRejectCode() < REJECT_INTERNAL)
                 pfrom->PushMessage(NetMsgType::REJECT, strCommand, state.GetRejectCode(),
                     state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH), inv.hash);
-            if (nDoS > 0 && (!state.CorruptionPossible() || State(pfrom->id)->fHaveWitness))
+            if (nDoS > 0 && (!state.CorruptionPossible() || State(pfrom->id)->fHaveWitness)) {
+                LogPrintf("Misbehaving: mempoolreject\n");
                 Misbehaving(pfrom->GetId(), nDoS);
+            }
         }
     }
 
@@ -6291,6 +6351,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         unsigned int nCount = ReadCompactSize(vRecv);
         if (nCount > MAX_HEADERS_RESULTS) {
             LOCK(cs_main);
+            LogPrintf("Misbehaving: nCount > MAX_HEADERS_RESULT (%u > %u)\n", nCount, MAX_HEADERS_RESULTS);
             Misbehaving(pfrom->GetId(), 20);
             return error("headers message size = %u", nCount);
         }
@@ -6311,6 +6372,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             CValidationState state;
             if (pindexLast != NULL && header.hashPrevBlock != pindexLast->GetBlockHash()) {
                 LOCK(cs_main);
+                LogPrintf("Misbehaving: headerPREV != lastHASH\n");
                 Misbehaving(pfrom->GetId(), 20);
                 return error("non-continuous headers sequence");
             }
@@ -6321,8 +6383,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             if (!AcceptBlockHeader((CBlock)header, state, &pindexLast)) {
                 int nDoS;
                 if (state.IsInvalid(nDoS)) {
-                    if (nDoS > 0)
+                    if (nDoS > 0) {
+                        LogPrintf("Misbehaving:Blockheader invalid?\n");
                         Misbehaving(pfrom->GetId(), nDoS);
+                    }
                     std::string strError = "invalid header received " + header.GetHash().ToString();
                     return error(strError.c_str());
                 }
@@ -6624,8 +6688,9 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 //       it was the one which was commented out
 int ActiveProtocol()
 {
-    if (IsSporkActive(SPORK_14_NEW_PROTOCOL_ENFORCEMENT))
-        return MIN_PEER_PROTO_VERSION_AFTER_ENFORCEMENT;
+    // if (IsSporkActive(SPORK_17_SEGWIT_ACTIVATION)) TODO: Is this needed? - pixxl 8/27
+    if (IsSporkActive(SPORK_14_NEW_PROTOCOL_ENFORCEMENT)) //TODO: Why removed? - pixxl 8/28
+      return MIN_PEER_PROTO_VERSION_AFTER_ENFORCEMENT;
     return MIN_PEER_PROTO_VERSION_BEFORE_ENFORCEMENT;
 }
 
@@ -6674,7 +6739,16 @@ bool ProcessMessages(CNode* pfrom)
 
         // Scan for message start
         if (memcmp(msg.hdr.pchMessageStart, Params().MessageStart(), MESSAGE_START_SIZE) != 0) {
-            LogPrintf("PROCESSMESSAGE: INVALID MESSAGESTART %s peer=%d\n", SanitizeString(msg.hdr.GetCommand()), pfrom->id);
+            // LogPrintf("PROCESSMESSAGE: INVALID MESSAGESTART %s peer=%d\n", SanitizeString(msg.hdr.GetCommand()), pfrom->id);
+            LogPrintf(
+              "PROCESSMESSAGE: INVALID MESSAGESTART %s peer=%d chars = %x,%x,%x,%x\n",
+              SanitizeString(msg.hdr.GetCommand()),
+              pfrom->id,
+              msg.hdr.pchMessageStart[0] & 0xff,
+              msg.hdr.pchMessageStart[1] & 0xff,
+              msg.hdr.pchMessageStart[2] & 0xff,
+              msg.hdr.pchMessageStart[3] & 0xff
+            );
             fOk = false;
             break;
         }

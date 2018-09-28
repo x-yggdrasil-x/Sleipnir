@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>962</width>
+    <width>974</width>
     <height>616</height>
    </rect>
   </property>
@@ -34,7 +34,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_Header" stretch="1,0,1">
           <item>
-           <widget class="QLabel" name="labelOverviewHeaderLeft">
+           <widget class="QLabel" name="pageHeading__labelOverviewHeaderLeft">
             <property name="minimumSize">
              <size>
               <width>464</width>
@@ -55,7 +55,7 @@
              </font>
             </property>
             <property name="text">
-             <string>RECEIVE</string>
+             <string>RECEIVE ODIN</string>
             </property>
            </widget>
           </item>
@@ -120,7 +120,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QFrame" name="frame2">
+         <widget class="QFrame" name="cardFrame__frame2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -154,9 +154,9 @@
               </widget>
              </item>
              <item row="6" column="0">
-              <widget class="QLabel" name="label_3">
+              <widget class="QLabel" name="userInput__label_3">
                <property name="toolTip">
-                <string>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Phore network.</string>
+                <string>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the ODIN network.</string>
                </property>
                <property name="text">
                 <string>&amp;Message:</string>
@@ -179,7 +179,7 @@
              <item row="6" column="2">
               <widget class="QLineEdit" name="reqMessage">
                <property name="toolTip">
-                <string>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Phore network.</string>
+                <string>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the ODIN network.</string>
                </property>
               </widget>
              </item>
@@ -191,7 +191,7 @@
               </widget>
              </item>
              <item row="4" column="0">
-              <widget class="QLabel" name="label_2">
+              <widget class="QLabel" name="userInput__label_2">
                <property name="toolTip">
                 <string>An optional label to associate with the new receiving address.</string>
                </property>
@@ -207,7 +207,7 @@
               </widget>
              </item>
              <item row="5" column="0">
-              <widget class="QLabel" name="label">
+              <widget class="QLabel" name="userInput__label">
                <property name="toolTip">
                 <string>An optional amount to request. Leave this empty or zero to not request a specific amount.</string>
                </property>
@@ -222,74 +222,74 @@
                </property>
               </widget>
              </item>
-            <item row="5" column="2">
-             <layout class="QHBoxLayout" name="horizontalLayout_6">
-              <item>
-               <widget class="BitcoinAmountField" name="reqAmount">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>80</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>1000</width>
-                  <height>100</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string>An optional amount to request. Leave this empty or zero to not request a specific amount.</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="useBech32">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>1000</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="focusPolicy">
-                 <enum>Qt::StrongFocus</enum>
-                </property>
-                <property name="toolTip">
-                 <string>Bech32 addresses (BIP-173) are cheaper to spend from and offer better protection against typos. When unchecked a P2SH wrapped SegWit address will be created, compatible with older wallets.</string>
-                </property>
-                <property name="text">
-                 <string>Generate Bech32 address</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_3">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item> 
-           <item row="8" column="0">
+             <item row="5" column="2">
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <item>
+                <widget class="BitcoinAmountField" name="reqAmount">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>80</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>1000</width>
+                   <height>100</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>An optional amount to request. Leave this empty or zero to not request a specific amount.</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="useBech32">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>1000</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="focusPolicy">
+                  <enum>Qt::StrongFocus</enum>
+                 </property>
+                 <property name="toolTip">
+                  <string>Bech32 addresses (BIP-173) are cheaper to spend from and offer better protection against typos. When unchecked a P2SH wrapped SegWit address will be created, compatible with older wallets.</string>
+                 </property>
+                 <property name="text">
+                  <string>Generate Bech32 address</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_3">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>0</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item row="8" column="0">
               <widget class="QLabel" name="label_7">
                <property name="text">
                 <string/>
@@ -310,8 +310,8 @@
                   <string>&amp;Request payment</string>
                  </property>
                  <property name="icon">
-                  <iconset resource="../phore.qrc">
-                   <normaloff>:/icons/receiving_addresses</normaloff>:/icons/receiving_addresses</iconset>
+                  <iconset>
+                   <normaloff>:/icons/receive_dark</normaloff>:/icons/receive_dark</iconset>
                  </property>
                 </widget>
                </item>
@@ -330,7 +330,7 @@
                   <string>Clear</string>
                  </property>
                  <property name="icon">
-                  <iconset resource="../phore.qrc">
+                  <iconset>
                    <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
                  </property>
                  <property name="autoDefault">
@@ -372,7 +372,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QFrame" name="frame">
+         <widget class="QFrame" name="cardFrame__frame">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -463,7 +463,7 @@
                 <string>Show</string>
                </property>
                <property name="icon">
-                <iconset resource="../phore.qrc">
+                <iconset>
                  <normaloff>:/icons/edit</normaloff>:/icons/edit</iconset>
                </property>
                <property name="autoDefault">
@@ -483,7 +483,7 @@
                 <string>Remove</string>
                </property>
                <property name="icon">
-                <iconset resource="../phore.qrc">
+                <iconset>
                  <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
                </property>
                <property name="autoDefault">
@@ -535,8 +535,6 @@
   <tabstop>showRequestButton</tabstop>
   <tabstop>removeRequestButton</tabstop>
  </tabstops>
- <resources>
-  <include location="../phore.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -26,8 +26,8 @@ struct CDNSSeedData {
 
 /**
  * CChainParams defines various tweakable parameters of a given instance of the
- * Phore system. There are three: the main network on which people trade goods
- * and services, the public test network which gets reset from time to time and
+ * ODIN system. There are three: the main network on which people trade goods
+ * and services, the public test network which gets reset from time to time, and
  * a regression test mode which is intended for private networks only. It has
  * minimal difficulty to ensure that blocks can be found instantly.
  */
@@ -91,7 +91,7 @@ public:
     const std::vector<CAddress>& FixedSeeds() const { return vFixedSeeds; }
     virtual const Checkpoints::CCheckpointData& Checkpoints() const = 0;
     int PoolMaxTransactions() const { return nPoolMaxTransactions; }
-    std::string SporkKey() const { return strSporkKey; }
+    std::vector<unsigned char> SporkKey() const { return vSporkKey; }
     std::string ObfuscationPoolDummyAddress() const { return strObfuscationPoolDummyAddress; }
     int64_t BudgetFeeConfirmations() const { return nBudgetFeeConfirmations; }
     CBaseChainParams::Network NetworkID() const { return networkID; }
@@ -113,6 +113,14 @@ public:
     int LAST_POW_BLOCK() const { return nLastPOWBlock; }
     int Zerocoin_StartHeight() const { return nZerocoinStartHeight; }
     int Zerocoin_LastOldParams() const { return nZerocoinLastOldParams; }
+
+    int64_t GetMinStakeAge() const { return nMinStakeAge; }
+    unsigned int GetModifierInterval() const { return nModifierInterval; }
+    unsigned int GetModifierIntervalRatio() const { return nModifierIntervalRatio; }
+    int64_t GetBudgetPercent() const { return nBudgetPercent; }
+    int64_t GetBudgetSubmissionCollateral() const { return nBudgetSubmissionCollateral; }
+    int64_t GetMasternodeRewardPercent() const { return nMasternodeRewardPercent; }
+    CAmount GetRequiredMasternodeCollateral() const { return nRequiredMasternodeCollateral; }
 
 protected:
     CChainParams() {}
@@ -152,7 +160,7 @@ protected:
     bool fTestnetToBeDeprecatedFieldRPC;
     bool fHeadersFirstSyncingActive;
     int nPoolMaxTransactions;
-    std::string strSporkKey;
+    std::vector<unsigned char> vSporkKey;
     std::string strObfuscationPoolDummyAddress;
     std::string zerocoinModulus;
     std::string oldZerocoinModulus;
@@ -165,6 +173,14 @@ protected:
     int64_t nBudgetFeeConfirmations;
     int nZerocoinStartHeight;
     int nZerocoinLastOldParams;
+    
+    int64_t nMinStakeAge;
+    unsigned int nModifierInterval;
+    unsigned int nModifierIntervalRatio;
+    int64_t nBudgetPercent;
+    int64_t nBudgetSubmissionCollateral;
+    int64_t nMasternodeRewardPercent;
+    CAmount nRequiredMasternodeCollateral;
 };
 
 /**
